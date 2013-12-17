@@ -1,0 +1,15 @@
+<div id="{$oDocument->document_srl}_trackback" class="fdb_lst trb_lst" style="display:none"|cond="$mi->fdb_hide=='Y'">
+	<ul class="fdb_lst_ul">
+		<li loop="$oDocument->getTrackbacks()=>$key,$val" id="trackback_{$val->trackback_srl}" class="fdb_itm clear">
+			<div class="meta">
+				<h4><a href="{$val->url}">{htmlspecialchars($val->title)}</a></h4>
+				<span>{htmlspecialchars($val->blog_name)}</span>
+				<span class="date">{getTimeGap($val->regdate, "Y.m.d H:i")}<block cond="$grant->manager"> ({$val->ipaddress})</block></span>
+			</div>
+			<div class="xe_content">{$val->excerpt}</div>
+			<div cond="$grant->manager" class="fdb_nav img_tx">
+				<a href="{getUrl('act','dispBoardDeleteTrackback','trackback_srl',$val->trackback_srl)}"><span class="ico_16px delete"></span>{$lang->cmd_delete}</a>
+			</div>
+		</li>
+	</ul>
+</div>

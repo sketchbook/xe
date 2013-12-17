@@ -1,0 +1,60 @@
+<!--%import("css/style.css")-->
+<!--%import("js/autoresize.jquery.js")-->
+<!--%import("js/socialxe.js")-->
+<!--@if($colorset == "black")-->
+	<!--%import("css/style.black.css")-->
+<!--@end-->
+
+<script type="text/javascript">
+	var socialxe_document_srl = '{$document_srl}';
+	var socialxe_skin = '{$skin}';
+	var socialxe_list_count = '{$list_count}';
+	var socialxe_content_link = '{$content_link}';
+	var socialxe_comment_srl = '{$socialxe_comment_srl}';
+	var socialxe_enter_send = '{$enter_send}';
+	var socialxe_auto_view_sub = '{$auto_view_sub}';
+	<!--@if($auto_login_key)-->
+	var socialxe_auto_login_key = 'Y';
+	<!--@else-->
+	var socialxe_auto_login_key = 'N';
+	<!--@end-->
+</script>
+
+<div id="socialxe_comment" class="socialxe_comment sxc">
+	<!--@if($allow_comment)-->
+		<form action="./" method="post" onsubmit="return socialSend(this, insert_social_comment);">
+		<input type="hidden" name="document_srl" value="{$document_srl}" />
+		<input type="hidden" name="content_link" value="{$content_link}" />
+		<input type="hidden" name="skin" value="{$skin}" />
+		<input type="hidden" name="list_count" value="{$list_count}" />
+		<input type="hidden" name="content_title" value="{$content_title}" />
+
+		<div class="socialxe_comment_input cmt_editor">
+			<!--#include("comment_input.html")-->
+		</div>
+
+		</form>
+	<!--@end-->
+
+	<div class="socialxe_comment_list fdb_nav_btm">
+		<!--#include("comment_list.html")-->
+	</div>
+</div>
+
+<!--// 댓글 삭제용 폼-->
+<form id="socialxe_delete_comment_form" action="./" method="post">
+	<input type="hidden" name="document_srl" value="{$document_srl}" />
+	<input type="hidden" name="content_link" value="{$content_link}" />
+	<input type="hidden" name="skin" value="{$skin}" />
+	<input type="hidden" name="list_count" value="{$list_count}" />
+	<input type="hidden" name="comment_srl" />
+</form>
+
+<script type="text/javascript">
+<!--
+	<!--// 로그인 키가 없으면 소셜XE 서버에서 받아 오도록 한다 -->
+	<!--@if(!$auto_login_key)-->
+	getAutoLoginKey('{$auto_login_key_url}', '{$skin}');
+	<!--@end-->
+-->
+</script>

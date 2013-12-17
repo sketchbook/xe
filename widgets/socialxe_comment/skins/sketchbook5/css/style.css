@@ -1,0 +1,93 @@
+@charset "utf-8";
+.sxc ul{list-style:none;margin:0;padding:0}
+.sxc fieldset{margin:0;padding:0;border:0;clear:both}
+.sxc fieldset:after{content:"";display:block;float:none;clear:both}
+
+.editor_select{position:absolute;top:18px;right:75px;z-index:10;*top:28px}
+.fdb_v2 .editor_select{top:56px;right:80px}
+.sxc .bd_pg{padding:12px 0;border:0}
+
+.sxc .img{display:inline-block;overflow:hidden;background:url(../sxc.png) no-repeat}
+.sxc .socialxe_service .img{width:24px;height:24px}
+.sxc .img.small{width:14px;height:14px;background-image:url(../small.png);vertical-align:text-bottom}
+.sxc .img.twitter{background-position:0 -24px}
+.sxc .img.me2day{background-position:0 -48px}
+.sxc .img.facebook{background-position:0 -72px}
+.sxc .img.yozm{background-position:0 -96px}
+.sxc .img.off.twitter{background-position:-24px -24px}
+.sxc .img.off.me2day{background-position:-24px -48px}
+.sxc .img.off.facebook{background-position:-24px -72px}
+.sxc .img.off.yozm{background-position:-24px -96px}
+.sxc .img.small.twitter{background-position:0 -14px}
+.sxc .img.small.me2day{background-position:0 -28px}
+.sxc .img.small.facebook{background-position:0 -42px}
+.sxc .img.small.yozm{background-position:0 -56px}
+.sxc .img.small.off.twitter{background-position:-14px -14px}
+.sxc .img.small.off.me2day{background-position:-14px -28px}
+.sxc .img.small.off.facebook{background-position:-14px -42px}
+.sxc .img.small.off.yozm{background-position:-14px -56px}
+.sxc .img.socialxe_poweredby{width:42px;height:22px;background-position:0 -120px}
+.sxc .img.xe{border-radius:3px}
+.sxc .img.off.xe{background-color:#666}
+.sxc .socialxe_profile_image a{text-decoration:none}
+.sxc .secondary{padding-left:4px;color:#999}
+
+.sxc .socialxe_comment_input{position:relative;padding:0}
+.sxc .socialxe_poweredby{position:absolute;top:15px;right:15px}
+.sxc .socialxe_service{padding:12px 16px;border-bottom:1px solid #FFF;border-radius:8px 8px 0 0}
+.sxc .socialxe_service li{float:left;height:24px;margin-right:4px}
+.sxc .socialxe_service ul a{display:block}
+.sxc .socialxe_service .socialxe_name{float:left;margin:4px 0 0 8px}
+.sxc .socialxe_master_change_wrp{margin-left:12px;position:relative;z-index:1;font-size:11px}
+.sxc .socialxe_master_change{position:relative;z-index:2;cursor:pointer}
+.sxc .socialxe_master_change_list{display:none;position:absolute;top:-7px;left:-7px;width:100%;padding:25px 6px 6px;background:#FFF;border:1px solid #AAA;border-radius:4px;*top:auto;*bottom:-7px;*padding:6px 6px 25px}
+.sxc .box_wrp{display:block;padding:2px 4px;background:#F6F6F6;border:1px solid #DDD;border-radius:2px}
+.sxc .socialxe_master_change_list a{display:block;padding:1px;letter-spacing:-1px;white-space:nowrap;cursor:pointer}
+.sxc .socialxe_master_change_list .img{margin-right:5px}
+.sxc .socialxe_input{padding:16px;border-top:1px solid #DDD}
+.sxc .socialxe_input strong{font-weight:normal;color:#111}
+.sxc .socialxe_content_input .disabled{background:#F6F6F6}
+.fdb_v2 .sxc .socialxe_poweredby{top:0;right:0}
+.fdb_v2 .sxc .socialxe_service,.fdb_v2 .sxc .socialxe_input{padding:0;background:none;border:0}
+.fdb_v2 .sxc .socialxe_input{padding-top:12px}
+
+.sxc_wrt{position:relative;margin:0 60px}
+.sxc_wrt .profile{position:absolute;top:0;left:-60px}
+.sxc_wrt .text{margin-right:2px}
+.sxc_wrt textarea{display:block;width:100%;min-height:54px}
+.sxc_wrt .bd_btn{position:absolute;top:0;right:-60px;width:56px;height:56px;line-height:54px;margin:0;padding:0}
+
+.sxc .fdb_itm:last-child{border-bottom:1px solid #EEE}
+.sxc .socialxe_comment_list .nametag{position:absolute;top:10px}
+.sxc .first_line{margin-top:40px !important}
+.sxc .fdb_itm .meta .date{font-size:1em}
+.sxc .socialxe_comment_list .socialxe_profile_image{top:15px}
+.sxc .socialxe_command a{letter-spacing:-1px;text-decoration:none}
+.sxc .socialxe_write_comment{height:auto !important}
+.sxc .socialxe_command em{position:relative;top:1px;padding:0 1px 0 4px;font-weight:bold}
+.sxc .socialxe_more{text-align:center;padding:5px;font-weight:bold;border:1px solid #DDD;margin:10px 0;cursor:pointer}
+
+.sxc .sub_ul{margin:15px -10px}
+.sxc .sub_li{margin:-1px 0;padding-left:14px !important;background:#FCFCFC;border:1px solid #EEE;border-radius:0;transition:all .3s;-moz-transition:all .3s;-webkit-transition:all .3s}
+.sxc .sub_li:hover{position:relative;z-index:1;background:none;border-color:#DDD}
+.sxc .sub_li:first-child{border-top-left-radius:8px;border-top-right-radius:8px}
+.sxc .sub_li:last-child{border-bottom-left-radius:8px;border-bottom-right-radius:8px}
+.sxc .sub_li .fdb_nav{font-size:11px}
+
+.sxc .socialxe_sub_comment_input{position:relative;margin:15px -10px 0 0}
+.sxc .fdb_itm .socialxe_left{margin-right:78px}
+.sxc .fdb_itm textarea{display:block;width:100%;height:16px;line-height:16px;padding:3px}
+.sxc .fdb_itm .socialxe_right{position:absolute;top:0;right:0}
+.sxc .fdb_itm .socialxe_right input{width:64px;height:24px;line-height:22px;text-shadow:1px 1px 0 #FFF;border:1px solid #CCC;background:#FAFAFA;border-radius:3px}
+
+.sxc .socialxe_helper_info{display:none}
+
+/* IE6 css fixer v0.95:Thu, 30 Dec 2010 03:08:58 +0100 */
+.sxc .socialxe_service li,.sxc .socialxe_comment_list .socialxe_profile_image{*display:inline}
+.sxc legend,.sxc span.socialxe_button,.sxc span.socialxe_button button,.sxc span.socialxe_button input,.sxc .socialxe_content_input,.sxc .socialxe_sub_comment_input,.sxc .socialxe_comment_input,.sxc .socialxe_input .socialxe_wrap{*zoom:1}
+.sxc input{*overflow:visible}
+
+/* 안드로이드(진저+) landscape */
+@media screen and (max-width:533px){
+.sxc .socialxe_poweredby{display:none}
+}

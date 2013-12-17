@@ -1,0 +1,347 @@
+{@
+	$mi->tmb_effect='N';
+	if(!$mi->rd_tl_font) $mi->rd_tl_font='ngeb';
+	if(!$mi->rd_top_font) $mi->rd_top_font='ngeb';
+	if(!$mi->rd_btm_font) $mi->rd_btm_font='ngeb';
+}
+
+<div class="rd<!--@if(!$mi->rd_nav_style)--> rd_nav_style2<!--@end--><!--@if($mi->default_style=='blog')--> rd_blog {$mi->blog_style}<!--@end--> clear" style="padding:{$mi->rd_padding};" data-docSrl="{$oDocument->document_srl}" data-snsLink="{$oDocument->getPermanentUrl()}?l={$lang_type}">
+	<!--// Header -->
+	<div class="rd_hd clear" style="<!--@if(!$mi->rd_style)-->margin:0 -15px 20px<!--@end--><!--@if($mi->rd_padding)-->;margin-left:0;margin-right:0<!--@end-->">
+		<!--// 제목 : 게시판 스타일 -->
+		<div cond="!$mi->rd_style" class="board clear {$mi->rd_board_style}" style="{$mi->rd_css};">
+			<div class="top_area {$mi->rd_tl_font}" style="{$mi->rd_tl_css};">
+				<strong cond="!$mi->rd_cate && $mi->use_category=='Y' && $oDocument->get('category_srl')" class="cate fl" title="Category">{$category_list[$oDocument->get('category_srl')]->title}</strong>
+				<div class="fr">
+					<a cond="$mi->rd_nick=='2'" href="#popup_menu_area" class="nick member_{$oDocument->get('member_srl')}" onclick="return false">{$oDocument->getNickName()}</a>
+					<span cond="!$mi->rd_date" class="date">{$oDocument->getRegdate('Y.m.d H:i')}</span>
+				</div>
+				<h1 class="np_18px"><a href="{$oDocument->getPermanentUrl()}">{$oDocument->getTitle()}</a></h1>
+			</div>
+			<div class="btm_area clear">
+				<img cond="$mi->rd_profile=='Y' && $oDocument->getProfileImage()" class="img fl" src="{$oDocument->getProfileImage()}" alt="profile" title="{$oDocument->getNickName()}" />
+				<div class="side">
+					<a cond="!$mi->rd_nick" href="#popup_menu_area" class="nick member_{$oDocument->get('member_srl')}" onclick="return false">{$oDocument->getNickName()}</a>
+					<a cond="$mi->rd_link=='2'" class="link" href="{$oDocument->getPermanentUrl()}">{$oDocument->getPermanentUrl()}</a>
+					<span cond="$mi->rd_date=='2'" class="date">{$oDocument->getRegdate('Y.m.d H:i')}</span>
+					<strong cond="$mi->rd_cate=='2' && $mi->use_category=='Y' && $oDocument->get('category_srl')" class="cate" title="Category">{$category_list[$oDocument->get('category_srl')]->title}</strong>
+					<block cond="$mi->rd_info=='2'">
+					<span cond="!$mi->rd_view">{$lang->readed_count} <b>{$oDocument->get('readed_count')}</b></span>
+					<span cond="!$mi->rd_view">{$lang->voted_count} <b>{$oDocument->get('voted_count')}</b></span>
+					<span cond="!$mi->rd_cmt">{$lang->comment} <b>{$oDocument->getCommentcount()}</b></span>
+					</block>
+				</div>
+				<div class="side fr">
+					<small cond="$grant->manager || $mi->display_ip_address">({$oDocument->getIpaddress()}) </small>
+					<a cond="$mi->rd_link=='3'" class="link" href="{$oDocument->getPermanentUrl()}">{$oDocument->getPermanentUrl()}</a>
+					<a cond="$mi->rd_nick=='3'" href="#popup_menu_area" class="nick member_{$oDocument->get('member_srl')}" onclick="return false">{$oDocument->getNickName()}</a>
+					<span cond="$mi->rd_date=='3'" class="date">{$oDocument->getRegdate('Y.m.d H:i')}</span>
+					<strong cond="$mi->rd_cate=='3' && $mi->use_category=='Y' && $oDocument->get('category_srl')" class="cate" title="Category">{$category_list[$oDocument->get('category_srl')]->title}</strong>
+					<block cond="!$mi->rd_info">
+					<span cond="!$mi->rd_view">{$lang->readed_count} <b>{$oDocument->get('readed_count')}</b></span>
+					<span cond="!$mi->rd_vote">{$lang->voted_count} <b>{$oDocument->get('voted_count')}</b></span>
+					<span cond="!$mi->rd_cmt">{$lang->comment} <b>{$oDocument->getCommentcount()}</b></span>
+					</block>
+				</div>
+				<!--// 제목 밑 커스텀 위젯 등 영역 -->
+				{$mi->rd_hd_widget}
+			</div>
+		</div>
+		<!--// 제목 : 블로그 스타일 -->
+		<div cond="$mi->rd_style=='blog'" class="blog v{$mi->rd_blog_style}" style="text-align:{$mi->rd_tl};{$mi->rd_css};">
+			<div class="top_area {$mi->rd_top_font} np_18px" style="text-align:{$mi->rd_top}">
+				<span cond="!$mi->rd_blog_cate && $mi->use_category=='Y' && $oDocument->get('category_srl')" title="Category">
+					<b class="cate"><strong style="color:{$category_list[$oDocument->get('category_srl')]->color}"|cond="$category_list[$oDocument->get('category_srl')]->color!='transparent'">{$category_list[$oDocument->get('category_srl')]->title}</strong></b>
+				</span>
+				<span cond="$mi->rd_blog_nick=='2'"><small>by</small><b>{$oDocument->getNickName()}</b></span>
+				<span cond="$mi->rd_blog_date=='2'" title="{$oDocument->getRegdate('Y.m.d H:i')}"><small>posted</small><b class="date">{$oDocument->getRegdate('M d, Y')}</b></span>
+			</div>
+			<h1 cond="$mi->rd_tl!='N'" class="font {$mi->rd_tl_font}" style="{$mi->rd_tl_css};-webkit-animation-name:rd_h1_v{$mi->rd_h1_ani};-moz-animation-name:rd_h1_v{$mi->rd_h1_ani};animation-name:rd_h1_v{$mi->rd_h1_ani};">{$oDocument->getTitle()}</h1>
+			<div cond="!$mi->rd_preview && $oDocument->getExtraEidValue('rd_preview')" class="rd_preview">{$oDocument->getExtraEidValue('rd_preview')}</div>
+			<div class="btm_area {$mi->rd_btm_font} np_18px" style="text-align:{$mi->rd_btm}"> 
+				<span cond="$mi->rd_blog_cate=='2' && $mi->use_category=='Y' && $oDocument->get('category_srl')"><small>In </small><b title="Category">{$category_list[$oDocument->get('category_srl')]->title}</b></span>
+				<span cond="!$mi->rd_blog_nick"><small>by </small><b>{$oDocument->getNickName()}</b></span>
+				<span cond="!$mi->rd_blog_date" title="{$oDocument->getRegdate('Y.m.d H:i')}"><small>posted </small><b class="date">{$oDocument->getRegdate('M d, Y')}</b></span>
+				<span cond="@in_array(view,$mi->rd_blog_itm)"><small>Views</small> <b>{$oDocument->get('readed_count')}</b></span>
+				<span cond="@in_array(like,$mi->rd_blog_itm)"><small>Likes</small> <b>{$oDocument->get('voted_count')}</b></span>
+				<span cond="@in_array(cmt,$mi->rd_blog_itm)"><small>Replies</small> <b>{$oDocument->getCommentcount()}</b></span>
+			</div>
+		</div>
+
+		<!--// Secret -->
+		<!--@if(!$oDocument->isSecret() || $oDocument->isGranted())-->
+		<!--// Files : Header -->
+		<include cond="$oDocument->hasUploadedFiles() && $mi->show_files=='3'" target="_read_files.html" />
+		<!--// Extra Var : Header -->
+		<table cond="$mi->et_var=='2' && $oDocument->isExtraVarsExists() && (!$oDocument->isSecret() || $oDocument->isGranted())" class="et_vars bd_tb">
+			<caption class="blind">Extra Form</caption>
+			<tr loop="$oDocument->getExtraVars() => $key,$val" cond="$val->getValueHTML() && $val->eid!='rd_preview'">
+				<th scope="row">{$val->name}</th>
+				<td cond="$val->eid!='rating'">{$val->getValueHTML()}</td>
+				<td cond="$val->eid=='rating'" class="rating"><span class="starRating" title="{$val->getValueHTML()}{$lang->score}"><span style="width:{$val->getValueHTML()*10}%">{$val->getValueHTML()}</span></span></td>
+			</tr>
+		</table>
+		<!--// SNS small -->
+		<include cond="$mi->to_sns=='2'" target="_read_sns.html" />
+		<!--// Read Navi -->
+		<include cond="!$mi->rd_nav" target="_read_nav.html" />
+		<div cond="!$mi->rd_nav_side" class="rd_nav_side">
+			<include target="_read_nav.html" />
+		</div>
+		<!--@end-->
+	</div>
+
+	<!--// Secret -->
+	<!--@if($oDocument->isSecret() && !$oDocument->isGranted())-->
+	<div class="rd_body">
+		<form action="./" method="get" onsubmit="return procFilter(this, input_password)" class="secretMessage">
+			<input type="hidden" name="mid" value="{$mid}" />
+			<input type="hidden" name="page" value="{$page}" />
+			<input type="hidden" name="document_srl" value="{$oDocument->document_srl}" />
+			<h3>&quot;{$lang->msg_is_secret}&quot;</h3>
+			<span class="itx_wrp">
+				<label for="cpw_{$oDocument->document_srl}">{$lang->password}</label>
+				<input type="password" name="password" id="cpw_{$oDocument->document_srl}" class="itx" />
+				<input class="bd_btn" type="submit" value="{$lang->cmd_input}" />
+			</span>
+		</form>
+	</div>
+	<!--@else-->
+
+	<!--// Body -->
+	<div class="rd_body clear">
+		<!--// Extra Var -->
+		<table cond="!$mi->et_var && $oDocument->isExtraVarsExists() && (!$oDocument->isSecret() || $oDocument->isGranted())" class="et_vars bd_tb">
+			<caption class="blind">Extra Form</caption>
+			{@ $etIdx=1 }
+			<tr loop="$oDocument->getExtraVars() => $key,$val" cond="$val->getValueHTML() && $val->eid!='rd_preview'" class="bg{$etIdx%2}">
+				<th scope="row">{$val->name}</th>
+				<td cond="$val->eid!='rating'">{$val->getValueHTML()}</td>
+				<td cond="$val->eid=='rating'" class="rating"><span class="starRating" title="{$val->getValueHTML()}{$lang->score}"><span style="width:{$val->getValueHTML()*10}%">{$val->getValueHTML()}</span></span></td>
+			{@ $etIdx++ }
+			</tr>
+		</table>
+		<!--// 본문에 이미지 없을 때 -->
+		<p cond="$mi->no_attached_img && !$oDocument->thumbnailExists()" style="margin-bottom:30px;text-align:center"><img src="{$mi->no_attached_img}" alt="No Attached Image" /></p>
+		<!--// 본문 -->
+		<div cond="$mi->img_insert=='2'" class="xe_content rd_gallery">
+			<block loop="$oDocument->getUploadedFiles()=>$key,$file">
+<block cond="!$mi->img_insert2">
+{@
+	$ext=substr($file->source_filename, -4);
+	$ext=strtolower($ext);
+	$extImg=in_array($ext,array('.jpg','jpeg','.gif','.png'));
+}
+</block>
+<block cond="$mi->img_insert2">
+{@
+	$ext=substr($file->source_filename, -15);
+	$ext=strtolower($ext);
+	$extImg=in_array($ext,array('_rd_gallery.jpg','rd_gallery.jpeg','_rd_gallery.gif','_rd_gallery.png'));
+}
+</block>
+			<img cond="$extImg" src="{$file->uploaded_filename}" alt="" />
+			</block>
+		</div>
+		{$oDocument->getContent(false)}
+		<div cond="$mi->img_insert=='3'" class="xe_content rd_gallery">
+			<block loop="$oDocument->getUploadedFiles()=>$key,$file">
+<block cond="!$mi->img_insert2">
+{@
+	$ext=substr($file->source_filename, -4);
+	$ext=strtolower($ext);
+	$extImg=in_array($ext,array('.jpg','jpeg','.gif','.png'));
+}
+</block>
+<block cond="$mi->img_insert2">
+{@
+	$ext=substr($file->source_filename, -15);
+	$ext=strtolower($ext);
+	$extImg=in_array($ext,array('_rd_gallery.jpg','rd_gallery.jpeg','_rd_gallery.gif','_rd_gallery.png'));
+}
+</block>
+			<img cond="$extImg" src="{$file->uploaded_filename}" alt="" />
+			</block>
+		</div>
+		<!--// Tag -->
+		{@ $tag_list=$oDocument->get('tag_list') }
+		<div cond="count($tag_list)" class="rd_t_f rd_tag css3pie clear">
+			<div class="bg_f_color border_color">TAG &bull;</div>
+			<ul>
+				<!--@for($i=0;$i<count($tag_list);$i++)-->
+				{@ $tag=$tag_list[$i]; }
+				<li><a href="{getUrl('search_target','tag','search_keyword',$tag,'document_srl','')}">{htmlspecialchars($tag)}</a><span class="comma">,</span></li>
+				<!--@end-->
+			</ul>
+		</div>
+	</div>
+
+	<!--// Footer -->
+	<div class="rd_ft">
+		<!--// Sign -->
+		<div cond="$mi->display_sign!='N' && ($oDocument->getProfileImage() || $oDocument->getSignature())" class="rd_sign clear">
+			<h4><b class="tx_ico_circ bg_color"><i class="ie8_only color">●</i><b>?</b></b>Who's <em>{$oDocument->getNickName()}</em></h4>
+			<img cond="$oDocument->getProfileImage()" class="img fl" src="{$oDocument->getProfileImage()}" alt="profile" />
+			<div cond="$oDocument->getSignature()" class="get_sign">{$oDocument->getSignature()}</div>
+		</div>
+		<!--// Prev-Next -->
+		<div cond="$mi->prev_next!='N' && !$oDocument->isNotice() && $mi->default_style!='blog'" class="bd_prev_next clear" style="display:none"|cond="$mi->prev_next=='2'">
+			<block loop="$document_list=>$no,$document" cond="$document_srl==$document->document_srl">
+			<div>
+				<a cond="$document_list[$no+1]->document_srl" href="{getUrl('document_srl',$document_list[$no+1]->document_srl)}" class="bd_rd_prev bubble no_bubble fl<!--@if($mi->default_style=='viewer')--> right<!--@end-->">
+					<p cond="!$mi->prev_next"><em class="link">« Prev</em> {$document_list[$no+1]->getTitle(60)}</p>
+					<span class="wrp prev_next">
+						<span class="speech">
+							<img cond="$document_list[$no+1]->thumbnailExists()" src="{$document_list[$no+1]->getThumbnail($mi->thumbnail_width,$mi->thumbnail_height,$mi->thumbnail_type)}" alt="" />
+							<b>{$document_list[$no+1]->getTitle(60)}</b>
+							<span><em>{$document_list[$no+1]->getRegdate('Y.m.d')}</em><small>by </small>{$document_list[$no+1]->getNickName()}</span>
+						</span><i class="edge"></i>
+						<!--// ie8; --><i class="ie8_only bl"></i><i class="ie8_only br"></i>
+					</span><i class="tx_arrow">〈</i>
+				</a>
+				<a cond="$document_list[$no-1]->document_srl" href="{getUrl('document_srl',$document_list[$no-1]->document_srl)}" class="bd_rd_next bubble no_bubble fr<!--@if($mi->default_style=='viewer')--> left<!--@end-->">
+					<p cond="!$mi->prev_next">{$document_list[$no-1]->getTitle(60)} <em class="link">Next »</em></p>
+					<span class="wrp prev_next">
+						<span class="speech">
+							<img cond="$document_list[$no-1]->thumbnailExists()" src="{$document_list[$no-1]->getThumbnail($mi->thumbnail_width,$mi->thumbnail_height,$mi->thumbnail_type)}" alt="" />
+							<b>{$document_list[$no-1]->getTitle(60)}</b>
+							<span><em>{$document_list[$no-1]->getRegdate('Y.m.d')}</em><small>by </small>{$document_list[$no-1]->getNickName()}</span>
+						</span><i class="edge"></i>
+						<!--// ie8; --><i class="ie8_only bl"></i><i class="ie8_only br"></i>
+					</span><i class="tx_arrow">〉</i>
+				</a>
+			</div>
+			</block>
+		</div>
+
+		<!--// Vote -->
+		<div cond="$mi->votes!='N'" class="rd_vote">
+			<a class="bg_f_f9 bd_login" href="#" onclick="doCallModuleAction('document','procDocumentVoteUp','{$oDocument->document_srl}');return false"|cond="$is_logged" style="border:2px solid #{$mi->color};color:#{$mi->color};">
+				<b>♥ {$oDocument->get('voted_count')}</b>
+				<p>{$lang->cmd_vote}</p>
+			</a>
+			<a cond="!$mi->votes" class="bg_f_f9 blamed bd_login" href="#" onclick="doCallModuleAction('document','procDocumentVoteDown','{$oDocument->document_srl}');return false"|cond="$is_logged">
+				<b>♥ {$oDocument->get('blamed_count')}</b>
+				<p>{$lang->cmd_vote_down}</p>
+			</a>
+			<a cond="$mi->declare" class="bg_f_f9 blamed declare bd_login" href="#" onclick="doCallModuleAction('document','procCommentDeclare','{$oDocument->document_srl}');return false"|cond="$is_logged">
+				<b>☏</b>
+				<p>{$lang->cmd_declare}</p>
+			</a>
+		</div>
+		<!--// SNS -->
+		<div cond="$mi->to_sns=='3'" class="to_sns big" style="text-align:{$mi->to_sns_big}">
+			<a class="facebook bubble" href="http://facebook.com/" title="To Facebook~"><b class="ico_sns facebook">Facebook</b></a>
+			<a class="twitter bubble" href="http://twitter.com/" title="To Twitter~"><b class="ico_sns twitter">Twitter</b></a>
+			<block cond="Mobile::isMobileCheckByAgent()">
+			<a class="line bubble" href="http://line.naver.jp/R/msg/text/?{htmlspecialchars($oDocument->getTitleText())}%0D%0A{$oDocument->getPermanentUrl()}" title="To line~"><b class="ico_sns line">Line</b></a>
+			<a class="kakao bubble" href="kakaolink://sendurl?msg={htmlspecialchars($oDocument->getTitleText())}&url={$oDocument->getPermanentUrl()}&appid=m.kakao.com&appver=2.0&appname=카카오" title="카카오톡으로 링크보내기~"><b class="ico_sns kakao">Kakao</b></a>
+			</block>
+		</div>
+		<div cond="$mi->to_sns=='4' && $mi->to_sns_content" class="to_sns small clear">{$mi->to_sns_content}</div>
+		<!--// Files -->
+		<include cond="$oDocument->hasUploadedFiles() && (!$mi->show_files || $mi->show_files==2)" target="_read_files.html" />
+		<!--// Trackback -->
+		<block cond="$oDocument->allowTrackback()">
+		<div class="rd_trb rd_fnt clear">
+			<a class="ui_font bubble" href="#" title="{$lang->trackback} {$lang->cmd_view}" onClick="jQuery(this).parent().next('.fdb_lst').slideToggle();return false"><strong>Trackback</strong> <span cond="$oDocument->getTrackbackCount()" class="fnt_count">'<b>{$oDocument->getTrackbackCount()}</b>'</span></a>
+			<a cond="$oDocument->allowTrackback()" class="link" href="{$oDocument->getTrackbackUrl()}" onclick="return false">{$oDocument->getTrackbackUrl()}</a>
+		</div>
+		<include cond="$oDocument->getTrackbackCount()" target="_trackback.html" />
+		</block>
+		<!--// Read Footer Navi -->
+		<div class="rd_ft_nav clear">
+			<a cond="$mi->default_style!='viewer' && $mi->rd_ft_nav" class="btn_img fl" href="{getUrl('document_srl','')}" style="margin:15px 2px 0 8px;padding:6px 12px 6px 8px"><i class="ico_16px list"></i> {$lang->cmd_list}</a>
+			<!--// SNS small -->
+			<include cond="!$mi->to_sns" target="_read_sns.html" />
+			<!--// Read Nav -->
+			<div cond="!$mi->rd_nav_tx" class="rd_nav img_tx fr m_btn_wrp">
+				<block cond="$mi->default_style!='viewer'">
+				<block cond="$mi->prev_next=='2' && !$oDocument->isNotice() && $mi->default_style!='blog'">
+				<a class="rd_prev bubble no_bubble" href="#"><b class="ui-icon ui-icon-arrow-1-w" title="{$lang->cmd_prev}">Prev</b></a>
+				<a class="rd_next bubble no_bubble" href="#"><b class="ui-icon ui-icon-arrow-1-e" title="{$lang->cmd_next}">Next</b></a>
+				</block>
+				<a class="back_to bubble" href="#bd_{$mi->module_srl}" title="{$lang->cmd_move_up}"><b class="ui-icon ui-icon-arrow-1-n">Up</b></a>
+				<a class="back_to bubble" href="#rd_end_{$oDocument->document_srl}" title="({$lang->cmd_list}) {$lang->cmd_move_down}"><b class="ui-icon ui-icon-arrow-1-s">Down</b></a>
+				<a cond="!$mi->show_files && $oDocument->hasUploadedFiles()" class="bubble file" href="#" onclick="jQuery('#files_{$oDocument->document_srl}').slideToggle();return false" title="{$lang->uploaded_file}"><b class="ui-icon ui-icon-disk">Files</b></a>
+				<a cond="!$mi->rd_nav_item" class="print_doc bubble m_no" href="{getUrl('listStyle','viewer','act')}" title="{$lang->cmd_print}"><b class="ui-icon ui-icon-print">Print</b></a>
+				<a cond="$is_logged" class="document_{$oDocument->document_srl} action bubble m_no" href="#popup_menu_area" onclick="return false" title="{$lang->cmd_document_do}"><b class="ui-icon ui-icon-arrowthickstop-1-s">More</b></a>
+				</block>
+				<block cond="$oDocument->isEditable()">
+				<a class="edit" href="{getUrl('act','dispBoardWrite','document_srl',$oDocument->document_srl,'comment_srl','')}"><i class="ico_16px write"></i>{$lang->cmd_modify}</a>
+				<a class="edit" href="{getUrl('act','dispBoardDelete','document_srl',$oDocument->document_srl,'comment_srl','')}"><i class="ico_16px delete"></i>{$lang->cmd_delete} </a>
+				</block>
+			</div>
+			<div cond="$mi->rd_nav_tx" class="rd_nav rd_nav_tx fr m_btn_wrp">
+				<block cond="$mi->default_style!='viewer'">
+				<block cond="$mi->prev_next=='2' && !$oDocument->isNotice() && $mi->default_style!='blog'">
+				<a class="rd_prev bubble no_bubble" href="#"><b class="ui-icon ui-icon-arrow-1-w" title="{$lang->cmd_prev}">Prev</b><span class="tx">{$lang->cmd_prev}</span></a>
+				<a class="rd_next bubble no_bubble" href="#"><b class="ui-icon ui-icon-arrow-1-e" title="{$lang->cmd_next}">Next</b><span class="tx">{$lang->cmd_next}</span></a>
+				</block>
+				<a class="back_to" href="#bd_{$mi->module_srl}"><b class="ui-icon ui-icon-arrow-1-n">Up</b><span class="tx">{$lang->cmd_move_up}</span></a>
+				<a class="back_to" href="#rd_end_{$oDocument->document_srl}"><b class="ui-icon ui-icon-arrow-1-s">Down</b><span class="tx">{$lang->cmd_move_down}</span></a>
+				<a cond="!$mi->show_files && $oDocument->hasUploadedFiles()" class="file" href="#" onclick="jQuery('#files_{$oDocument->document_srl}').slideToggle();return false"><b class="ui-icon ui-icon-disk">Files</b><span class="tx">{$lang->uploaded_file}</span></a>
+				<a cond="!$mi->rd_nav_item" class="print_doc m_no" href="{getUrl('listStyle','viewer','act')}"><b class="ui-icon ui-icon-print">Print</b><span class="tx">{$lang->cmd_print}</span></a>
+				<a cond="$is_logged" class="document_{$oDocument->document_srl} action m_no" href="#popup_menu_area" onclick="return false"><b class="ui-icon ui-icon-arrowthickstop-1-s">More</b><span class="tx">{$lang->cmd_document_do}</span></a>
+				</block>
+				<block cond="$oDocument->isEditable()">
+				<a class="edit" href="{getUrl('act','dispBoardWrite','document_srl',$oDocument->document_srl,'comment_srl','')}"><i class="ico_16px write"></i>{$lang->cmd_modify}</a>
+				<a class="edit" href="{getUrl('act','dispBoardDelete','document_srl',$oDocument->document_srl,'comment_srl','')}"><i class="ico_16px delete"></i>{$lang->cmd_delete} </a>
+				</block>
+			</div>
+		</div>
+	</div>
+
+	<!--// Comment -->
+<block cond="$mi->cmt_wrt=='sns'">
+{@ 
+	$mi->cmt_wrt_position='';
+	$mi->profile_img='';
+}
+</block>
+	<div cond="!$mi->viewer_cmt" class="fdb_lst_wrp {$mi->fdb_style} {$mi->profile_img}">
+		<div id="{$oDocument->document_srl}_comment" class="fdb_lst clear {$mi->fdb_nav} {$mi->cmt_wrt_position}">
+			<!--// Editor -->
+			<!--@if($mi->cmt_wrt=='sns')-->
+			<!--// SocialXE -->
+			<div cond="$oDocument->allowComment() && $mi->select_editor!='N'" class="editor_select bubble fr m_no" title="{$lang->noti_rfsh}">
+				<a class="tg_btn2" href="#" data-href="#editor_select"><b class="tx_ico_circ bg_color"><i class="ie8_only color">●</i><b>?</b></b> {$lang->select_editor}</a>
+				<div cond="$rd_idx==0" id="editor_select" class="editor_select_cnt tg_cnt2 wrp"><button type="button" class="tg_blur2"></button>
+					<a class="on"|cond="$mi->cmt_wrt=='simple'" href="#" onclick="jQuery.cookie('bd_editor','simple');location.reload();return false"><em>✔ </em>{$lang->textarea}</a>
+					<a class="on"|cond="$mi->cmt_wrt=='editor'" href="#" onclick="jQuery.cookie('bd_editor','editor');location.reload();return false"><em>✔ </em>{$lang->wysiwyg}</a>
+					<a class="on"|cond="$mi->cmt_wrt=='sns'" href="#" onclick="jQuery.cookie('bd_editor','sns');location.reload();return false"><em>✔ </em>{$lang->sxc_editor}</a>
+					<i class="edge"></i><button type="button" class="tg_blur2"></button>
+					<!--// ie8; --><i class="ie8_only bl"></i><i class="ie8_only br"></i>
+				</div>
+			</div>
+			<img class="zbxe_widget_output" widget="socialxe_comment" skin="sketchbook5" colorset="{$mi->colorset}" document_srl="{$oDocument->document_srl}" content_link="{getFullUrl('','document_srl',$oDocument->document_srl,'dummy','1')}" content_title="{htmlspecialchars($oDocument->getTitleText())}" enter_send="N" auto_view_sub="Y"|cond="!$mi->auto_view_sub" style="overflow:visible" />
+			<!--@else-->
+			<!--// Comment Write : Top -->
+			<include cond="$oDocument->allowComment() && !$mi->cmt_wrt_position" target="_comment_write.html" />
+			<!--// Comment List -->
+			<div id="cmtPosition" aria-live="polite"><include target="_comment.html" /></div>
+			<!--// Comment Write : Bottom -->
+			<include cond="$oDocument->allowComment() && $mi->cmt_wrt_position=='cmt_wrt_btm'" target="_comment_write.html" />
+			<!--@end-->
+		</div>
+	</div>
+	<!--//End - Secret -->
+	<!--@end-->
+</div>
+
+<!--// 목록 보이지 않을 때 보이는 하단 메뉴 -->
+<div cond="$mi->rd_lst && $mi->default_style!='blog'" class="btm_mn clear" style="border-top:1px solid #CCC">
+	<div class="fl">
+		<a class="btn_img no" href="{getUrl('document_srl','')}">{$lang->cmd_list}</a>
+		<a class="btn_img no back_to" href="#bd_{$mi->module_srl}">{$lang->cmd_move_up}</a>
+	</div>
+	<div class="fr">
+		<block cond="$mi->prev_next=='2' && !$oDocument->isNotice()">
+		<a class="btn_img no rd_prev bubble no_bubble" href="#">{$lang->cmd_prev}</a>
+		<a class="btn_img no rd_next bubble no_bubble" href="#">{$lang->cmd_next}</a>
+		</block>
+		<a cond="!$mi->write_btm_btn || ($mi->write_btm_btn!='N' && $grant->write_document)" class="btn_img" href="{getUrl('act','dispBoardWrite','document_srl','')}"><b class="ico_16px write"></b> {$lang->cmd_write}</a>
+	</div>
+</div>
+
+<hr id="rd_end_{$oDocument->document_srl}" class="rd_end clear" />

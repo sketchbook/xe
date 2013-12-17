@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<addon version="0.2">
+	<title xml:lang="ko">EXIF(사진정보) 애드온</title>
+	<description xml:lang="ko">
+		EXIF(사진정보)를 보여주는 애드온입니다.
+	</description>
+	<version>0.9.2.2</version>
+	<date>2011-12-20</date>
+	<author email_address="hikaru100@nate.com" link="http://code.google.com/p/xe-hika/">
+		<name xml:lang="ko">hikaru100</name>
+	</author>
+	<extra_vars>
+		<var name="display" type="select">
+			<title xml:lang="ko">표시 방식</title>
+			<description xml:lang="ko">EXIF 표시 방식을 선택합니다.</description>
+			<options value="">
+				<title xml:lang="ko">버튼 방식(기본값)</title>
+			</options>
+			<options value="2">
+				<title xml:lang="ko">마우스 오버 시</title>
+			</options>
+			<options value="3">
+				<title xml:lang="ko">이미지 하단 목록</title>
+			</options>
+		</var>
+	</extra_vars>
+</addon>

@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<addon version="0.2">
+	<title xml:lang="ko">css3pie</title>
+	<description xml:lang="ko">
+	IE8 이하 브라우저에서도 css3 기능을 사용할 수 있습니다. border-radius, box-shadow, background gradient 등을 지원합니다.	제작자의 홈페이지 http://css3pie.com/ 가시면 데모를 볼 수 있습니다. 이 애드온은 class="css3pie" 를 설정하는 것만으로 쉽게 브라우저에 적용할 수 있도록 합니다.
+	</description>
+	<version>1.3.3.0</version>
+	<date>2011-02-20</date>
+	<author email_address="hikaru100@nate.com">
+		<name xml:lang="ko">hikaru100</name>
+	</author>
+</addon>

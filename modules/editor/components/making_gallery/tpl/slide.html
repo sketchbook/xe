@@ -1,0 +1,34 @@
+﻿<load target="galleryview/jquery.galleryview-3.0.min.js" />
+<load target="galleryview/css.css" />
+<load cond="$gallery_info->preset=='2'" target="galleryview/apple_white.css" />
+<load cond="$gallery_info->preset=='3'" target="galleryview/apple_black.css" />
+
+<style type="text/css">
+#making_gallery_{$gallery_info->srl}{clear:both;margin:{$gallery_info->div_margin} <block cond="$gallery_info->div_align=='center'">auto</block>;border:{$gallery_info->div_border_width}px {$gallery_info->div_border_style} #{$gallery_info->div_border_color}}
+.panel_wrap{background:#{$gallery_info->div_bg_color}}
+.img_wrap{box-shadow:{$gallery_info->img_shadow_hori}px {$gallery_info->img_shadow_vertical}px {$gallery_info->img_shadow_width}px #{$gallery_info->img_shadow_color};-webkit-box-shadow:{$gallery_info->img_shadow_hori}px {$gallery_info->img_shadow_vertical}px {$gallery_info->img_shadow_width}px #{$gallery_info->img_shadow_color}}
+.img_wrap,.img_wrap img{border-radius:{$gallery_info->img_border_radius}px}
+
+.strip_wrapper{padding:10px {$gallery_info->img_margin/2}px;margin:-10px -{$gallery_info->img_margin/2}px}
+.filmstrip{margin:10px {$gallery_info->img_margin/2}px !important}
+</style>
+
+<script type="text/javascript">
+jQuery(function($){
+	$('#making_gallery_{$gallery_info->srl}').galleryView({
+     panel_width: {$gallery_info->width},
+     panel_height: {$gallery_info->height},
+     <block cond="$gallery_info->slide_effect=='fade'">panel_animation: 'fade',</block>
+	 <block cond="$gallery_info->img_align=='crop'">panel_scale: 'crop',</block>
+     frame_gap: {$gallery_info->img_margin},
+     frame_width: {$gallery_info->img_width},
+     frame_height: {$gallery_info->img_height}
+	});
+});
+</script>
+
+<!--[if lte IE 8 ]><ul id="making_gallery_{$gallery_info->srl}" class="no_pp ie8"> <![endif]-->
+<!--[if gte IE 9 ]><ul id="making_gallery_{$gallery_info->srl}" class="no_pp ie9"> <![endif]-->
+<!--[if !IE]><!--> <ul id="making_gallery_{$gallery_info->srl}" class="no_pp"> <!--<![endif]-->
+	<li loop="$gallery_info->images_list=>$image" <!--@if($gallery_info->img_rotate)-->style="-ms-transform:rotate({rand(-$gallery_info->img_rotate,$gallery_info->img_rotate)}deg);-moz-transform:rotate({rand(-$gallery_info->img_rotate,$gallery_info->img_rotate)}deg);-webkit-transform:rotate({rand(-$gallery_info->img_rotate,$gallery_info->img_rotate)}deg)"<!--@end-->><img src="{$image}" alt="" /></li>
+</ul>

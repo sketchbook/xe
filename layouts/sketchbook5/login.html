@@ -1,0 +1,44 @@
+{@
+	$member_config = MemberModel::getMemberConfig();
+	$identifierForm->name = $member_config->identifier;
+}
+
+<!--%import("filter/login.xml")-->
+
+<button type="button" class="tg_blur"></button>
+<h2><!--@if($identifierForm->name=='email_address')-->{$lang->email} <!--@end-->{$lang->cmd_login}</h2>
+<form action="./" method="post" ruleset="@login">
+	<fieldset>
+		<input type="hidden" name="act" value="procMemberLogin" />
+		<input type="hidden" name="success_return_url" value="{getRequestUriByServerEnviroment()}" />
+		<div class="itx_area">
+			<span class="itx_wrp">
+				<label for="uid"><!--@if($identifierForm->name=='email_address')-->{$lang->email}<!--@else-->{$lang->user_id}<!--@end--></label>
+				<input type="text" name="user_id" id="uid" class="itx" />
+			</span>
+			<span class="itx_wrp">
+				<label for="upw">{$lang->password}</label>
+				<input type="password" name="password" id="upw" class="itx" />
+			</span>
+		</div>
+		<div class="btn_area">
+			<span class="keep">
+				<input type="checkbox" name="keep_signed" id="keepid_opt" value="Y" onclick="if(this.checked) return confirm('{$lang->about_keep_signed}');" />
+				<label for="keepid_opt">{$lang->keep_signed}</label>
+			</span>
+			<span><input type="submit" value="{$lang->cmd_login}" class="login_btn" /></span>
+		</div>
+		<div class="help">
+			<a href="{getUrl('act','dispMemberSignUpForm')}" class="join"><strong>{$lang->cmd_signup}</strong></a> | <a href="{getUrl('act','dispMemberFindAccount')}" class="find">{$lang->cmd_find_member_account}</a> | <a href="{getUrl('act','dispMemberResendAuthMail')}" class="find">{$lang->cmd_resend_auth_mail}</a>
+		</div>
+	</fieldset>
+</form>
+<div cond="$layout_info->sns" class="snsLogin">
+	<h2>{$lang->social} {$lang->cmd_login}</h2>
+	<a cond="!$layout_info->sns_facebook" class="facebook" href="{getSiteUrl($domain,'', 'mid', $mid, 'vid', $vid, 'act', 'dispSocialxeLogin', 'provider', facebook, 'mode', 'socialLogin')}" title="Facebook 계정으로 로그인합니다"><span class="blind">Facebook</span></a>
+	<a cond="!$layout_info->sns_twitter" href="{getSiteUrl($domain,'', 'mid', $mid, 'vid', $vid, 'act', 'dispSocialxeLogin', 'provider', twitter, 'mode', 'socialLogin')}" title="Twitter 계정으로 로그인합니다"><span class="blind">Twitter</span></a>
+	<a cond="!$layout_info->sns_me2day" class="me2day" href="{getSiteUrl($domain,'', 'mid', $mid, 'vid', $vid, 'act', 'dispSocialxeLogin', 'provider', me2day, 'mode', 'socialLogin')}" title="Me2day 계정으로 로그인합니다"><span class="blind">Me2day</span></a>
+	<a cond="!$layout_info->sns_yozm" class="yozm" href="{getSiteUrl($domain,'', 'mid', $mid, 'vid', $vid, 'act', 'dispSocialxeLogin', 'provider', yozm, 'mode', 'socialLogin')}" title="Yozm 계정으로 로그인합니다"><span class="blind">Yozm</span></a>
+</div>
+<button type="button" class="tg_blur"></button>
+<button type="button" class="tg_close" title="Close this layer">X</button>

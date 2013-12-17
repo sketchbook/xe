@@ -1,0 +1,56 @@
+{@ $height = $widget_info->thumbnail_height+10 }
+<!--@if(in_array(regdate,$widget_info->option_view_arr))-->{@ $height += 24 }<!--@end-->
+<!--@if(in_array(title,$widget_info->option_view_arr))-->{@ $height += 28 }<!--@end-->
+<!--@if(in_array(content,$widget_info->option_view_arr))-->{@ $height += 55 }<!--@end-->
+
+<style type="text/css">
+.wgt_xcp2011 li{width:{$widget_info->thumbnail_width}px;height:{$height}px}
+.wgt_xcp2011 .tmb,.wgt_xcp2011 .tmb span{width:{$widget_info->thumbnail_width}px;max-height:{$widget_info->thumbnail_height}px}
+.wgt_xcp2011 .tmb span{height:{$widget_info->thumbnail_height}px;line-height:{$widget_info->thumbnail_height}px}
+.wgt_xcp2011 .bg_f{width:{$widget_info->thumbnail_width+14}px;height:{$height-11}px}
+</style>
+
+<ul class="wgt_xcp2011 {$colorset}">
+{@$_idx=0}
+<!--@foreach($widget_info->content_items as $key => $item)-->
+    <li<!--@if($_idx >= $widget_info->list_count)--> style="display:none"<!--@end-->>
+		<div class="bg_f"></div>
+		<div cond="in_array(regdate,$widget_info->option_view_arr)" class="date">
+			<div class="mm" title="Month">{$item->getRegdate("m")}<b class="ie7"></b><b class="ie7 last"></b></div>
+			<div class="dd" title="Date">{$item->getRegdate("d")}<b class="ie7"></b><b class="ie7 last"></b></div>
+			<div class="day" title="Day">{$item->getRegdate("D")}<b class="ie7"></b><b class="ie7 last"></b></div>
+		</div>
+        <p class="tmb">
+            <a href="{$item->getLink()}">
+                <!--@if($item->getThumbnail())-->
+                    <img src="{$item->getThumbnail()}" alt="" />
+                <!--@else-->
+                    <span>{$lang->none_image}</span>
+                <!--@end-->
+            </a>
+        </p>
+		<p cond="in_array(title,$widget_info->option_view_arr)" class="tl">
+			 <a href="{$item->getLink()}" class="title">{$item->getTitle($widget_info->subject_cut_size)}</a>
+			<block cond="!in_array(content,$widget_info->option_view_arr)">
+			<em cond="$widget_info->show_comment_count=='Y' && $item->getCommentCount()" class="reply" title="Replies">{$item->getCommentCount()}</em>
+			<small cond="in_array(nickname,$widget_info->option_view_arr)">by {$item->getNickName()}</small>
+			<span cond="$widget_info->show_icon=='Y'">{$item->printExtraImages()}</span>
+			</block>
+		</p>
+		<p cond="in_array(content,$widget_info->option_view_arr)" class="cnt">
+			<span>{$item->getContent()}</span>
+			<em cond="$widget_info->show_comment_count=='Y' && $item->getCommentCount()" class="reply" title="Replies">{$item->getCommentCount()}</em>
+			<small cond="in_array(nickname,$widget_info->option_view_arr)">by {$item->getNickName()}</small>
+			<span cond="$widget_info->show_icon=='Y'">{$item->printExtraImages()}</span>
+		</p>
+    </li>
+{@$_idx++}
+<!--@end-->
+</ul>
+
+<!--@if($widget_info->page_count > 1 && $widget_info->list_count<$_idx)-->
+    <ul class="widgetNavigator">
+        <li><button type="button" class="prev" title="{$lang->cmd_prev}" onclick="content_widget_prev(jQuery(this).parents('ul.widgetNavigator').prev('ul'),{$widget_info->list_count})"><span>{$lang->cmd_prev}</span></button></li>
+        <li><button type="button" class="next" title="{$lang->cmd_next}" onclick="content_widget_next(jQuery(this).parents('ul.widgetNavigator').prev('ul'),{$widget_info->list_count})"><span>{$lang->cmd_next}</span></button></li>
+    </ul>
+<!--@end-->

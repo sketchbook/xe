@@ -1,0 +1,334 @@
+<!--@if(!$layout_info->no_mobile && !$_COOKIE['fakeM'])-->
+{@Context::addHtmlHeader('<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=yes, target-densitydpi=medium-dpi" />')}
+<!--@end-->
+
+<!--@if(class_exists(Mobile) && Mobile::isFromMobilePhone())-->
+<load cond="__DEBUG__" target="../../common/js/jquery.js" usecdn="true" index="-100006" />
+<load cond="!__DEBUG__" target="../../common/js/jquery.min.js" usecdn="true" index="-100006" />
+<!--@end-->
+
+<load target="css/layout.css" />
+<load cond="$layout_info->colorset=='black'" target="css/black.css" />
+<load target="js/layout.js" type="body" />
+
+<block cond="!$layout_info->colorset">{@$layout_info->colorset = 'white'}</block>
+<block cond="!$layout_info->frame">{@$layout_info->frame = 'ece'}</block>
+<block cond="!$layout_info->bg_align">{@$layout_info->bg_align = 'center'}</block>
+<block cond="!$layout_info->bg_repeat">{@$layout_info->bg_repeat = 'no-repeat'}</block>
+<block cond="$_COOKIE['layout_font']">{@$layout_info->font = $_COOKIE['layout_font']}</block>
+
+{@Context::addBodyClass($layout_info->colorset)}
+
+<!--// 메인 메뉴 색상 순서 변경 (원하시는 순서로 배열하세요) -->
+{@$_colorset_list = array('lightsky','orange','sky','green','lightpink','red','yellow','blue','purple','pink','greenyellow','deeppink')}
+
+<!--@if($lang_type=='ko')-->
+{@
+	$lang->signup = '가입하기';
+	$lang->profile = '내 정보';
+	$lang->best_font_dsc = '나눔고딕 등의 여러폰트를 섞어서 사용합니다';
+	$lang->best_font = '추천글꼴';
+	$lang->window_font = '맑은고딕';
+	$lang->tahoma = '돋움';
+	$lang->pc = 'PC버전으로 보기';
+	$lang->social = '소셜';
+}
+<!--@else-->
+{@
+	$lang->signup = 'Sign Up';
+	$lang->profile = 'Profile';
+	$lang->best_font_dsc = 'Use different fonts';
+	$lang->best_font = 'Suitable';
+	$lang->window_font = 'Segoe UI';
+	$lang->tahoma = 'Tahoma';
+	if($lang_type=='jp') $lang->window_font = 'メイリオ';
+	$lang->pc = 'PC';
+	$lang->social = 'Social';
+}
+<!--@end-->
+
+<style type="text/css">
+body,input,textarea,select,button,table{font-family:<!--@if($layout_info->font=='ng')-->'나눔고딕',NanumGothic,ng,<!--@elseif($layout_info->font=='window_font')-->'Segoe UI',Meiryo,'맑은 고딕','Malgun Gothic',<!--@elseif($layout_info->font=='tahoma')-->Tahoma,'돋움',Dotum,<!--@end-->'Segoe UI',Meiryo,'Trebuchet MS','나눔고딕',NanumGothic,ng,'맑은 고딕','Malgun Gothic','돋움',Dotum,AppleGothic,sans-serif}
+<block cond="$layout_info->bg">
+body{background-image:url({$layout_info->bg});background-position:top {$layout_info->bg_align};background-repeat:{$layout_info->bg_repeat};}
+</block>
+#xe{max-width:{$layout_info->xe_width}px}
+#hd .hgroup{text-align:{$layout_info->logo_align};}
+#hd h1 .home{top:{$layout_info->img_y}px;left:{$layout_info->img_x}px}
+<block cond="$layout_info->hd_height">
+#hd .hgroup{height:{$layout_info->hd_height-38}px}
+#hd h1{padding-top:{($layout_info->hd_height-38)/2-19}px}
+</block>
+<block cond="!$layout_info->no_mobile">
+.xe_mobile{display:none}
+</block>
+</style>
+
+<!--// XHTML -->
+<div id="xe" class="{$layout_info->frame} {$layout_info->reverse}">
+	<div cond="!$layout_info->notice && $XE_VALIDATOR_MESSAGE" id="layout_notice" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
+		<p>{$XE_VALIDATOR_MESSAGE}</p>
+	</div>
+	<!--// 헤더 -->
+	<div id="hd" class="clear"> <a href="#content" class="skipToContent" onclick="jQuery('#content a:first').focus();return false">Skip to content</a>
+		<!--// 상단 우측 메뉴 -->
+		<ul id="top_mn">
+			<!--// 글꼴 버튼 -->
+			<li cond="$layout_info->font_btn" id="font_wrp" class="item">
+				<a id="font_btn" class="tg_btn" href="#font"><b>T</b><strong><!--@if($layout_info->font=='ng')-->나눔고딕<!--@elseif($layout_info->font=='window_font')-->{$lang->window_font}<!--@elseif($layout_info->font=='tahoma')-->{$lang->tahoma}<!--@else-->{$lang->best_font}<!--@end--></strong><span class="arrow down"></span></a>
+				<div id="font" class="tg_cnt"><button type="button" class="tg_blur"></button>
+					<ul>
+						<li class="ui_font<!--@if(!$layout_info->font)--> on<!--@end-->"><a href="#" title="{$lang->best_font_dsc}">{$lang->best_font}</a><em>✔</em></li>
+						<li class="ng<!--@if($layout_info->font=='ng')--> on<!--@end-->"><a href="#popup_menu_area">나눔고딕</a><em>✔</em></li>
+						<li class="window_font<!--@if($layout_info->font=='window_font')--> on<!--@end-->"><a href="#">{$lang->window_font}</a><em>✔</em></li>
+						<li class="tahoma<!--@if($layout_info->font=='tahoma')--> on<!--@end-->"><a href="#">{$lang->tahoma}</a><em>✔</em></li>
+					</ul><button type="button" class="tg_blur"></button>
+				</div>
+			</li>
+			<!--// 모바일 검색창, 사이트맵 버튼 -->
+			<li class="item m_yes_inline">
+				<a href="#site_srch" id="tg_site_srch" class="tg_btn"><strong>{$lang->cmd_search}</strong></a>
+			</li>
+			<!--// 로그인 -->
+			<li cond="!$is_logged" class="item">
+				<a href="#site_login" class="tg_btn"><strong>{$lang->cmd_login}</strong></a>
+				<div id="site_login" class="tg_cnt">
+					<include target="login.html" />
+				</div>
+			</li>
+			<li class="item">
+				<a cond="$is_logged" href="{getUrl('act','dispMemberLogout')}" class="login_btn"><strong>{$lang->cmd_logout}</strong></a>
+				<a cond="!$is_logged" href="{getUrl('act','dispMemberSignUpForm')}" class="login_btn">{$lang->signup}</a>
+			</li>
+			<!--// 프로필 -->
+			<li cond="$is_logged" class="item">
+				<a href="#profile" class="tg_btn">{$lang->profile}</a>
+				<div id="profile" class="tg_cnt"><button type="button" class="tg_blur"></button><button type="button" class="tg_close" title="Close this layer">X</button>
+					<h2>{$logged_info->nick_name}</h2>
+					<ul>
+						<li loop="$logged_info->menu_list=>$key, $val"><a href="{getUrl('act',$key,'member_srl','')}">{Context::getLang($val)}</a></li>
+					</ul><button type="button" class="tg_blur"></button>
+				</div>
+			</li>
+			<!--// 언어 -->
+			<li class="item">
+				<a href="#lang" class="tg_btn">{$lang_supported[$lang_type]}</a>
+				<div id="lang" class="tg_cnt"><button type="button" class="tg_blur"></button>
+					<ul>
+						<li loop="$lang_supported=>$key,$val" cond="$key!= $lang_type"><a href="#" onclick="doChangeLangType('{$key}');return false">{$val}</a></li>
+					</ul><button type="button" class="tg_blur"></button>
+				</div>
+			</li>
+		</ul>
+		<!--// 메인로고 -->
+		<div class="hgroup ui_font">
+			<h1>
+				<a loop="$main_menu->list=>$key1,$val1" cond="!$layout_info->use_color && $val1['selected']" href="{$val1['href']}" class="on {@$_idx = 0}<!--@foreach($main_menu->list as $key => $val)--><!--@if($val['selected'])-->{$_colorset_list[$_idx]}<!--@endif-->{@$_idx++}<!--@end-->">{$val1['link']}</a>
+				<a href="<!--@if($layout_info->index_url)-->{$layout_info->index_url}<!--@else-->{getUrl('')}<!--@end-->" class="home" style="position:relative;top:{$layout_info->img_y}px;left:{$layout_info->img_x}px"><img cond="$layout_info->logo_image" class="m_no_inline"|cond="$layout_info->logo_image_mobile" src="{$layout_info->logo_image}" alt="{$layout_info->logo_text}" /><img cond="$layout_info->logo_image_mobile" src="{$layout_info->logo_image_mobile}" class="m_yes_inline" alt="{$layout_info->logo_text}" /><block cond="!$layout_info->logo_image">{$layout_info->logo_text}</block></a>
+			</h1>
+		</div>
+		<!--// 중간메뉴 -->
+		<ul id="mid_mn" class="fr">
+			<li loop="$middle_menu->list=>$key,$val" cond="$val['link']"><a href="{$val['href']}" class="on"|cond="$val['selected']" target="_blank"|cond="$val['open_window']=='Y'">{$val['link']}</a></li>
+			<li cond="$grant->manager"><a href="{getUrl('','module','admin')}" target="_blank">Admin</a></li>
+		</ul>
+		<!--// 메인 메뉴 영역 -->
+		<div id="gnb_wrp" class="clear">
+			<!--// 검색 -->
+			<div id="site_srch" class="srch">
+				<form action="{getUrl()}" method="get">
+
+					<input type="hidden" name="vid" value="{$vid}" />
+					<input type="hidden" name="mid" value="{$mid}" />
+					<input type="hidden" name="act" value="IS" />
+					<input type="text" name="is_keyword" value="{$is_keyword}" title="{$lang->cmd_search}" class="itx css3pie" accesskey="S" />
+					<input type="image" src="./img/bs_{$layout_info->colorset}.png" alt="Search" class="is" />
+				</form>
+			</div>
+			<!-- GNB -->
+			<ul id="gnb" class="ui_font">
+				{@$_idx = 0}
+				<li loop="$main_menu->list=>$key1,$val1" cond="$val1['link']" class="li1<!--@if($_idx > 3)--> m_li1_tg<!--@end-->">
+					<a class="a1 {$_colorset_list[$_idx]}<!--@if($val1['selected'])--> on<!--@end-->" href="{$val1['href']}" target="_blank"|cond="$val1['open_window']=='Y'">{$val1['link']}</a>
+					<block cond="$val1['list']">
+					<button type="button" class="tg_ul2 m_yes_inline"><strong>&minus;</strong><span>+</span></button>
+					<ul class="ul2">
+						<li loop="$val1['list']=>$key2,$val2" cond="$val2['link']" class="li2<!--@if($val2['selected'])--> on<!--@end-->">
+							<a class="a2" href="{$val2['href']}" target="_blank"|cond="$val2['open_window']=='Y'">{$val2['link']}<b cond="$val2['list']">+</b></a>
+							<ul cond="$val2['list']" class="ul3">
+								<li loop="$val2['list']=>$key3,$val3" cond="$val3['link']"><a class="a3<!--@if($val3['selected'])--> on<!--@end-->" href="{$val3['href']}" target="_blank"|cond="$val3['open_window']=='Y'">{$val3['link']}</a></li>
+							</ul>
+						</li>
+						<li><button type="button" class="close_ul2 m_yes">{$lang->cmd_close}</button></li>
+					</ul>
+					</block>
+				{@$_idx++}
+				</li>
+			</ul>
+			<div cond="$_idx > 4" id="gnb_next" class="m_yes"><button type="button"><strong>◀</strong><span>▶</span></button>
+<style type="text/css">
+@media screen and (max-width:533px){
+#gnb_wrp{padding-right:10px}
+}
+</style>
+			</div>
+		</div>
+	</div>
+
+	<!--// 프로모션 영역 -->
+	<div cond="$layout_info->promotion" id="promotion" class="clear"> {$layout_info->promotion} </div>
+
+	<!--// 컨테이너 -->
+	<div id="container" class="clear">
+		<!--// 좌측 메뉴 영역 -->
+		<div cond="$layout_info->frame=='ec' || $layout_info->frame=='ece'" id="snb">
+			<!--// 히든 로고 -->
+			<div id="hidden_logo"><a href="{$layout_info->hiddenLogo_url}"><strong cond="!$layout_info->hidden_logo" class="ui_font">Home</strong><img cond="$layout_info->hidden_logo" src="{$layout_info->hidden_logo}" alt="Logo" /></a></div>
+			<!--// LNB(2차 메뉴) -->
+			<ul loop="$main_menu->list=>$key1,$val1" cond="$val1['selected'] && $val1['list']" id="lnb" class="ui_font clear">
+				<li loop="$val1['list']=>$key2,$val2" cond="$val2['link']">
+					<a class="lnb_2nd<!--@if($val2['selected'])--> on<!--@end-->" href="{$val2['href']}" target="_blank"|cond="$val2['open_window']=='Y'">{$val2['link']}</a>
+					<ul cond="$val2['list']">
+						<li loop="$val2['list']=>$key3,$val3" cond="$val3['link']"><a class="lnb_3rd<!--@if($val3['selected'])--> on<!--@end-->" href="{$val3['href']}" target="_blank"|cond="$val3['open_window']=='Y'">{$val3['link']}</a>
+						</li>
+					</ul>
+				</li>
+			</ul>
+			<!--// 스크롤 버튼 -->
+			<div id="page_move">
+				<a class="back_to" href="#hd" onclick="return false" title="{$lang->cmd_move_up}">▲</a>
+				<a class="back_to" href="#ft" onclick="return false" title="{$lang->cmd_move_down}">▼</a>
+			</div>
+		</div>
+
+		<!--// 컨텐트 영역 -->
+		<div id="content" style="max-width:{$layout_info->content_width}px"|cond="$layout_info->frame=='ce' || $layout_info->frame=='ece'"><div id="gap"> {$content} </div></div>
+
+		<!--// 위젯 영역 (*위젯을 넣으시려면 <div class="section">위젯코드</div> 영역 안에 코드를 넣어서 사용하세요.) -->
+		<div cond="$layout_info->frame=='ce' || $layout_info->frame=='ece'" id="aside">
+			<div cond="$layout_info->calendar=='Y'" class="section calendar">
+				<object type="application/x-shockwave-flash" data="http://www.uniqlo.com/calendar/swf/uqcal_bp_loader.swf?cID=KR&amp;aID=SEO" width="160" height="320" style="border:1px solid #DDD">
+					<param name="movie" value="http://www.uniqlo.com/calendar/swf/uqcal_bp_loader.swf?cID=KR&amp;aID=SEO" />
+					<param name="wmode" value="opaque" />
+				</object>
+			</div>
+			<div cond="$layout_info->clock=='Y'" class="section clock">
+				<object type="application/x-shockwave-flash" data="layouts/sketchbook5/clock.swf" width="200" height="200">
+					<param name="movie" value="layouts/sketchbook5/clock.swf" />
+					<param name="wmode" value="transparent" />
+				</object>
+			</div>
+			<!--// 상단 커스텀 위젯 영역 -->
+			{$layout_info->custom1_wgt}
+			<!--// 카테고리 -->
+			<div cond="!$layout_info->category && $module_info->use_category=='Y'" class="section category">
+				<h2><a href="{getUrl('category','','page','','document_srl','')}">This Category</a><b></b></h2>
+				<div id="category" class="tNav">
+					{@ $pDepth = 0;}
+					<ul>
+					<block loop="$category_list=>$key,$val">
+						<block cond="$pDepth > $val->depth">
+							<block loop="$i=$val->depth; $i<$pDepth; $i++">
+								</ul>
+								</li>
+							</block>
+							{@ $pDepth = $val->depth}
+						</block>
+						<li class="<!--@if($category==$val->category_srl)-->active<!--@end--><!--@if($val->expand)--> open<!--@end-->">
+							<a href="{getUrl('document_srl','','category',$val->category_srl)}">{$val->text} <small>({$val->document_count})</small></a>
+						<block cond="$val->child_count">
+							{@$pDepth++}
+							<ul>
+						</block>
+						<block cond="!$val->child_count">
+							</li>
+						</block>
+					</block><!--//loop-->
+					<block loop="$i=0;$i<$pDepth;$i++">
+						</ul>
+					</block>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<!--// 최근글 위젯 -->
+			<div cond="$layout_info->d_wgt" class="section doc">
+				<h2>Recent Articles<b></b></h2>
+				<img class="zbxe_widget_output" widget="content" skin="default" content_type="document" module_srls="{$layout_info->d_wgt}" list_type="normal" markup_type="list" page_count="2" option_view="title,regdate,nickname" order_type="desc" subject_cut_size="40" />
+			</div>
+			<!--// 커멘트 위젯 -->
+			<div cond="$layout_info->c_wgt" class="section cmt">
+				<h2>Recent Comment<b></b></h2>
+				<img class="zbxe_widget_output" widget="content" skin="default" content_type="comment" module_srls="{$layout_info->c_wgt}" list_type="normal" markup_type="list" page_count="2" option_view="title,regdate,nickname" order_type="desc" subject_cut_size="40" />
+			</div>
+			<!--// 태그 위젯 -->
+			<div cond="$layout_info->t_wgt" class="section tag">
+				<h2>Recent Tag<b></b></h2>
+				<img class="zbxe_widget_output" widget="tag_list" skin="default" list_count="30" module_srls="{$layout_info->t_wgt}" />
+			</div>
+			<!--// 하단 커스텀 위젯 영역 -->
+			{$layout_info->custom2_wgt}
+		</div>
+	</div>
+
+	<!--// 푸터 -->
+	<div id="ft" class="ui_font clear">
+		<!--// 하단 메뉴 -->
+		<ul cond="$bottom_menu->list || Mobile::isMobileCheckByAgent()" id="btm_mn">
+			<li><a href="{getUrl()}"><strong>Home</strong></a></li>
+			<li loop="$bottom_menu->list=>$key,$val" cond="$val['link']"><a href="{$val['href']}" target="_blank"|cond="$val['open_window']=='Y'">{$val['link']}</a></li>
+			<li class="m_yes_inline"><a href="{getUrl('act','dispMenuMenu','menu_srl',$layout_info->menu->main_menu->menu_srl)}"><strong>{$lang->cmd_view_all}</strong></a></li>
+			<li class="m_yes_inline"><a href="#"><strong>▲ {$lang->cmd_move_up}</strong></a></li>
+		</ul>
+		<p cond="$layout_info->address" id="address">{$layout_info->address}</p>
+		<p id="maker"><!--@if($layout_info->maker)-->{$layout_info->maker}<!--@else--><a href="http://www.xpressengine.com/" target="_blank">Powered by <strong>X</strong>press <strong>E</strong>ngine</a> / <a href="http://sketchbooks.co.kr/" target="_blank">Designed by Sketchbook</a><!--@end--></p>
+	</div>
+</div>
+
+<!--// 나눔고딕 -->
+<div style="position:absolute;top:-999px;left:-999px;visibility:hidden;font-size:72px">
+	<p id="fontcheck_ng1" style="float:left;font-family:'나눔고딕',NanumGothic,monospace,Verdana !important">sketchbook5, 스케치북5</p>
+	<p id="fontcheck_ng2" style="float:left;font-family:monospace,Verdana !important">sketchbook5, 스케치북5</p>
+</div>
+<div cond="!$layout_info->layout_font" id="install_ng"><button type="button" class="tg_blur"></button><button class="tg_close">X</button>
+	<h3>나눔글꼴 설치 안내</h3><br />
+	<h4>이 PC에는 <b>나눔글꼴</b>이 설치되어 있지 않습니다.</h4>
+	<p>이 사이트를 <b>나눔글꼴</b>로 보기 위해서는<br /><b>나눔글꼴</b>을 설치해야 합니다.</p>
+	<a class="do" href="http://hangeul.naver.com" target="_blank">설치</a>
+	<a class="cancle close" href="#">취소</a><button type="button" class="tg_blur"></button>
+</div>
+
+<!--@if(Mobile::isMobileCheckByAgent())-->
+<div>
+	<a cond="!$_COOKIE['fakeM']" class="m_yes" id="fakeM0" href="{getUrl('m',0)}">{$lang->pc}</a>
+	<a cond="$_COOKIE['fakeM'] && !$layout_info->no_mobile" id="fakeM1" href="{getUrl('m',1)}">{$lang->msg_pc_to_mobile}</a>
+</div>
+<style type="text/css">
+#page_move{display:none}
+</style>
+<!--@else-->
+<script cond="$layout_info->static!='Y'" type="text/javascript">
+jQuery(function($){
+	$('#lnb').css({position:'fixed'});
+	$(window).scroll(function(){
+		if($(this).scrollTop() > $('#hd').height()-33) {
+			$('#hd').css('paddingTop',36).find('#gnb_wrp').css({position:'fixed',top:0,width:$('#xe').width()});
+			$('#hidden_logo:hidden').fadeIn();
+		} else {
+			$('#hd').css('paddingTop',0).find('#gnb_wrp').css({position:'static',width:'auto'});
+			$('#hidden_logo').hide();
+		};
+	});
+});
+</script>
+<!--@end-->
+<script cond="!$layout_info->no_mobile" type="text/javascript">
+jQuery(function($){
+	$('#fakeM0').click(function(){
+		$.cookie('fakeM',true)
+	});
+	$('#fakeM1').click(function(){
+		$.cookie('fakeM',null)
+	});
+});
+</script>

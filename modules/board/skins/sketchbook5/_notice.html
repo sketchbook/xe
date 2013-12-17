@@ -1,0 +1,9 @@
+<table class="bd_lst bd_tb_lst bd_tb common_notice">
+	<tr loop="$notice_list=>$no,$document" class="notice">
+		<td cond="$list_config['no']">{$lang->notice}</td>
+		<td class="title"><a href="{getUrl('document_srl',$document->document_srl, 'listStyle', $listStyle, 'cpage','')}"><strong>{$document->getTitle($mi->subject_cut_size)}</strong></a></td>
+		<td cond="$list_config['nick_name']"><a href="#popup_menu_area" class="member_{$document->get('member_srl')}" onclick="return false">{$document->getNickName()}</a></td>
+		<td cond="$list_config['regdate']">{$document->getRegdate('Y.m.d')}</td>
+		<td cond="$list_config['last_update']">{getTimeGap($document->get('last_update'), "y.m.d")}</td>
+	</tr>
+</table>

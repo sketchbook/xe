@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<skin version="0.2">
+    <title xml:lang="ko">네이버 탁상달력 스타일</title>
+    <description xml:lang="ko">
+		XE 2011 기여자 선물이였던 '네이버 탁상달력' 을 테마로 만든 콘텐트 위젯입니다. 감사의 의미로 만들었습니다~ ^^
+		썸네일을 필수적으로 사용하는 형태이며, 설정할 수 없는 옵션은 '내용형태, HTML출력방식, 표시순서, 일부항목(모듈명, 카테고리)' 입니다.
+		*넓이와 높이와 관련 주의사항 : 기본적으로 썸네일에 따라 높이가 자동 조정이 되지만, 사용자의 설정에 따라 나타나는 모든 경우의 수를 고려할 수는 없으므로 다음을 알려드립니다. 제목은 한줄 정렬이 기본이며, 내용은 4줄을 넘을 수 없습니다. 썸네일에 크기에 따라 제목수와 내용수를 적절히 조정하여 사용하시기 바랍니다.
+    </description>
+    <version>0.1</version>
+    <date>2012-02-23</date>
+    <link>http://code.google.com/p/xe-hika/</link>
+    <author email_address="hikaru100@nate.com" link="http://code.google.com/p/xe-hika/">
+        <name xml:lang="ko">hikaru100</name>
+    </author>
+
+    <colorset>
+        <color name="">
+            <title xml:lang="ko">흰색 바탕용</title>
+        </color>
+        <color name="naver">
+            <title xml:lang="ko">네이버 녹색</title>
+        </color>
+    </colorset>
+</skin>

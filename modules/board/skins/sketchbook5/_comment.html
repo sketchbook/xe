@@ -1,0 +1,95 @@
+<!--// Comment v2 -->
+<a cond="$mi->fdb_style=='fdb_v2' && $mi->default_style!='guest'" class="nametag ui_font bubble" href="#" onclick="jQuery(this).nextAll('ul,.bd_pg').slideToggle();return false" title="Click! {$lang->comment} {$lang->cmd_view}~"><strong class="bg_color bx_shadow">Comment <b>'{$oDocument->getCommentcount()}'</b></strong></a>
+
+<!--// Comment v1 -->
+<block cond="$oDocument->getCommentcount()">
+<div cond="!$mi->fdb_style" class="fdb_tag<!--@if($mi->cmt_wrt_position=='cmt_wrt_btm')--> bg_f_f9 css3pie<!--@end-->">
+	<a class="ui_font bubble" href="#" onclick="jQuery(this).parent().nextAll('ul,.bd_pg').slideToggle();return false" title="{$lang->comment} {$lang->cmd_view}">Comments <b>'{$oDocument->getCommentcount()}'</b></a>
+</div>
+
+<ul class="fdb_lst_ul {$mi->fdb_hide}">
+	<block loop="$oDocument->getComments()=>$key,$comment">
+<!--@if($comment->get('depth'))-->
+	<li id="comment_{$comment->comment_srl}" class="fdb_itm clear re bg{($comment->get('depth'))%2}" style="margin-left:{(($comment->get('depth')-1)%10+1)*2}%">
+		<i class="ico_16px re"></i><i cond="$comment->get('depth')>10" class="ico_16px re rere"></i>
+<!--@else-->
+	<li id="comment_{$comment->comment_srl}" class="fdb_itm clear">
+<!--@end-->
+		<!--// 프로필 -->
+		<block cond="!$mi->profile_img">
+		<img cond="$comment->getProfileImage()" class="profile img" src="{$comment->getProfileImage()}" alt="profile" />
+		<span cond="!$comment->getProfileImage()" class="profile img no_img">?</span>
+		</block>
+		<!--// 댓글 정보 -->
+		<div class="meta">
+			<a cond="$comment->member_srl" href="#popup_menu_area" class="member_{$comment->member_srl}" onclick="return false">{$comment->getNickName()}</a>
+			<a cond="!$comment->member_srl && $comment->homepage" href="{$comment->getHomepageUrl()}" target="_blank">{$comment->getNickName()}</a>
+			<b cond="!$comment->member_srl && !$comment->homepage">{$comment->getNickName()}</b>
+			<span class="date">{getTimeGap($comment->get('regdate'), "Y.m.d H:i")}</span>
+			<small cond="$grant->manager || $mi->display_ip_address" class="m_no">({$comment->getIpaddress()})</small>
+			<span cond="$comment->isSecret()" class="ico_secret">SECRET</span>
+			<!--// 첨부파일 -->
+			<block cond="$comment->hasUploadedFiles()">
+			<a class="tg_btn2" href="#files_{$comment->comment_srl}"><b class="ui-icon ui-icon-disk">Files</b>{$lang->uploaded_file} <small>({$comment->get('uploaded_count')})</small></a>
+			<div id="files_{$comment->comment_srl}" class="cmt_files tg_cnt2">
+				<button type="button" class="tg_blur2"></button><button type="button" class="tg_close2" title="{$lang->cmd_close}"><b class="ui-icon ui-icon-closethick">X</b></button>
+				<ul class="wrp">
+					<li loop="$comment->getUploadedFiles()=>$key,$file"><em>&bull;</em> <a class="bubble" href="{getUrl('')}{$file->download_url}" title="[File Size:{FileHandler::filesize($file->file_size)}/Download:{number_format($file->download_count)}]">{$file->source_filename}</a></li>
+				</ul>
+				<button type="button" class="tg_blur2"></button>
+			</div>
+			</block>
+		</div>
+		<!--// 댓글 본문 -->
+		<!--@if(!$comment->isAccessible())-->
+		<form action="./" method="get" onsubmit="return procFilter(this, input_password)">
+			<input type="hidden" name="mid" value="{$mid}" />
+			<input type="hidden" name="page" value="{$page}" />
+			<input type="hidden" name="document_srl" value="{$comment->get('document_srl')}" />
+			<input type="hidden" name="comment_srl" value="{$comment->get('comment_srl')}" />
+			<p>&quot;{$lang->msg_is_secret}&quot;</p>
+			<span class="itx_wrp">
+				<label for="cpw_{$comment->comment_srl}">{$lang->password}</label>
+				<input type="password" id="cpw_{$comment->comment_srl}" name="password" class="itx" />
+				<input type="submit" value="{$lang->cmd_input}" class="bd_btn" />
+			</span>
+		</form>
+		<!--@else-->
+		{$comment->getContent(false)}
+		<!--@end-->
+		<!--// 편집 등 -->
+		<div class="fdb_nav img_tx">
+			<block cond="$mi->cmt_this_btn=='2' && $is_logged">
+			<a href="#" onclick="doCallModuleAction('comment','procCommentDeclare','{$comment->comment_srl}');return false">☎ {$lang->cmd_declare}</a>
+			<a href="#" onclick="doCallModuleAction('comment','procCommentVoteUp','{$comment->comment_srl}');return false"><i class="fdb_nav_ico"><em>♥</em></i> {$lang->cmd_vote}</a>
+			<a cond="!$mi->cmt_vote_down" href="#" onclick="doCallModuleAction('comment','procCommentVoteDown','{$comment->comment_srl}');return false"><i class="fdb_nav_ico">♥</i> {$lang->cmd_vote_down}</a>
+			</block>
+			<a cond="(!$mi->cmt_this_btn && $is_logged) || $grant->manager" class="comment_{$comment->comment_srl} m_no" href="#popup_menu_area" onclick="return false"><span class="tx_ico_chk">✔</span>{$lang->cmd_comment_do}</a>
+			<block cond="$comment->isGranted() || !$comment->get('member_srl')">
+			<a href="{getUrl('act','dispBoardModifyComment','comment_srl',$comment->comment_srl)}"><span class="ico_16px write"></span>{$lang->cmd_modify}</a>
+			<a href="{getUrl('act','dispBoardDeleteComment','comment_srl',$comment->comment_srl)}"><span class="ico_16px delete"></span>{$lang->cmd_delete}</a>
+			</block>
+			<a cond="$oDocument->allowComment()" class="re_comment" href="{getUrl('act','dispBoardReplyComment','comment_srl',$comment->comment_srl)}" onclick="<!--@if(!$grant->write_comment || !$oDocument->isEnableComment())-->alert('{$lang->msg_not_permitted}')<!--@else-->reComment({$comment->get('document_srl')},{$comment->get('comment_srl')},'{getUrl('act','dispBoardReplyComment','comment_srl',$comment->comment_srl)}');<!--@end-->return false"><span class="ico_16px reply"></span>{$lang->cmd_reply}</a>
+			<!--// 추천-비추천 -->
+			<span cond="$mi->cmt_vote!='N' && ($mi->cmt_vote=='2' || $comment->get('voted_count')!=0 || $comment->get('blamed_count')!=0)" class="vote ui_font">
+				<a class="bd_login" href="#" onclick="doCallModuleAction('comment','procCommentVoteUp','{$comment->comment_srl}');return false"|cond="$is_logged" title="{$lang->cmd_vote}"><em><b>♥</b> {$comment->get('voted_count')?$comment->get('voted_count'):0}</em></a>
+				<a cond="!$mi->cmt_vote_down" class="bd_login" href="#" onclick="doCallModuleAction('comment','procCommentVoteDown','{$comment->comment_srl}');return false"|cond="$is_logged" title="{$lang->cmd_vote_down}"><b>♥</b> {abs($comment->get('blamed_count')?$comment->get('blamed_count'):0)}</a>
+			</span>
+		</div>
+	</li>
+	</block>
+</ul>
+
+<!--// 댓글 페이지네이션 -->
+<block cond="$oDocument->comment_page_navigation">
+<div class="bd_pg clear {$mi->fdb_hide}">
+	<a href="{getUrl('cpage',1)}#{$oDocument->get('document_srl')}_comment" class="direction" title="{$lang->first_page}">&laquo; <span>First</span></a>
+	<block loop="$page_no=$oDocument->comment_page_navigation->getNextPage()">
+		<strong cond="$cpage==$page_no" class="this">{$page_no}</strong> 
+		<a cond="$cpage!=$page_no" href="{getUrl('cpage',$page_no)}#{$oDocument->get('document_srl')}_comment">{$page_no}</a>
+	</block>
+	<a href="{getUrl('cpage',$oDocument->comment_page_navigation->last_page)}#{$oDocument->get('document_srl')}_comment" class="direction" title="{$lang->last_page}"><span>Last</span> &raquo;</a>
+</div>
+</block>
+
+</block>

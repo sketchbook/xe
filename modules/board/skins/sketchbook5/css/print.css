@@ -1,0 +1,9 @@
+@charset "utf-8";
+body{background:none !important}
+#viewer{margin:0 auto;padding:0 !important;box-shadow:none;background:none !important;border:0 !important}
+#bd{padding:0 !important}
+.rd_nav_side,.rd_sign,.rd_ft,.fdb_lst_wrp,#viewer_lst,.tag_relation,#prev_next,.footer_text{display:none !important}
+
+.black .rd_hd .blog{border-top-colr:#333;border-bottom-color:#666}
+.black .rd_hd .blog.v3{border-color:#EEE}
+.black .rd_hd .font{color:#444}

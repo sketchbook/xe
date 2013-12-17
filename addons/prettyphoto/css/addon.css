@@ -1,0 +1,12 @@
+@charset "utf-8";
+.xe_content img{max-width:100%}
+.xe_content .pp_i{position:relative;display:inline-block;*display:inline;*zoom:1}
+.xe_content .pp_btn{position:absolute;background:#666;*cursor:pointer}
+.xe_content .pp_i1 .pp_btn{top:-.4em;left:98%;width:1px;overflow:hidden;font-family:'Segoe UI',Tahoma;white-space:nowrap;text-decoration:none !important;color:#FFF !important;-webkit-box-shadow:2px 2px 4px rgba(0,0,0,.4);box-shadow:2px 2px 4px rgba(0,0,0,.4);filter:alpha(opacity=0) !important;opacity:0 !important;-ms-transform:rotate(-5deg);-moz-transform:rotate(-5deg);-webkit-transform:rotate(-5deg);transform:rotate(-5deg);transition:opacity .3s;-moz-transition:opacity .3s;-webkit-transition:opacity .3s}
+.xe_content .pp_i1 b{display:block;padding:0 1.7em;line-height:1.85em}
+.xe_content .pp_i1:hover .pp_btn,.xe_content .pp_st1:focus .pp_btn{width:auto;filter:alpha(opacity=80) !important;opacity:.8 !important}
+.xe_content .pp_i1 .pp_btn:hover,.xe_content .pp_st1 .pp_btn:focus{filter:alpha(opacity=100) !important;opacity:1 !important}
+.xe_content .pp_i2{margin-right:1.6em}
+.xe_content .pp_i2 a{text-decoration:underline}
+.xe_content .pp_i2 .pp_btn{top:50%;left:100%;width:1.5em;height:1.5em;margin:-.75em 0 0 .05em;background:none !important}
+.xe_content .pp_i2 b{display:block;width:100%;height:100%;font-size:0;overflow:hidden;text-indent:-999px;background:url(../images/viewer.png) no-repeat center}

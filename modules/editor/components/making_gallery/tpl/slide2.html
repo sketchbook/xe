@@ -1,0 +1,30 @@
+﻿<style type="text/css">
+#making_gallery_{$gallery_info->srl}{position:relative;clear:both;width:{$gallery_info->width}; margin:{$gallery_info->div_margin}; padding:{$gallery_info->div_padding}; background-color:#{$gallery_info->div_bg_color}; border:{$gallery_info->div_border_width}px {$gallery_info->div_border_style} #{$gallery_info->div_border_color}; text-align:{$gallery_info->img_align};}
+
+<block cond="$gallery_info->preset=='1'">
+#making_gallery_{$gallery_info->srl} img{box-shadow:2px 2px 5px #666;-webkit-box-shadow:2px 2px 5px #666}
+</block>
+
+<block cond="$gallery_info->preset=='2'">
+#making_gallery_{$gallery_info->srl} img{border:1px solid #333;box-shadow:2px 2px 8px #090909;-webkit-box-shadow:2px 2px 8px #090909}
+</block>
+
+<block cond="$gallery_info->preset=='3'">
+#making_gallery_{$gallery_info->srl}{height:480px}
+#making_gallery_{$gallery_info->srl} img{position:absolute !important;padding:9px;background:#FFF;-webkit-box-shadow:2px 2px 7px #666;box-shadow:2px 2px 7px #666}
+</block>
+
+<block cond="$gallery_info->preset=='4'">
+#making_gallery_{$gallery_info->srl}{height:480px}
+#making_gallery_{$gallery_info->srl} img{position:absolute !important;padding:10px;background:#FFF;border:1px solid #999;-webkit-box-shadow:2px 2px 8px #090909;box-shadow:2px 2px 8px #090909}
+</block>
+
+#making_gallery_{$gallery_info->srl} img{position:relative;vertical-align:top;width:{$gallery_info->img_width}px; height:{$gallery_info->img_height}px; margin:{$gallery_info->img_margin}px; padding:{$gallery_info->img_padding}px; background-color:#{$gallery_info->img_bg_color}; border:{$gallery_info->img_border_width}px {$gallery_info->img_border_style} #{$gallery_info->img_border_color}; border-radius:{$gallery_info->img_border_radius}px; box-shadow:{$gallery_info->img_shadow_hori}px {$gallery_info->img_shadow_vertical}px {$gallery_info->img_shadow_width}px #{$gallery_info->img_shadow_color}; -webkit-box-shadow:{$gallery_info->img_shadow_hori}px {$gallery_info->img_shadow_vertical}px {$gallery_info->img_shadow_width}px #{$gallery_info->img_shadow_color}; transition:transform .5s;-webkit-transition:-webkit-transform 0.5s;-moz-transition:-moz-transform .5s;behavior:url(addons/css3pie/PIE.htc)}
+#making_gallery_{$gallery_info->srl} img:hover{z-index:110;-ms-transform:scale(1.2) rotate(5deg) !important;-webkit-transform:scale(1.2) rotate(5deg) !important;-moz-transform:scale(1.2) rotate(5deg) !important}
+</style>
+
+<div id="making_gallery_{$gallery_info->srl}" align="{$gallery_info->div_align}">
+	<block loop="$gallery_info->images_list=>$image">
+	<img src="{$image}" alt="" style="<block cond="$gallery_info->preset=='3' || $gallery_info->preset=='4'">top:{rand(-100,300)}px;left:{rand(-5,75)}%;</block><block cond="!$gallery_info->img_rotate=='' || $gallery_info->preset=='3' || $gallery_info->preset=='4'">-ms-transform:rotate({rand(-$gallery_info->img_rotate,$gallery_info->img_rotate)}deg);-moz-transform:rotate({rand(-$gallery_info->img_rotate,$gallery_info->img_rotate)}deg);-webkit-transform:rotate({rand(-$gallery_info->img_rotate,$gallery_info->img_rotate)}deg)</block>" />
+	</block>
+</div>

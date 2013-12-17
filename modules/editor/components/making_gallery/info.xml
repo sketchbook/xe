@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component version="0.2">
+    <title xml:lang="ko">갤러리 만들기</title>
+    <description xml:lang="ko">첨부된 파일을 이용하여 갤러리를 만들 수 있습니다.</description>
+    <version>1.0</version>
+    <date>2010-11-08</date>
+    <author email_address="hikaru100@nate.com" link="/">
+        <name xml:lang="ko">hikaru100</name>
+    </author>
+</component>

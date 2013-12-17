@@ -1,0 +1,44 @@
+@charset "utf-8";
+
+/* 리셋 */
+body,p,h1,h2,h3,h4,h5,h6,menu,ul,ol,li,dl,dt,dd,table,th,td,form,fieldset,legend,input,textarea,button,select,hr{margin:0;padding:0}
+header,footer,section,article,aside,nav,hgroup,details,menu,figure,figcaption{display:block}
+button,input[type=submit],input[type=reset],input[type=button]{cursor:pointer;overflow:visible}
+a{text-decoration:none;color:#111}
+a:hover,a:active,a:focus{text-decoration:underline}
+label{cursor:pointer}
+em{font-style:normal}
+
+/* 공통 */
+.clear{display:block;position:relative;clear:both;zoom:1}
+.clear:after{content:"";display:block;clear:both}
+.fl{float:left}
+.fr{float:right}
+a.skipToContent{display:block;position:absolute;top:-1px;width:100%;height:1px;overflow:hidden;text-align:center}
+a.skipToContent:active,a.skipToContent:focus{z-index:999;height:auto;padding:5px;background:#FFF}
+.ui_font{font-family:'Segoe UI',Meiryo,'Trebuchet MS','나눔고딕',NanumGothic,ng,'맑은 고딕','Malgun Gothic'}
+
+/* 레이아웃 */
+body{overflow:hidden;height:100%}
+.popup{width:100% !important;margin:46px 0 40px;background:#F9F9F9}
+#hd,#ft{position:absolute;width:100%;background:#222;color:#EEE;-webkit-box-shadow:0 0 6px rgba(0,0,0,.4);box-shadow:0 0 6px rgba(0,0,0,.4)}
+#hd{top:0;height:45px;border-bottom:1px solid #000}
+#hd h1{position:absolute;top:15px;right:15px;font-size:12px}
+#gnb{padding:15px 20px 0}
+#gnb div{position:relative;float:left;margin-left:-1px;border:1px solid #000;border-bottom:0;background:#666}
+.fnb input{position:absolute;display:block;width:0;height:0;filter:alpha(opacity=0);opacity:0}
+#gnb .label{display:block;height:28px;margin:1px 1px 0;padding:0 15px;background:#444;line-height:28px;text-transform:capitalize}
+#gnb .select{margin-top:-1px;background:#FFF}
+#gnb .select label{background:#F9F9F9;font-weight:bold;color:#000}
+#gnb .select span{display:block;position:absolute;top:29px;left:0;width:100%;height:8px;background:#F9F9F9}
+#body{overflow-y:auto}
+#ft{bottom:0;height:40px;border-top:1px solid #111;*position:fixed}
+#ft .fnb{margin:8px}
+#ft .fnb label{display:inline-block;padding:4px;}
+#ft .fnb .select label{font-weight:bold;text-decoration:underline;color:#FFF}
+#ft .fl{padding:5px}
+
+/* 개별 컴포넌트 */
+.popup{min-width:640px}
+#cnt{min-height:480px;margin:20px;padding:10px;background:#FFF;border:1px solid #DDD}
+#emoticons img{margin:5px;cursor:pointer}

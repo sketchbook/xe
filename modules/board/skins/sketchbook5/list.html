@@ -1,0 +1,234 @@
+<!--// Setting -->
+<include target="__setting.html" />
+<load target="js/imagesloaded.pkgd.min.js" type="body" />
+<load target="js/jquery.masonry.min.js" type="body" />
+<load target="js/jquery.cookie.js" type="body" />
+<load target="js/board.js" type="body" />
+
+<script>//<![CDATA[
+var lang_type = "{$lang_type}";
+var bdLogin = "<!--@if(!$is_logged)-->{$lang->bd_login}@{htmlspecialchars_decode(getUrl('act','dispMemberLoginForm'))}<!--@end-->";
+jQuery(function($){
+	board('#bd_{$mi->module_srl}_{$oDocument->document_srl}');
+});
+//]]></script>
+
+<!--// 뷰어로 보기 -->
+<include cond="$mi->default_style=='viewer' && $grant->view" target="_viewer.html" />
+<block cond="$mi->default_style!='viewer'">
+
+<!--// 상단내용 -->
+<div cond="!$mi->hd_tx">{$mi->header_text}</div>
+<div cond="$mi->hd_tx=='2' && $oDocument->isExists()">{$mi->header_text}</div>
+<div cond="$mi->hd_tx=='3' && !$oDocument->isExists()">{$mi->header_text}</div>
+
+<div id="bd_{$mi->module_srl}_{$oDocument->document_srl}" class="bd {$_COOKIE['use_np']} {$mi->fdb_count}<!--@if(!$mi->hover)--> hover_effect<!--@end--><!--@if(!$mi->select_lst && ($mi->cnb || $mi->use_category!='Y'))--> small_lst_btn{$oDocument->isExists()}<!--@end--><!--@if($mi->select_lst_more)--> select_lst_cloud<!--@end-->" data-default_style="{$mi->default_style}" data-link_board="{$mi->link_board}"|cond="$mi->link_board" data-bdBubble="N"|cond="$mi->bubble=='N'" data-lstViewer="{$lang->with_viewer}"|cond="$mi->lst_viewer=='Y'" data-bdFilesType="{$mi->files_type}" data-bdImgOpt="Y"|cond="$mi->img_opt" data-bdImgLink="Y"|cond="!$mi->img_link && Mobile::isMobileCheckByAgent()" data-bdNavSide="N"|cond="$mi->rd_nav_side || $mi->default_style=='blog' || $mi->default_style=='guest'">
+
+<!--// 헤더 -->
+<div class="bd_hd clear">
+	<include cond="!$mi->breadcrumb" target="_breadcrumb.html" />
+	<!--// 폰트 버튼 -->
+	<div cond="$mi->font_btn!='N'" class="bd_font fr" style="display:none"|cond="$oDocument->isExists() || $mi->font_btn=='2'">
+		<a class="select tg_btn2" href="#" data-href=".bd_font_select"><b>T</b><strong><!--@if($mi->font=='ng')-->나눔고딕<!--@elseif($mi->font=='window_font')-->{$lang->window_font}<!--@elseif($mi->font=='tahoma')-->{$lang->tahoma}<!--@else-->{$lang->best_font}<!--@end--></strong><span class="arrow down"></span></a>
+		<div class="bd_font_select tg_cnt2"><button type="button" class="tg_blur2"></button>
+			<ul>
+				<li class="ui_font<!--@if(!$mi->font)--> on<!--@end-->"><a href="#" title="{$lang->best_font_dsc}">{$lang->best_font}</a><em>✔</em></li>
+				<li class="ng<!--@if($mi->font=='ng')--> on<!--@end-->"><a href="#popup_menu_area">나눔고딕</a><em>✔</em></li>
+				<li class="window_font<!--@if($mi->font=='window_font')--> on<!--@end-->"><a href="#">{$lang->window_font}</a><em>✔</em></li>
+				<li class="tahoma<!--@if($mi->font=='tahoma')--> on<!--@end-->"><a href="#">{$lang->tahoma}</a><em>✔</em></li>
+			</ul><button type="button" class="tg_blur2"></button>
+		</div>
+	</div>
+	<!--// 우측 상단 설정 메뉴 -->
+	<div class="bd_set fr m_btn_wrp">
+		<block cond="$grant->view && $mi->default_style!='guest' && $mi->default_style!='blog'">
+		<a cond="$oDocument->isExists() && !$mi->viewer" class="bg_f_f9" href="#" onclick="window.open('{getUrl('listStyle','viewer','page','')}','viewer','width=9999,height=9999,scrollbars=yes,resizable=yes,toolbars=no');return false"><em>✔</em> <strong>{$lang->viewer}</strong></a>
+		<!--@if($mi->link_board)-->
+		<a cond="$mi->viewer_with!='N'" class="viewer_with bubble<!--@if($mi->viewer_with=='2' || $_COOKIE['cookie_viewer_with']=='Y')--> on<!--@end-->" href="#" title="{$lang->with_viewer_info}."><em>✔</em> <strong>{$lang->link_site_viewer}</strong></a>
+		<!--@else-->
+		<a cond="!$oDocument->isExists() && $mi->viewer_with!='N'" class="viewer_with rd_viewer bubble<!--@if($mi->viewer_with=='2' || $_COOKIE['cookie_viewer_with']=='Y')--> on<!--@end-->" href="#" title="{$lang->with_viewer_info}."><em>✔</em> <strong>{$lang->with_viewer}</strong></a>
+		<!--@end-->
+		</block>
+		<block cond="!$oDocument->isExists()">
+		<a cond="!$mi->srch_window" class="show_srch bubble" href="#" title="{$lang->search_info}"><b class="ico_16px search"></b>{$lang->cmd_search}</a>
+		<a cond="!$mi->write_btn || ($mi->write_btn!='N' && $grant->write_document)" href="{getUrl('act','dispBoardWrite','document_srl','')}"><b class="ico_16px write"></b>{$lang->cmd_write}</a>
+		<span cond="$mi->font_btn=='2'" class="font_select"><a class="select tg_btn2" href="#" data-href=".bd_font_select"><b class="tx_ico_chk">T</b>{$lang->font}<i class="arrow down"></i></a></span>
+		<block cond="$grant->manager">
+		<a href="{getUrl('act','dispBoardAdminBoardInfo')}"><b class="ico_16px setup"></b>{$lang->cmd_setup}</a>
+		<a class="m_no" href="{getUrl('','module','document','act','dispDocumentManageDocument')}" onclick="popopen(this.href,'manageDocument');return false"><b class="tx_ico_chk">✔</b>{$lang->cmd_manage_document}</a>
+		<input cond="$mi->default_style!='list'" type="checkbox" onclick="XE.checkboxToggleAll({ doClick:true });" class="iCheck" title="Check All" />
+		</block>
+		</block>
+	</div>
+	<!--// 본문 내비 -->
+	<include cond="$oDocument->isExists() && $mi->rd_nav=='2'" target="_read_nav.html" />
+</div>
+
+<!--// 본문 -->
+<include cond="$oDocument->isExists()" target="_read.html" />
+
+<!--// 본문에서 목록 감추기 -->
+<div cond="!$oDocument->isExists() || ($oDocument->isExists() && !$mi->rd_lst)" class="bd_lst_wrp">
+
+<div class="tl_srch clear">
+	<!--// 제목 -->
+	<div cond="$mi->title" class="bd_tl">
+		<h1 class="ngeb clear"><i class="bg_color"></i><a href="{getUrl('','mid',$mid)}">{$mi->title}</a></h1>
+		<h2 cond="$mi->sub_title" class="clear"><i class="bg_color"></i>{$mi->sub_title}</h2>
+	</div>
+	<div cond="$mi->title_img" class="fl"><img src="{$mi->title_img}" alt="Title" /></div>
+	<!--// FAQ 검색창 -->
+	<div cond="$mi->srch_window!='N'" class="bd_faq_srch<!--@if($mi->srch_window==3)--> clear<!--@end-->" style="display:block"|cond="$mi->srch_window==2 || $search_keyword">
+		<include target="_search.html" />
+	</div>
+</div>
+
+<div class="cnb_n_list">
+<!--// 카테고리 -->
+<div cond="$mi->use_category=='Y' && $mi->cnb!='N'" class="if_lst_btn"|cond="$mi->select_lst=='N'" style="margin-bottom:30px"|cond="$mi->default_style=='blog'">
+{@ $cate_list = array(); $current_key = null; }
+<!--@foreach($category_list as $key=>$val)-->
+	<!--@if(!$val->depth)-->
+		{@
+			$cate_list[$key] = $val;
+			$cate_list[$key]->children = array();
+			$current_key = $key;
+		}
+	<!--@elseif($current_key)-->
+		{@ $cate_list[$current_key]->children[] = $val }
+	<!--@end-->
+<!--@end-->
+	<div cond="!$mi->cnb" class="bd_cnb clear css3pie<!--@if($mi->cnb_open)--> open<!--@end-->">
+		<a class="home" href="{getUrl('category','','page','','document_srl','')}" title="{$lang->document_count} '{number_format($total_count)}'"><i class="home ico_16px">Category</i></a>
+		<div class="dummy_ie fr"></div>
+		<ul class="bubble bg_f_f9 css3pie">
+			<li class="cnbMore"><a href="#" class="bubble" title="{$lang->category} {$lang->more}"><i class="ui-icon<!--@if($mi->cnb_open)--> ui-icon-triangle-1-n<!--@else--> ui-icon-triangle-1-s<!--@end-->"></i></a></li>
+			<li loop="$cate_list=>$key,$val" class="on"|cond="$category==$val->category_srl">
+				<a class="a1<!--@if($category==$val->category_srl)--> on<!--@end-->" href="{getUrl(category,$val->category_srl,'document_srl','','page','')}" title="{$lang->document_count} {$val->document_count}"|cond="!$mi->cnb_count" style="color:{$val->color}"|cond="$val->color!='transparent'">{$val->title}<small cond="$mi->cnb_count">({$val->document_count})</small></a>
+				<ul cond="count($val->children)" class="wrp">
+					<li loop="$val->children=>$idx,$item" class="li2<!--@if($category==$item->category_srl)--> on<!--@end-->"><a href="{getUrl(category,$item->category_srl,'document_srl','','page','')}" title="{$lang->document_count} {$item->document_count}"|cond="!$mi->cnb_count" style="color:{$item->color}"|cond="$item->color!='transparent'">{$item->title}<small cond="$mi->cnb_count">({$item->document_count})</small></a></li>
+				</ul>
+			</li>
+		</ul>
+	</div>
+	<ul cond="$mi->cnb=='cTab'" class="cTab clear">
+		<li class="home<!--@if(!$category)--> on<!--@end-->"><a href="{getUrl('category','','page','','document_srl','')}" title="{$lang->document_count} {number_format($total_count)}">{$lang->total}<small cond="$mi->cnb_count">({number_format($total_count)})</small></a></li>
+		<li loop="$cate_list=>$key,$val" class="on"|cond="$category==$val->category_srl">
+			<a href="{getUrl(category,$val->category_srl,'document_srl','','page','')}" style="color:{$val->color}"|cond="$val->color!='transparent'">{$val->title}<small cond="$mi->cnb_count">({$val->document_count})</small></a>
+			<ul cond="count($val->children)">
+				<li loop="$val->children=>$idx,$item" class="on_"|cond="$category==$item->category_srl"><a href="{getUrl(category,$item->category_srl,'document_srl','','page','')}" style="color:{$item->color}"|cond="$item->color!='transparent'">{$item->title}</a></li>
+			</ul>
+		</li>
+	</ul>
+</div>
+
+<!--// 게시판 유형 선택 -->
+<div cond="!$mi->select_lst" class="lst_btn fr">
+	<ul>
+		<li class="classic<!--@if($mi->default_style=='list')--> on<!--@end-->"><a class="bubble" href="{getUrl('listStyle','list','act','','document_srl','')}" title="Text Style"><b>List</b></a></li>
+		<li class="zine<!--@if($mi->default_style=='webzine')--> on<!--@end-->"><a class="bubble" href="{getUrl('listStyle','webzine','act','','document_srl','')}" title="Text + Image Style"><b>Zine</b></a></li>
+		<li class="gall<!--@if($mi->default_style=='gallery')--> on<!--@end-->"><a class="bubble" href="{getUrl('listStyle','gallery','act','','document_srl','')}" title="Gallery Style"><b>Gallery</b></a></li>
+		<li cond="$mi->select_lst_more" class="cloud<!--@if($mi->default_style=='cloud_gall')--> on<!--@end-->"><a class="bubble" href="{getUrl('listStyle','cloud_gall','act','','document_srl','')}" title="Photo Cloud"><b>Cloud</b></a></li>
+	</ul>
+</div>
+</div>
+
+<!--// 게시판 유형 -->
+<!--@if($mi->default_style=='list')-->
+<include target="_list_normal.html" />
+<!--@elseif($mi->default_style=='webzine')-->
+<include target="_list_webzine.html" />
+<!--@elseif($mi->default_style=='gallery')-->
+<include target="_list_gallery.html" />
+<!--@elseif($mi->default_style=='cloud_gall')-->
+<include target="_list_cloud_gall.html" />
+<!--@elseif($mi->default_style=='faq')-->
+<include target="_list_faq.html" />
+<!--@elseif($mi->default_style=='guest' && !$oDocument->isExists())-->
+<include target="_list_guest.html" />
+<!--@elseif($mi->default_style=='blog' && !$oDocument->isExists())-->
+<block cond="$mi->rd_nav!='N'">{@ $mi->rd_nav=''}</block>
+<block loop="$document_list=>$no,$oDocument">
+<include target="_read.html" />
+{@ $rd_idx=1}
+</block>
+<!--@else-->
+<include target="_list_normal.html" />
+<!--@end-->
+
+<!--// 하단 메뉴 -->
+<div cond="!$mi->display_setup_button" class="btm_mn clear">
+	<!--// FAQ 검색창 -->
+	<div cond="$mi->srch_btm!='N' && Mobile::isMobileCheckByAgent()" class="bd_faq_srch m_srch" style="display:block;float:none">
+		<include target="_search.html" />
+	</div>
+	<div class="fl">
+		<a cond="@in_array(home,$mi->btm_mn)" class="btn_img fl" href="{getUrl('','mid',$mid,'page',$page,'document_srl','','listStyle',$listStyle)}"><i class="ico_16px list"></i> {$lang->cmd_list}</a>
+		<!--// 하단 검색창 -->
+		<form cond="$mi->srch_btm!='N' && !Mobile::isMobileCheckByAgent()" action="{getUrl()}" method="get" onsubmit="return procFilter(this, search)" class="bd_srch_btm<!--@if($mi->srch_btm==2 || $search_keyword)--> on<!--@end-->" no-error-return-url="true">
+			<input type="hidden" name="vid" value="{$vid}" />
+			<input type="hidden" name="mid" value="{$mid}" />
+			<input type="hidden" name="category" value="{$category}" />
+			<span class="btn_img itx_wrp">
+				<button type="submit" onclick="jQuery(this).parents('form.bd_srch_btm').submit();return false" class="ico_16px search">Search</button>
+				<label for="bd_srch_btm_itx_{$mi->module_srl}">{$lang->cmd_search}</label>
+				<input type="text" name="search_keyword" id="bd_srch_btm_itx_{$mi->module_srl}" class="bd_srch_btm_itx srch_itx" value="{htmlspecialchars($search_keyword)}" />
+			</span>
+			<span class="btn_img select">
+				<select name="search_target">
+					<option loop="$search_option=>$key,$val" value="{$key}" selected="selected"|cond="$search_target==$key">{$val}</option>
+				</select>
+			</span>
+			<a cond="$last_division" class="btn_img bg_f_f9" href="{getUrl('page',1,'document_srl','','division',$last_division,'last_division','')}">{$lang->cmd_search_next}</a>
+		</form>
+	</div>
+	<div class="fr">
+		<a cond="@in_array(tag,$mi->btm_mn)" class="btn_img m_no" href="{getUrl('act','dispBoardTagList')}"><i class="ico_16px tag"></i> {$lang->tag}</a>
+		<a cond="!$mi->write_btm_btn || ($mi->write_btm_btn!='N' && $grant->write_document)" class="btn_img" href="{getUrl('act','dispBoardWrite','document_srl','')}"><i class="ico_16px write"></i> {$lang->cmd_write}</a>
+		<block cond="$grant->manager">
+		<a class="btn_img" href="{getUrl('act','dispBoardAdminBoardInfo')}"><i class="ico_16px setup"></i> {$lang->cmd_setup}</a>
+		<a class="btn_img" href="{getUrl('','module','document','act','dispDocumentManageDocument')}" onclick="popopen(this.href,'manageDocument');return false"><i class="tx_ico_chk">✔</i> {$lang->cmd_manage_document}</a>
+		</block>
+	</div>
+</div>
+
+<!--// 페이지네이션 -->
+<form action="./" method="get" class="bd_pg clear">
+	<fieldset>
+	<legend class="blind">Board Pagination</legend>
+	<input type="hidden" name="vid" value="{$vid}" />
+	<input type="hidden" name="mid" value="{$mid}" />
+	<input type="hidden" name="category" value="{$category}" />
+	<input type="hidden" name="search_keyword" value="{htmlspecialchars($search_keyword)}" />
+	<input type="hidden" name="search_target" value="{$search_target}" />
+	<input type="hidden" name="listStyle" value="{$mi->default_style}" />
+	{@ $prev_page = max($page-1, 1)}
+	{@ $next_page = min($page+1, $page_navigation->last_page)}
+	<a cond="$page!=$prev_page" href="{getUrl('page',$prev_page,'document_srl','','division',$division,'last_division',$last_division)}" class="direction">‹ Prev</a>
+	<strong cond="$page==$prev_page" class="direction">‹ Prev</strong>
+	<a class="frst_last bubble<!--@if($page==1)--> this<!--@end-->" href="{getUrl('page','','document_srl','','division',$division,'last_division',$last_division)}" title="{$lang->first_page}">1</a>
+	<span cond="$page>($mi->page_count)/2+2" class="bubble"><a href="#" class="tg_btn2" data-href=".bd_go_page" title="{$lang->go_page}">...</a></span>
+	<block loop="$page_no=$page_navigation->getNextPage()" cond="$page_no!=1 && $page_no!=$page_navigation->last_page">
+		<strong class="this" cond="$page==$page_no">{$page_no}</strong> 
+		<a cond="$page!=$page_no" href="{getUrl('page',$page_no,'document_srl','','division',$division,'last_division',$last_division)}">{$page_no}</a>
+	</block>
+	<span cond="($page+($mi->page_count+1)/2<$page_navigation->last_page) && ($mi->page_count+1<$page_navigation->last_page)" class="bubble"><a href="#" class="tg_btn2" data-href=".bd_go_page" title="{$lang->cmd_go_to_page}">...</a></span>
+	<a cond="$page_navigation->last_page!=1" class="frst_last bubble<!--@if($page==$page_navigation->last_page)--> this<!--@end-->" href="{getUrl('page',$page_navigation->last_page,'document_srl','','division',$division,'last_division',$last_division)}" title="{$lang->last_page}">{$page_navigation->last_page}</a>
+	<a cond="$page!=$next_page" href="{getUrl('page',$next_page,'document_srl','','division',$division,'last_division',$last_division)}" class="direction">Next ›</a>
+	<strong cond="$page==$next_page" class="direction">Next ›</strong>
+	<div class="bd_go_page tg_cnt2 wrp">
+		<button type="button" class="tg_blur2"></button>
+		<input type="text" name="page" class="itx" />/ {$page_navigation->last_page} <button type="submit" class="bd_btn">GO</button>
+		<span class="edge"></span>
+		<!--// ie8; --><i class="ie8_only bl"></i><i class="ie8_only br"></i>
+		<button type="button" class="tg_blur2"></button>
+	</div>
+	</fieldset>
+</form>
+
+<!--// 끝 : 본문에서 목록 감추기 -->
+</div>
+
+<include target="_footer.html" />
+
+</block>

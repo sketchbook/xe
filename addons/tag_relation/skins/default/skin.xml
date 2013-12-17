@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<skin version="0.2">
+	<title xml:lang="ko">sketchbook5 연관글 출력 스킨</title>
+	<description xml:lang="ko">연관글 출력 애드온의 스킨입니다. sketchbook5 게시판 스킨 전용입니다.</description>
+	<version>0.9.5</version>
+	<date>2011-02-07</date>
+	<link>http://sketchbook.xegazet.com/</link>
+	<author email_address="hikaru100@nate.com" link="http://sketchbook.xegazet.com/">
+		<name xml:lang="ko">hikaru100</name>
+	</author>
+</skin>

@@ -1,0 +1,128 @@
+<div class="cmt_editor" style="margin-top:30px"|cond="$mi->cmt_wrt_position=='cmt_wrt_btm' && $oDocument->getCommentcount()">
+
+<label for="editor_{$oDocument->document_srl}" class="cmt_editor_tl fl"><em>✔</em><strong>{$lang->write_comment}</strong></label>
+<!--// Editor Select -->
+<div cond="$mi->select_editor!='N'" class="editor_select bubble fr m_no" title="{$lang->noti_rfsh}">
+	<a class="tg_btn2" href="#" data-href="#editor_select"><b class="tx_ico_circ bg_color"><i class="ie8_only color">●</i><b>?</b></b> {$lang->select_editor}</a>
+	<div cond="$rd_idx==0" id="editor_select" class="tg_cnt2 wrp m_no"><button type="button" class="tg_blur2"></button>
+		<a class="on"|cond="$mi->cmt_wrt=='simple'" href="#" onclick="jQuery.cookie('bd_editor','simple');location.reload();return false"><em>✔ </em>{$lang->textarea}</a>
+		<a class="on"|cond="$mi->cmt_wrt=='editor'" href="#" onclick="jQuery.cookie('bd_editor','editor');location.reload();return false"><em>✔ </em>{$lang->wysiwyg}</a>
+		<a cond="$mi->select_editor=='2' || $mi->cmt_wrt=='sns'" class="on"|cond="$mi->cmt_wrt=='sns'" href="#" onclick="jQuery.cookie('bd_editor','sns');location.reload();return false"><em>✔ </em>{$lang->sxc_editor}</a>
+		<span class="edge"></span><button type="button" class="tg_blur2"></button>
+		<!--// ie8; --><i class="ie8_only bl"></i><i class="ie8_only br"></i>
+	</div>
+</div>
+
+<!--@if($grant->write_comment && $oDocument->isEnableComment())-->
+<form action="./" method="post" onsubmit="return procFilter(this, insert_comment)" class="bd_wrt cmt_wrt clear">
+	<input type="hidden" name="mid" value="{$mid}" />
+	<input type="hidden" name="document_srl" value="{$oDocument->document_srl}" />
+	<input type="hidden" name="comment_srl" value="" />
+	<input type="hidden" name="content" value="" />
+	<block cond="$mi->cmt_wrt=='editor'">{$oDocument->getCommentEditor()}</block>
+	<div cond="$mi->cmt_wrt=='simple'" class="simple_wrt">
+		<img cond="$logged_info->profile_image->src" class="profile img" src="{$logged_info->profile_image->src}" alt="profile" />
+		<span cond="!$logged_info->profile_image->src" class="profile img no_img">?</span>
+		<div class="text">
+			<input type="hidden" id="htm_{$oDocument->document_srl}" value="n" />
+			<textarea id="editor_{$oDocument->document_srl}" cols="50" rows="3"></textarea>
+		</div>
+		<input type="submit" value="{$lang->cmd_submit}" class="bd_btn" />
+	</div>
+	<div class="edit_opt clear" style="display:none"|cond="$mi->cmt_wrt!='editor'">
+		<block cond="!$is_logged">
+		<span class="itx_wrp">
+			<label for="nick_name_{$oDocument->document_srl}">{$lang->writer}</label>
+			<input type="text" name="nick_name" id="nick_name_{$oDocument->document_srl}" class="itx n_p" />
+		</span>
+		<span class="itx_wrp">
+			<label for="password_{$oDocument->document_srl}">{$lang->password}</label>
+			<input type="password" name="password" id="password_{$oDocument->document_srl}" class="itx n_p" />
+		</span>
+		<span class="itx_wrp">
+			<label for="email_address_{$oDocument->document_srl}">{$lang->email_address}</label>
+			<input type="text" name="email_address" id="email_address_{$oDocument->document_srl}" class="itx m_h" />
+		</span>
+		<span class="itx_wrp">
+			<label for="homepage_{$oDocument->document_srl}">{$lang->homepage}</label>
+			<input type="text" name="homepage" id="homepage_{$oDocument->document_srl}" class="itx m_h" />
+		</span>
+		</block>
+        <input cond="$mi->cmt_wrt=='editor'" type="submit" value="{$lang->cmd_submit}" class="bd_btn fr" />
+		<div class="opt_chk">
+			<block cond="$is_logged">
+			<input type="checkbox" name="notify_message" value="Y" id="notify_message_{$oDocument->document_srl}" checked="checked"|cond="@in_array(notify,$mi->wrt_opt)" />
+			<label for="notify_message_{$oDocument->document_srl}">{$lang->notify}</label>
+			</block>
+			<block cond="$mi->use_status!='PUBLIC'">
+			<input type="checkbox" name="is_secret" value="Y" id="is_secret_{$oDocument->document_srl}" checked="checked"|cond="@in_array(secret,$mi->wrt_opt)" />
+			<label for="is_secret_{$oDocument->document_srl}">{$lang->secret}</label>
+			</block>
+		</div>
+	</div>
+</form>
+
+<!--// 대댓글 -->
+<div cond="$rd_idx==0" id="re_cmt">
+	<label for="editor_2" class="cmt_editor_tl fl"><i class="ico_16px re"></i><strong>{$lang->write_comment}</strong></label>
+	<div class="editor_select fr">
+		<a class="wysiwyg m_no" href="#"><b class="tx_ico_circ bg_color"><span class="ie8_only color">●</span><b>?</b></b> {$lang->use_wysiwyg}</a>
+		<a class="close" href="#" onclick="jQuery('#re_cmt').fadeOut().parent().find('.re_comment').focus();return false"><i class="ui-icon ui-icon-closethick"></i>{$lang->cmd_close}</a>
+	</div>
+	<form action="./" method="post" onsubmit="return procFilter(this,insert_comment)" class="bd_wrt clear">
+		<input type="hidden" name="mid" value="{$mid}" />
+		<input type="hidden" name="document_srl" value="{$oDocument->document_srl}" />
+		<input type="hidden" name="content" value="" />
+		<input type="hidden" name="parent_srl" value="" />
+		<div class="simple_wrt">
+			<input type="hidden" id="htm_2" value="n" />
+			<textarea id="editor_2" cols="50" rows="5"></textarea>
+		</div>
+		<div class="edit_opt">
+			<block cond="!$is_logged">
+			<span class="itx_wrp">
+				<label for="nick_name">{$lang->writer}</label>
+				<input type="text" name="nick_name" id="nick_name" class="itx n_p" />
+			</span>
+			<span class="itx_wrp">
+				<label for="password">{$lang->password}</label>
+				<input type="password" name="password" id="password" class="itx n_p" />
+			</span>	
+			<span class="itx_wrp">
+				<label for="email_address">{$lang->email_address}</label>
+				<input type="text" name="email_address" id="email_address" class="itx m_h" />
+			</span>	
+			<span class="itx_wrp">
+				<label for="homepage">{$lang->homepage}</label>
+				<input type="text" name="homepage" id="homepage" class="itx m_h" />
+			</span>
+			</block>
+            <input type="submit" value="{$lang->cmd_submit}" class="bd_btn fr" />
+		</div>
+		<span class="opt_chk">
+			<block cond="$is_logged">
+				<input type="checkbox" name="notify_message" value="Y" id="notify_message" checked="checked"|cond="@in_array(notify,$mi->wrt_opt)" />
+				<label for="notify_message">{$lang->notify}</label>
+			</block>
+			<block cond="$mi->use_status!='PUBLIC'">
+				<input type="checkbox" name="is_secret" value="Y" id="is_secret" checked="checked"|cond="@in_array(secret,$mi->wrt_opt)" />
+				<label for="is_secret">{$lang->secret}</label>
+			</block>
+		</span>
+	</form>
+</div>
+
+<!--@else-->
+<div class="bd_wrt clear">
+	<div class="simple_wrt">
+		<span class="profile img no_img">?</span>
+		<div class="text">
+			<a cond="!$is_logged" class="cmt_disable bd_login" href="#"><p>{$lang->write_comment} {$lang->msg_not_permitted} {$lang->bd_login}</p></a>
+			<div cond="$is_logged" class="cmt_disable bd_login"><p>{$lang->write_comment} {$lang->msg_not_permitted}</p></div>
+		</div>
+		<input type="submit" value="{$lang->cmd_submit}" disabled="disabled" class="bd_btn" />
+	</div>
+</div>
+<!--@end-->
+
+</div>

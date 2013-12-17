@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<addon version="0.2">
+	<title xml:lang="ko">prettyPhoto 이미지 뷰어와 리사이즈</title>
+	<description xml:lang="ko">
+		이 애드온은 prettyPhoto 스크립트를 사용해 XE의 '리사이즈 애드온'의 기능을 대체한 애드온입니다.
+		1. 본문에 삽입된 이미지를 리사이즈합니다. 2. 이미지를 뷰어로 볼 수 있습니다. 3. 본문에 삽입된 http 링크를 뷰어로 볼 수 있습니다. 유튜브 등의 동영상 링크는 링크의 이동없이 동영상을 직접 볼 수 있게 합니다. 
+		* 모바일에서는 강제적으로 적용되지 않도록 했습니다.
+		* prettyPhoto 제작자 홈페이지를 참조하세요. http://www.no-margin-for-errors.com/
+	</description>
+	<version>1.1.3.0</version>
+	<date>2010-11-08</date>
+	<author email_address="contact@sketchbooks.co.kr" link="http://sketchbooks.co.kr/">
+		<name xml:lang="ko">sketchbook</name>
+	</author>
+	<extra_vars>
+		<group>
+			<title xml:lang="ko">공통 옵션</title>
+			<var name="theme" type="select">
+				<title xml:lang="ko">테마</title>
+				<description xml:lang="ko">테마(스킨)를 선택합니다.</description>
+				<options value="">
+					<title xml:lang="ko">default(기본값)</title>
+				</options>
+				<options value="facebook">
+					<title xml:lang="ko">facebook</title>
+				</options>
+				<options value="light_rounded">
+					<title xml:lang="ko">light_rounded</title>
+				</options>
+				<options value="dark_rounded">
+					<title xml:lang="ko">dark_rounded</title>
+				</options>
+				<options value="light_square">
+					<title xml:lang="ko">light_square</title>
+				</options>
+				<options value="dark_square">
+					<title xml:lang="ko">dark_square</title>
+				</options>
+			</var>
+			<var name="auto_slide" type="select">
+				<title xml:lang="ko">자동 슬라이드 쇼</title>
+				<description xml:lang="ko">시작 시 자동으로 슬라이스 쇼를 사용할 것인지 결정합니다.</description>
+				<options value="">
+					<title xml:lang="ko">아니오(기본값)</title>
+				</options>
+				<options value="true">
+					<title xml:lang="ko">예</title>
+				</options>
+			</var>
+			<var name="slideshow" type="text">
+				<title xml:lang="ko">자동 슬라이드 쇼 시간</title>
+				<description xml:lang="ko">자동 슬라이드 쇼의 전환 시간을 설정합니다. 단위는 1000 = 1초 입니다. 기본설정은 '5000' 입니다.</description>
+			</var>
+			<var name="show_title" type="select">
+				<title xml:lang="ko">상단에 제목 표시</title>
+				<description xml:lang="ko">이미지의 alt 를 상단의 제목으로 표시합니다.</description>
+				<options value="">
+					<title xml:lang="ko">아니오(기본값)</title>
+				</options>
+				<options value="true">
+					<title xml:lang="ko">예</title>
+				</options>
+			</var>
+			<var name="opacity" type="text">
+				<title xml:lang="ko">배경 레이어 투명</title>
+				<description xml:lang="ko">배경 검은색 투명창의 투명도를 설정합니다. '1(불투명) ~ 0.00(투명)'로 입력해주세요(소수점 가능). ※ 주의사항은 '0'의 경우 입력할 수 없으므로 '00'을 입력해주세요. 입력하지 않으면 기본설정은 '0.8' 입니다.</description>
+			</var>
+		</group>
+		<group>
+			<title xml:lang="ko">이미지 뷰어를 사용하지 않을 예외</title>
+			<var name="noWidth" type="text">
+				<title xml:lang="ko">이미지 넓이에 따라</title>
+				<description xml:lang="ko">이미지가 설정한 넓이 미만인 경우에는 프리티포토를 사용하지 않습니다. '숫자'만 기입하세요(단위는 'px'입니다).입력하지 않으면 기본설정은 '100' 입니다.</description>
+			</var>
+			<var name="noHeight" type="text">
+				<title xml:lang="ko">이미지 높이에 따라</title>
+				<description xml:lang="ko">이미지가 설정한 높이 미만인 경우에는 프리티포토를 사용하지 않습니다. '숫자'만 기입하세요(단위는 'px'입니다).입력하지 않으면 기본설정은 '100' 입니다.</description>
+			</var>
+			<var name="ifLink" type="select">
+				<title xml:lang="ko">이미지에 링크가 있는 경우</title>
+				<description xml:lang="ko">만약 브라우저에서 이미지를 복사하여 스크랩하는 경우, 링크가 있다면 링크까지 복사하게 됩니다. 이런 경우에 이 옵션을 활성화하면 이미지를 클릭 시 본래의 링크로 이동시키지 않고 프리티포토 뷰어로 볼 수 있게 됩니다.</description>
+				<options value="">
+					<title xml:lang="ko">예(기본값)</title>
+				</options>
+				<options value="N">
+					<title xml:lang="ko">아니오</title>
+				</options>
+			</var>
+		</group>
+		<group>
+			<title xml:lang="ko">링크 뷰어</title>
+			<var name="linkViewer" type="select">
+				<title xml:lang="ko">사용여부</title>
+				<options value="">
+					<title xml:lang="ko">사용(기본값)</title>
+				</options>
+				<options value="N">
+					<title xml:lang="ko">사용 안함</title>
+				</options>
+			</var>
+			<var name="linkStyle" type="select">
+				<title xml:lang="ko">버튼 표시 스타일</title>
+				<options value="">
+					<title xml:lang="ko">링크에 마우스 오버(또는 포커스) 시 표시(기본값)</title>
+				</options>
+				<options value="pp_i2">
+					<title xml:lang="ko">링크 옆 링크 이미지 표시</title>
+				</options>
+			</var>
+			<var name="iframeWidth" type="text">
+				<title xml:lang="ko">창 넓이</title>
+				<description xml:lang="ko">창의 넓이를 설정합니다. '단위'까지 기입하세요(예 :'%', px' 등). 입력하지 않으면 기본설정은 '100%' 입니다.</description>
+			</var>
+			<var name="iframeHeight" type="text">
+				<title xml:lang="ko">창 높이</title>
+			</var>
+			<var name="linkMixed" type="select">
+				<title xml:lang="ko">혼합 뷰어</title>
+				<description xml:lang="ko">뷰어의 목록에서 이미지와 링크를 함께 볼 것인지를 결정합니다. '사용 안함'의 경우 링크들만을 대상으로 목록을 만듭니다.</description>
+				<options value="">
+					<title xml:lang="ko">사용 안함(기본값)</title>
+				</options>
+				<options value="mixed">
+					<title xml:lang="ko">사용함</title>
+				</options>
+			</var>
+		</group>
+	</extra_vars>
+</addon>

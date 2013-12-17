@@ -1,0 +1,23 @@
+@charset "utf-8";
+/* Mobile Editor */
+#mUpload{margin:16px 0;border:1px solid #DDD;background:#FFF}
+#mUpload .bg_f_f9{padding:4px 12px;border-bottom:1px solid #DDD;box-shadow:inset 0 -1px 1px #FFF}
+#mUpload .fl{padding:0 20px;background:url(../img/photo.png) no-repeat 0 50%;font-size:13px;line-height:30px}
+#mUpload ul{list-style:none;min-height:32px;margin:0 -2px;padding:4px}
+#mUpload li{position:relative;float:left;margin:4px;text-align:center;border-radius:5px;box-shadow:0 1px 4px rgba(0,0,0,.3)}
+#mUpload li button{display:block;width:88px;height:88px;border:0;border-radius:5px;background-position:50% 50%;background-repeat:no-repeat;background-size:cover}
+#mUpload .type2:before{display:block;position:absolute;top:10px;left:26px;width:36px;height:40px;font-size:28px;line-height:40px;color:#FFA500;text-shadow:0 1px 1px #f08080}
+#mUpload .music:before{content:"♪";font-size:40px}
+#mUpload .media:before{content:"▶"}
+#mUpload .etc:before{content:"?";background:#F6F6F6;box-shadow:0 1px 4px rgba(0,0,0,.3)}
+#mUpload li small{overflow:hidden;position:absolute;top:56px;padding:0 8px;width:72px;height:20px;line-height:10px;text-overflow:ellipsis;color:#777}
+#mUpload .select button:before{content:"";position:absolute;top:0;left:0;width:80px;height:80px;border:4px solid #FFA500}
+#mUpload a{display:block;position:absolute;bottom:0;left:0;width:50%;height:50%}
+#mUpload b{display:block;position:absolute;top:0;right:0;width:18px;height:18px;border-radius:0 5px;background:rgba(0,0,0,.4);font-weight:bold;line-height:18px;text-decoration:none;color:#FFF}
+#mUpload a b{top:auto;right:0;bottom:0;left:0}
+#mUpload .select b{background:#FFA500}
+#mUpload #loading{display:none;width:86px;height:86px;background:url(../img/white/loading.gif) 50% 50% no-repeat;box-shadow:none}
+#mUpload .info{float:none;width:auto;height:auto;margin:4px 0;padding:4px 0;box-shadow:none}
+#mUpload .is_img span,#mUpload .info div{display:none}
+#mUpload .is_img div{display:block;border-top:1px solid #DDD}
+#mUpload .is_img div *{vertical-align:middle}

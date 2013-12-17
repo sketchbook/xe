@@ -1,0 +1,23 @@
+<form action="{getUrl()}" method="get" onsubmit="return procFilter(this, search)" no-error-return-url="true">
+	<input type="hidden" name="vid" value="{$vid}" />
+	<input type="hidden" name="mid" value="{$mid}" />
+	<input type="hidden" name="category" value="{$category}" />
+	<table class="bd_tb">
+		<tr>
+			<td>
+				<span class="select itx">
+					<select name="search_target">
+						<option loop="$search_option=>$key,$val" value="{$key}" selected="selected"|cond="$search_target==$key">{$val}</option>
+					</select>
+				</span>
+			</td>
+			<td class="itx_wrp">
+				<input type="text" name="search_keyword" value="{htmlspecialchars($search_keyword)}" class="itx srch_itx" />
+			</td>
+			<td>
+				<button type="submit" onclick="jQuery(this).parents('form').submit();return false" class="bd_btn">{$lang->cmd_search}</button>
+				<a cond="$last_division" class="bd_btn" href="{getUrl('page',1,'document_srl','','division',$last_division,'last_division','')}">{$lang->cmd_search_next}</a>
+			</td>
+		</tr>
+	</table>
+</form>

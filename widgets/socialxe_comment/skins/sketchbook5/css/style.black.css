@@ -1,0 +1,11 @@
+@charset "utf-8";
+.sxc .img.xe{background-color:#000}
+.sxc .socialxe_input{border-color:#111}
+.sxc .socialxe_input strong{color:#EEE}
+.sxc .socialxe_profile_image,.sxc .first_line,.sxc .socialxe_comment_item,.sxc .socialxe_more,.sxc .socialxe_service,.sxc .fdb_itm:last-child{border-color:#333}
+.sxc .socialxe_master_change_list{background:#111;border-color:#333}
+.sxc .box_wrp{border-color:#444;background:#222}
+.sxc .socialxe_content_input .disabled{background:#111}
+.sxc .socialxe_sub_comment .sub_li{background:#131313;border-color:#444}
+.sxc .socialxe_sub_comment .sub_li:hover{background:#090909;border-color:#333}
+.sxc .socialxe_sub_comment_input .socialxe_right input{color:#FFF;text-shadow:1px 1px 0 rgba(0,0,0,.8);border-color:#666;background:#333}

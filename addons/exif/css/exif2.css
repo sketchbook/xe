@@ -1,0 +1,17 @@
+@charset "utf-8";
+.exif_addon{display:none;position:absolute;z-index:100;margin:20px;padding:20px 25px;background:#000;background:rgba(0,0,0,.8);font:11px/18px Tahoma;border:1px solid #444;text-align:left;filter:alpha(opacity=80);opacity:1}
+.exif_addon strong{margin-bottom:15px;font-size:17px !important;color:#fff !important;text-shadow:0 0 1px #FFF}
+.exif_addon span{color:#CCC}
+.exif_addon span b{display:inline-block;min-width:90px;margin-right:20px;font-weight:normal;color:#fff}
+.exif_addon:hover,.exif_addon strong,.exif_addon span{display:block !important}
+.exif_addon button{display:none}
+
+.exif_addon .exif_gps{margin:5px -10px -5px;padding:5px 10px;cursor:pointer;border:1px solid #555;border-radius:4px;background:#111;box-shadow:0 0 3px #000}
+
+@media screen and (max-width:533px){
+.exif_addon{display:block;position:static;margin:0;padding:8px 0 24px;background:none;border:0;text-align:center;filter:none}
+.exif_addon span{display:inline !important;padding:0 7px;border-right:1px solid #DDD;color:#888}
+.black .exif_addon span{border-color:#333}
+.exif_size{border:0 !important}
+.exif_addon span b,.exif_addon button,.exif_addon strong,.exif_addon .exif_none,.exif_addon .exif_gps{display:none !important}
+}

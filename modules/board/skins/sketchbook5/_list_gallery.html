@@ -1,0 +1,123 @@
+<block cond="!$mi->gall_tl_font">{@ $mi->gall_tl_font = np }</block>
+
+<include cond="$notice_list && $mi->notice_style=='2'" target="_notice.html" />
+<ol class="bd_lst bd_tmb_lst gall_style{$mi->gall_style} img_load{$mi->tmb_effect} tmb_bg{$mi->tmb_hover_bg} clear" data-gall_deg="{$mi->gall_deg}"|cond="$mi->gall_deg">
+<!--// 공지 시작(공백제거를 위해 줄바꿈 생략) --><li cond="$notice_list && !$mi->notice_style" loop="$notice_list=>$no,$document" class="notice">
+	<div class="tmb_wrp ribbon_v{$mi->ribbon_style}">
+		<!--// 그림자 -->
+		<block cond="$mi->gall_shadow!='N'">
+		<i class="bg fixed"></i><i class="bg2 fixed"></i>
+		<!--// ie8 only; --><img class="ie8_only shadow" src="img/ie/shadow.png" alt="" />
+		</block>
+		<!--// 썸네일 -->
+		<span cond="!$document->thumbnailExists()" class="no_img tmb">No Image</span>
+		<block cond="$document->thumbnailExists()"><span cond="$mi->tmb_effect=='2'" class="no_img loading"></span><img class="tmb" src="{$document->getThumbnail($mi->thumbnail_width, $mi->thumbnail_height, $mi->thumbnail_type)}" alt="" /></block>
+		<!--// 제목 : 액자 스타일 -->
+		<p cond="!$mi->gallery_tl && $mi->gall_style=='2'" class="frame_tl {$mi->gall_tl_font}">{$document->getTitle($mi->gall_tl_cut)}</p>
+		<!--// 좌측 상단 리본 -->
+		<span class="ribbon nnu notice"><i>notice</i></span>
+		<!--// 우측 하단 투명창 -->
+		<span cond="$mi->trans_window!='N'" class="trans_window fixed">
+			<block cond="$mi->trans_window!='date'">by {$document->getNickName()}</block>
+			<b cond="$mi->trans_window=='date'">{$document->getRegdate("Y.m.d")}</b>
+		</span>
+		<!--// 마우스 오버 시 정보 -->
+		<a href="{getUrl('document_srl',$document->document_srl,'listStyle',$listStyle, 'cpage','')}" class="fixed">
+			<span cond="$mi->tmb_hover!='N'" class="info_wrp">
+				<span class="info st<!--@if($mi->tmb_hover=='R')-->{rand(1,4)}<!--@else-->{$mi->tmb_hover}<!--@end-->">
+					<span class="padding">
+						<b cond="$mi->gallery_tl=='N'" class="tl">{$document->getTitle($mi->gall_tl_cut)}</b>
+						<b cond="$list_config['regdate']" class="tl">{$document->getRegdate("Y/m/d")}</b>
+						<block cond="$list_config['nick_name']">by <b>{$document->getNickName()}</b><br /></block>
+						<block cond="$mi->use_category=='Y' && $document->get('category_srl')">in <b>{$category_list[$document->get('category_srl')]->title}</b><br /></block>
+						<span><block cond="$list_config['readed_count']">Views <b>{$document->get('readed_count')}</b>&nbsp;</block> <block cond="$list_config['voted_count']">Likes <b>{$document->get('voted_count')}</b></block></span>
+						<block cond="$document->getCommentCount()">Replies <b>{$document->getCommentCount()}</b></block>
+					</span>
+				</span>
+			</span>
+		</a>
+		<!--// 데코레이션 -->
+		<block cond="!$mi->deco"><i class="ico_32px deco1 fixed"></i><i class="ico_32px deco2 fixed"></i></block>
+		<i cond="$mi->deco=='2'" class="deco deco3 fixed"></i>
+		<i cond="$mi->deco_img" class="deco deco_img fixed"></i>
+	</div>
+	<!--// 제목(기본) -->
+	<p cond="!$mi->gallery_tl && !$mi->gall_style">
+		<b>{$document->getTitle($mi->gall_tl_cut)}</b>
+		<a cond="@in_array(gall,$mi->cmt_count)" class="replyNum" href="{getUrl('document_srl',$document->document_srl,'listStyle',$listStyle, 'cpage','')}#comment">{$document->getCommentCount()}</a>
+		<span cond="@in_array(gall,$mi->ext_img)" class="extraimages">{$document->printExtraImages(60*60*$mi->duration_new)}</span>
+		<input cond="$grant->manager" type="checkbox" name="cart" value="{$document->document_srl}" title="Check this" onclick="doAddDocumentCart(this)" checked="checked"|cond="$document->isCarted()" />
+	</p>
+</li>
+<!--// 일반 목록 시작(공백제거를 위해 줄바꿈 생략) --><li loop="$document_list=>$no,$document" class="select"|cond="$document_srl==$document->document_srl">
+	<div class="tmb_wrp ribbon_v{$mi->ribbon_style}">
+		<!--// 그림자 -->
+		<block cond="$mi->gall_shadow!='N'">
+		<i class="bg fixed"></i><i class="bg2 fixed"></i>
+		<!--// ie8 only; --><img class="ie8_only shadow" src="img/ie/shadow.png" alt="" />
+		</block>
+		<!--// 썸네일 -->
+		<span cond="!$document->thumbnailExists()" class="no_img tmb">No Image</span>
+		<block cond="$document->thumbnailExists()"><span cond="$mi->tmb_effect=='2'" class="no_img loading"></span><img class="tmb" src="{$document->getThumbnail($mi->thumbnail_width, $mi->thumbnail_height, $mi->thumbnail_type)}" alt="" /></block>
+		<!--// 제목 : 액자 스타일 -->
+		<p cond="!$mi->gallery_tl && $mi->gall_style=='2'" class="frame_tl {$mi->gall_tl_font}">{$document->getTitle($mi->gall_tl_cut)}</p>
+		<!--// 리본 -->
+		<block cond="$mi->gall_ribbon!='N'">
+		<block cond="!$mi->gall_ribbon || $mi->gall_ribbon=='new_update'">
+		<!--@if((int)($document->getRegdate('YmdHis')>date("YmdHis", time()-$mi->duration_new*60*60)))-->
+		<span class="ribbon nnu new"><i>new</i></span>
+		<!--@elseif((int)(zdate($document->get('last_update'),'YmdHis')>date("YmdHis", time()-$mi->duration_new*60*60)))-->
+		<span class="ribbon nnu update"><i>update</i></span>
+		<!--@else-->
+		<span cond="!$mi->gall_ribbon" class="ribbon"><i class="date"><b>{$document->getRegdate("d")}</b><small>{$document->getRegdate("M")}</small></i></span>
+		<!--@end-->
+		</block>
+		<span cond="$mi->gall_ribbon && $mi->gall_ribbon!='new_update'" class="ribbon">
+			<i cond="$mi->gall_ribbon=='cate' && $document->get('category_srl')" class="cate">{$category_list[$document->get('category_srl')]->title}</i>
+			<i cond="$mi->gall_ribbon=='date'" class="date"><b>{$document->getRegdate("d")}</b><small>{$document->getRegdate("M")}</small></i>
+			<i cond="$mi->gall_ribbon=='read'"><b>{$document->get('readed_count')}</b><small>Views</small></i>
+			<i cond="$mi->gall_ribbon=='vote'"><b>{$document->get('voted_count')}</b><small>Likes</small></i>
+			<i cond="$mi->gall_ribbon=='cmt'"><b>{$document->getCommentCount()}</b><small>Replies</small></i>
+			<i cond="$mi->gall_ribbon=='extra'">{$document->getExtraValueHTML($mi->extra_num)}<!--<small>{@$extravar_list = $document->getExtraVars()}{$extravar_list[$mi->extra_num]->name}</small>--></i>
+		</span>
+		</block>
+		<!--// 우측 하단 투명창 -->
+		<div cond="$mi->trans_window!='N'" class="trans_window fixed">
+			<block cond="!$mi->trans_window">by {$document->getNickName()}</block>
+			<b cond="$mi->trans_window=='date'">{$document->getRegdate("Y.m.d")}</b>
+			<block cond="$mi->trans_window=='cate' && $document->get('category_srl')">Category : {$category_list[$document->get('category_srl')]->title}</block>
+			<block cond="$mi->trans_window=='read'">Views : {$document->get('readed_count')}</block>
+			<block cond="$mi->trans_window=='vote'">Likes : {$document->get('voted_count')}</block>
+			<block cond="$mi->trans_window=='cmt'">Replies : {$document->getCommentCount()}</block>
+			<block cond="$mi->trans_window=='extra'">{@$extravar_list = $document->getExtraVars()}{$extravar_list[$mi->extra_num2]->name} : {$document->getExtraValueHTML($mi->extra_num2)}</block>
+		</div>
+		<!--// 마우스 오버 시 정보 -->
+		<a class="hx fixed" <!--@if(!$mi->link_board)-->href="{getUrl('document_srl',$document->document_srl,'listStyle',$listStyle,'cpage','')}"<!--@else-->href="{$document->getExtraEidValue('link_url')}" target="_blank"<!--@end--> data-viewer="{getUrl('document_srl',$document->document_srl,'listStyle','viewer','page','')}">
+			<span cond="$mi->tmb_hover!='N'" class="info_wrp">
+				<span class="info st<!--@if($mi->tmb_hover=='R')-->{rand(1,4)}<!--@else-->{$mi->tmb_hover}<!--@end-->">
+					<span class="padding">
+						<b cond="$mi->gallery_tl=='N'" class="tl">{$document->getTitle($mi->gall_tl_cut)}</b>
+						<b cond="$list_config['regdate']" class="tl">{$document->getRegdate("Y/m/d")}</b>
+						<block cond="$list_config['nick_name']">by <b>{$document->getNickName()}</b><br /></block>
+						<block cond="$mi->use_category=='Y' && $document->get('category_srl')">in <b>{$category_list[$document->get('category_srl')]->title}</b><br /></block>
+						<span><block cond="$list_config['readed_count']">Views <b>{$document->get('readed_count')}</b>&nbsp;</block> <block cond="$list_config['voted_count']">Likes <b>{$document->get('voted_count')}</b></block></span>
+						<block cond="$document->getCommentCount()">Replies <b>{$document->getCommentCount()}</b></block>
+					</span>
+				</span>
+			</span>
+		</a>
+		<!--// 데코레이션 -->
+		<block cond="!$mi->deco"><i class="ico_32px deco1 fixed"></i><i class="ico_32px deco2 fixed"></i></block>
+		<i cond="$mi->deco=='2'" class="deco deco3 fixed"></i>
+		<i cond="$mi->deco_img" class="deco deco_img fixed"></i>
+	</div>
+	<!--// 제목(기본) -->
+	<p cond="!$mi->gallery_tl && !$mi->gall_style">
+		<b>{$document->getTitle($mi->gall_tl_cut)}</b>
+		<a cond="@in_array(gall,$mi->cmt_count)" class="replyNum" href="{getUrl('document_srl',$document->document_srl,'listStyle',$listStyle, 'cpage','')}#comment">{$document->getCommentCount()}</a>
+		<span cond="@in_array(gall,$mi->ext_img)" class="extraimages">{$document->printExtraImages(60*60*$mi->duration_new)}</span>
+		<input cond="$grant->manager" type="checkbox" name="cart" value="{$document->document_srl}" title="Check this" onclick="doAddDocumentCart(this)" checked="checked"|cond="$document->isCarted()" />
+	</p>
+</li>
+<li cond="!$document_list && !$notice_list">{$lang->no_documents}</li>
+</ol>

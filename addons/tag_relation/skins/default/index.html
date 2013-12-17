@@ -1,0 +1,23 @@
+<div class="tag_relation clear {$module_info->colorset}">
+	<h4 cond="$tag_relation->title"><em class="shadow">■</em>&nbsp; {$tag_relation->title}</h4>
+	<ul>
+		<li loop="$tag_relation_document_list=>$oDocument">
+			<div class="tmb_wrp">
+				<img cond="$oDocument->thumbnailExists()" class="img" src="{$oDocument->getThumbnail(90)}" alt="" />
+				<span cond="!$oDocument->thumbnailExists()" class="img no_img">No Image</span>
+				<a class="fixed" href="{getUrl('document_srl',$oDocument->document_srl,'listStyle',$listStyle, 'cpage','')}" target="_blank"|cond="$tag_relation->link_target=='new'">
+					<span class="info_wrp">
+						<span class="info st">
+							<span class="padding">
+								<span cond="$tag_relation->print_module_title=='Y'">[{$oDocument->get('module_title')}]</span>
+								<b class="tl" cond="$tag_relation->print_regdate!='N'">{$oDocument->getRegdate('Y/m/d')}</b>
+								<span cond="$tag_relation->print_author!='N'">by <b>{$oDocument->getNickName()}</b></span>
+							</span>
+						</span>
+					</span>
+				</a>
+			</div>
+			<p>{$oDocument->getTitleText($tag_relation->cut_subject)} <small cond="$tag_relation->print_comment_count!='N' && $oDocument->getCommentCount() >= 1" title="{$lang->comment_count}">[{$oDocument->getCommentCount()}]</small></p>
+		</li>
+	</ul>
+</div>

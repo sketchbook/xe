@@ -1,0 +1,110 @@
+<include cond="$notice_list && $mi->notice_style=='2'" target="_notice.html" />
+<ol class="bd_lst bd_zine<!--@if(!$mi->zine_style)--> zine zine1<!--@elseif($mi->zine_style=='2')--> zine zine2<!--@elseif($mi->zine_style=='3')--> card card1<!--@elseif($mi->zine_style=='4')--> card card2<!--@end--> img_load{$mi->tmb_effect}" data-masonry="_{$mi->card_effect}"|cond="$mi->zine_style=='3' || $mi->zine_style=='4'">
+	<li cond="!$document_list && !$notice_list" class="no_doc">{$lang->no_documents}</li>
+	<!--// 공지 목록 -->
+	<li cond="$notice_list && !$mi->notice_style" loop="$notice_list=>$no,$document" class="notice clear">
+		<!--// 날짜 -->
+		<div cond="$mi->zine_style=='2'" class="big_date">
+			<div class="dd bolder">{$document->getRegdate('d')}</div>
+			<div class="mmyy">
+				<span class="mm">{$document->getRegdate('M')}</span>
+				<span class="yy"> {$document->getRegdate('Y')}</span>
+			</div>
+			<div class="hh ng">{getTimeGap($document->get('regdate'), "H:i")}</div>
+		</div>
+		<!--// 썸네일 영역 -->
+		<div class="rt_area">
+			<div cond="$list_config['thumbnail']" class="tmb_wrp ribbon_v{$mi->ribbon_style}">
+				<!--// 썸네일 -->
+				<span cond="!$document->thumbnailExists()" class="no_img tmb">No Image</span>
+				<block cond="$document->thumbnailExists()"><span cond="$mi->tmb_effect=='2'" class="no_img loading"></span><img class="tmb" src="{$document->getThumbnail($mi->zine_thumb_width,$mi->zine_thumb_height,$mi->zine_thumb_type)}" alt="" /></block>
+				<!--// 좌측 상단 리본 -->
+				<span class="ribbon nnu notice"><i>notice</i></span>
+			</div>
+			<!--// 제목 -->
+			<h3 class="ngeb">{$document->getTitle($mi->subject_cut_size)}</h3>
+			<!--// 본문 요약 -->
+			<div class="cnt" cond="$list_config['summary']">{$document->getSummary($mi->content_cut_size)}</div>
+			<!--// 글 정보 -->
+			<div class="info">
+				<span cond="$list_config['regdate'] && $mi->zine_style!='2'" class="itm">Date<b>{$document->getRegdate("Y.m.d")}</b></span>
+				<span cond="$mi->use_category=='Y' && $document->get('category_srl')" class="itm">Category<b>{$category_list[$document->get('category_srl')]->title}</b></span>
+				<span cond="$list_config['nick_name']" class="itm">By<b>{$document->getNickName()}</b></span>
+				<span cond="@in_array(zine,$mi->cmt_count)" class="itm">Reply<b>{$document->getCommentCount()}</b></span>
+				<span cond="$list_config['readed_count']" class="itm">Views<b>{$document->get('readed_count')}</b></span>
+				<span cond="$list_config['voted_count']" class="itm">Votes<b>{$document->get('voted_count')}</b></span>
+				<!--// 확장변수 -->
+				<block loop="$list_config=>$key,$val" cond="$mi->zine_extra=='Y' && $val->idx!=-1">
+				<span cond="$val->eid!='rating' && $val->eid!='link_url'" class="itm">{$val->name}<b>{$document->getExtraValueHTML($val->idx)}</b></span>
+				<span cond="$val->eid=='rating'" class="itm starRating"><span style="width:{$document->getExtraValueHTML($val->idx)*10}%">{$document->getExtraValueHTML($val->idx)}</span></span>
+				</block>
+				<span cond="@in_array(zine,$mi->ext_img)">{$document->printExtraImages(60*60*$mi->duration_new)}</span>
+				<input cond="$grant->manager" type="checkbox" name="cart" value="{$document->document_srl}" title="Check" onclick="doAddDocumentCart(this)" checked="checked"|cond="$document->isCarted()" />
+			</div>
+		</div>
+		<a href="{getUrl('document_srl',$document->document_srl,'listStyle',$listStyle, 'cpage','')}"><span class="blind">read more</span></a>
+	</li>
+
+	<!--// 일반 목록 -->
+	<li loop="$document_list=>$no,$document" class="<!--@if($document_srl==$document->document_srl)-->select <!--@end-->clear">
+		<!--// 날짜 -->
+		<div cond="$mi->zine_style=='2'" class="big_date">
+			<div class="dd bolder">{$document->getRegdate('d')}</div>
+			<div class="mmyy">
+				<span class="mm">{$document->getRegdate('M')}</span>
+				<span class="yy"> {$document->getRegdate('Y')}</span>
+			</div>
+			<div class="hh ng">{getTimeGap($document->get('regdate'), "H:i")}</div>
+		</div>
+		<!--// 썸네일 영역 -->
+		<div class="rt_area">
+			<div cond="$list_config['thumbnail']" class="tmb_wrp ribbon_v{$mi->ribbon_style}">
+				<!--// 썸네일 -->
+				<span cond="!$document->thumbnailExists()" class="no_img tmb">No Image</span>
+				<block cond="$document->thumbnailExists()"><span cond="$mi->tmb_effect=='2'" class="no_img loading"></span><img class="tmb" src="{$document->getThumbnail($mi->zine_thumb_width,$mi->zine_thumb_height,$mi->zine_thumb_type)}" alt="" /></block>
+				<!--// 리본 -->
+				<block cond="$mi->zine_ribbon!='N'">
+				<block cond="!$mi->zine_ribbon || $mi->zine_ribbon=='new_date'">
+				<!--@if((int)($document->getRegdate('YmdHis')>date("YmdHis", time()-$mi->duration_new*60*60)))-->
+				<span class="ribbon nnu new"><i>new</i></span>
+				<!--@elseif((int)(zdate($document->get('last_update'),'YmdHis')>date("YmdHis", time()-$mi->duration_new*60*60)))-->
+				<span class="ribbon nnu update"><i>update</i></span>
+				<!--@else-->
+				<span cond="$mi->zine_ribbon=='new_date'" class="ribbon"><i class="date"><b>{$document->getRegdate("d")}</b><small>{$document->getRegdate("M")}</small></i></span>
+				<!--@end-->
+				</block>
+				<span cond="$mi->zine_ribbon && $mi->zine_ribbon!='new_date'" class="ribbon">
+					<i cond="$mi->zine_ribbon=='cate' && $document->get('category_srl')" class="cate">{$category_list[$document->get('category_srl')]->title}</i>
+					<i cond="$mi->zine_ribbon=='date'" class="date"><b>{$document->getRegdate("d")}</b><small>{$document->getRegdate("M")}</small></i>
+					<i cond="$mi->zine_ribbon=='read'"><b>{$document->get('readed_count')}</b><small>Views</small></i>
+					<i cond="$mi->zine_ribbon=='vote'"><b>{$document->get('voted_count')}</b><small>Likes</small></i>
+					<i cond="$mi->zine_ribbon=='cmt'"><b>{$document->getCommentCount()}</b><small>Replies</small></i>
+					<i cond="$mi->zine_ribbon=='extra'">{$document->getExtraValueHTML($mi->extra_num)}<!--<small>{@$extravar_list = $document->getExtraVars()}{$extravar_list[$mi->extra_num]->name}</small>--></i>
+				</span>
+				</block>
+			</div>
+			<!--// 제목 -->
+			<h3 class="ngeb">{$document->getTitle($mi->subject_cut_size)}</h3>
+			<!--// 본문 요약 -->
+			<div class="cnt" cond="$list_config['summary']">{$document->getSummary($mi->content_cut_size)}</div>
+			<!--// 글 정보 -->
+			<div class="info">
+				<span cond="$list_config['regdate'] && $mi->zine_style!='2'" class="itm">Date<b>{$document->getRegdate("Y.m.d")}</b></span>
+				<span cond="$mi->use_category=='Y' && $document->get('category_srl')" class="itm">Category<b>{$category_list[$document->get('category_srl')]->title}</b></span>
+				<span cond="$list_config['nick_name']" class="itm">By<b>{$document->getNickName()}</b></span>
+				<span cond="@in_array(zine,$mi->cmt_count)" class="itm">Reply<b>{$document->getCommentCount()}</b></span>
+				<span cond="$list_config['readed_count']" class="itm">Views<b>{$document->get('readed_count')}</b></span>
+				<span cond="$list_config['voted_count']" class="itm">Votes<b>{$document->get('voted_count')}</b></span>
+				<!--// 확장변수 -->
+				<block loop="$list_config=>$key,$val" cond="($mi->zine_extra=='Y' || $mi->link_board) && $val->idx!=-1">
+				<span cond="$val->eid!='rating'" class="itm<!--@if($val->eid=='link_url')--> link_url<!--@end-->">{$val->name}<b>{$document->getExtraValueHTML($val->idx)}</b></span>
+				<span cond="$val->eid=='rating'" class="itm starRating"><span style="width:{$document->getExtraValueHTML($val->idx)*10}%">{$document->getExtraValueHTML($val->idx)}</span></span>
+				</block>
+				<span cond="@in_array(zine,$mi->ext_img)">{$document->printExtraImages(60*60*$mi->duration_new)}</span>
+				<input cond="$grant->manager" type="checkbox" name="cart" value="{$document->document_srl}" title="Check" onclick="doAddDocumentCart(this)" checked="checked"|cond="$document->isCarted()" />
+				<a cond="$mi->link_board && $document->isEditable()" class="link_modify" href="{getUrl('act','dispBoardWrite','document_srl',$document->document_srl,'comment_srl','')}">{$lang->cmd_modify}</a>
+			</div>
+		</div>
+		<a class="hx" <!--@if(!$mi->link_board)-->href="{getUrl('document_srl',$document->document_srl,'listStyle',$listStyle,'cpage','')}"<!--@else-->href="{$document->getExtraEidValue('link_url')}" target="_blank"<!--@end--> data-viewer="{getUrl('document_srl',$document->document_srl,'listStyle','viewer','page','')}"><span class="blind">Read More</span></a>
+	</li>
+</ol>

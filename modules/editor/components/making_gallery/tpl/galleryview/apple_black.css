@@ -1,0 +1,11 @@
+@charset "utf-8";
+.gallery{ border:1px solid #333;border-radius:4px;-moz-border-radius:4px;-webkit-border-radius:4px;box-shadow:0 1px 3px #090909;-moz-box-shadow:0 1px 3px #090909;-webkit-box-shadow:0 1px 3px #090909;background:#222 url(apple_black.svg) no-repeat;behavior:url(addons/css3pie/PIE.htc)}
+.panel_wrap{border-bottom:1px solid #888;background:#000;border-radius:4px;-moz-border-radius:4px;-webkit-border-radius:4px}
+.panel_wrap img{border-radius:4px;-moz-border-radius:4px;-webkit-border-radius:4px}
+.pointer{color:#000}
+.img_wrap{top:2px !important;left:2px !important;border:1px solid #222;border-radius:9px;-moz-border-radius:9px;background:#000}
+.frame.current .img_wrap,.img_wrap:hover{top:0 !important;left:0 !important;border:3px solid #09F;box-shadow:0 3px 3px #111;-moz-box-shadow:0 3px 3px #111;-webkit-box-shadow:0 3px 3px #111}
+.img_wrap img{border-radius:6px;-moz-border-radius:6px;-webkit-border-radius:6px}
+
+.nav-prev{background-position:0 -48px}
+.nav-next{background-position:-48px -48px}

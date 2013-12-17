@@ -1,0 +1,18 @@
+@charset "utf-8";
+.panel_wrap{text-align:center}
+.panel_wrap img{position:static !important}
+.panel-nav-next,.panel-nav-prev{position:absolute;z-index:1100;display:none;overflow:hidden;height:32px;width:32px;padding:4px;cursor:pointer;background-color:#000;border-radius:10px;box-shadow:0 0 5px #000;background-image:url(modules/editor/components/making_gallery/tpl/galleryview/themes/custom/arrow_st1_32px.png);background-repeat:no-repeat;opacity:.4;filter:alpha(opacity=40);transition:all 0.5s ease;-webkit-transition:all 0.5s ease;-moz-transition:all 0.5s ease}
+.panel-nav-next:hover,.panel-nav-prev:hover{opacity:.8;filter:alpha(opacity=80)}
+.panel-nav-next{right:0;background-position:-92px -92px}
+.panel-nav-prev{left:0;background-position:4px -92px}
+
+.nav-next,.nav-prev{position:absolute;cursor:pointer;display:block;width:16px;height:16px;background-image:url(modules/editor/components/making_gallery/tpl/galleryview/themes/custom/arrow_st1_16px.png);background-repeat:no-repeat;opacity:0.4;filter:alpha(opacity=40);transition:all 0.5s ease;-webkit-transition:all 0.5s ease;-moz-transition:all 0.5s ease}
+.nav-prev{background-position:0 0}
+.nav-next{background-position:-48px 0}
+.nav-next:hover,.nav-prev:hover{opacity:1;filter:alpha(opacity=100)}
+
+.loader{background:url(../../../../../../common/img/msg.loading.gif) center no-repeat}
+.pointer{color:#666}
+.img_wrap{opacity:.6;filter:alpha(opacity=60)}
+.frame.current .img_wrap{opacity:1;filter:alpha(opacity=100)}
+.img_wrap:hover{opacity:.8;filter:alpha(opacity=80)}

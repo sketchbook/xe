@@ -1,0 +1,31 @@
+{@
+	if(!$mi->cloud_y) $mi->cloud_y = 600 ;
+	if(!$mi->cloud_deg) $mi->cloud_deg = 25;
+	if($_COOKIE['cg_rd']) $mi->cloud_rand = '';
+	if($_COOKIE['cg_rt']) $mi->cloud_rotate = '';
+	$cg_idx = 0;
+}
+
+<include cond="$notice_list" target="_notice.html" />
+<p cond="!$document_list && !$notice_list" class="no_doc">{$lang->no_documents}</p>
+<block cond="$document_list">
+<div cond="!$mi->cloud_btn" class="bd_cloud_btn" style="margin:0"|cond="$mi->use_category!='Y'">
+	<button class="bd_cg_rd<!--@if($_COOKIE['cg_rd']=='N' || $mi->cloud_rand=='N')--> off<!--@end-->">Random</button>
+	<button class="bd_cg_rt<!--@if($_COOKIE['cg_rt']=='N' || $mi->cloud_rotate=='N')--> off<!--@end-->">Rotation</button>
+	<button class="bd_cg_rf off">Refresh</button>
+</div>
+
+<ul class="bd_lst bd_cloud clear" style="height:{$mi->cloud_y}px" data-deg="{$mi->cloud_deg}" data-y="{$mi->cloud_y}" data-tmb="{$mi->thumbnail_width}" data-z="{$mi->list_count}">
+	<li loop="$document_list=>$no,$document" cond="$document->thumbnailExists()">
+		<a class="hx np" href="{getUrl('document_srl',$document->document_srl,'listStyle',$listStyle, 'cpage','')}" style="z-index:{$mi->list_count-$cg_idx};margin:{$mi->cloud_margin}px;<!--@if($mi->tmb_effect!='N')-->;display:none<!--@end-->" data-viewer="{getUrl('document_srl',$document->document_srl,'listStyle','viewer','page','')}">
+			<span class="tmb_wrp">
+				<img class="tmb" src="{$document->getThumbnail($mi->thumbnail_width, $mi->thumbnail_height, $mi->thumbnail_type)}" alt="" />
+				<i class="ico_32px deco1 fixed"></i><i class="ico_32px deco2 fixed"></i>
+				<span cond="$list_config['regdate']" class="date">{$document->getRegdate("Y.m.d")}</span>
+			</span>
+			<em cond="!$mi->gallery_tl">{$document->getTitle($mi->gall_tl_cut)}</em>
+		</a>
+		{@ $cg_idx++ }
+	</li>
+</ul>
+</block>

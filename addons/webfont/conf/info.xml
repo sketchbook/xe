@@ -1,0 +1,168 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<addon version="0.2">
+	<title xml:lang="ko">Webfont</title>
+	<description xml:lang="ko">
+		웹폰트 사용을 도와주는 애드온입니다. 기본옵션 항목인 '나눔글꼴' 외에 '사용자 웹폰트', '구글웹폰트'를 간단한 설정만으로 사용할 수 있게 합니다.
+		나눔고딕 폰트는 http://www.google.com/webfonts/earlyaccess/ 에서 제공하는 폰트 파일을 사용합니다.
+	</description>
+	<version>1.1.3.1</version>
+	<date>2011-02-20</date>
+	<author email_address="contact@sketchbooks.co.kr" link="http://sketchbooks.co.kr/">
+		<name xml:lang="ko">sketchbook</name>
+	</author>
+	<extra_vars>
+		<group>
+			<title xml:lang="ko">나눔글꼴</title>
+			<var name="nanum" type="select">
+				<title xml:lang="ko">IE8 이하를 제외한 '나눔글꼴' 사용</title>
+				<description xml:lang="ko">
+					IE8(익스플로러8) 이하의 브라우저에서 나눔글꼴의 사용여부를 선택합니다. IE8 이하의 브라우저의 경우에는 아래의 옵션에서 개별적으로 활성화시켜야 합니다.
+				</description>
+				<options value="">
+					<title xml:lang="ko">사용(기본값)</title>
+				</options>
+				<options value="N">
+					<title xml:lang="ko">사용 안함</title>
+				</options>
+			</var>
+			<var name="ng" type="select">
+				<title xml:lang="ko">IE8 이하의 '나눔고딕' 사용</title>
+				<options value="">
+					<title xml:lang="ko">사용(기본값)</title>
+				</options>
+				<options value="N">
+					<title xml:lang="ko">사용 안함</title>
+				</options>
+			</var>
+			<var name="nm" type="select">
+				<title xml:lang="ko">IE8 이하의 '나눔명조' 사용</title>
+				<options value="">
+					<title xml:lang="ko">사용 안함(기본값)</title>
+				</options>
+				<options value="google">
+					<title xml:lang="ko">google 사용</title>
+				</options>
+			</var>
+			<var name="np" type="select">
+				<title xml:lang="ko">IE8 이하의 '나눔손글씨 펜' 사용</title>
+				<options value="">
+					<title xml:lang="ko">사용 안함(기본값)</title>
+				</options>
+				<options value="google">
+					<title xml:lang="ko">google 사용</title>
+				</options>
+			</var>
+			<var name="notice" type="select">
+				<title xml:lang="ko">설치 안내 팝업창</title>
+				<description xml:lang="ko">
+					'나눔고딕'이 설치되지 않은 사용자에게 설치를 안내하는 레이어 팝업창을 보여줍니다. 
+				</description>
+				<options value="">
+					<title xml:lang="ko">사용(기본값)</title>
+				</options>
+				<options value="N">
+					<title xml:lang="ko">사용 안함</title>
+				</options>
+			</var>
+			<var name="expires" type="text">
+				<title xml:lang="ko">팝업창 기한</title>
+				<description xml:lang="ko">
+					사용자가 팝업창을 닫을 때 얼마동안 보이지 않을 지의 기한을 설정합니다. 기본은 '1'(단위 : 일) 입니다.
+				</description>
+			</var>
+		</group>
+		<group>
+			<title>사이트에 적용할 글꼴</title>
+			<var name="use" type="select">
+				<title xml:lang="ko">적용 글꼴 선택</title>
+				<description xml:lang="ko">
+					레이아웃 등의 설정된 글꼴 설정을 무시하고 선택된 글꼴이 사이트에 적용합니다. body 등에 font-family를 적용합니다. 
+				</description>
+				<options value="">
+					<title xml:lang="ko">적용안함(기본값)</title>
+				</options>
+				<options value="ng">
+					<title xml:lang="ko">나눔고딕</title>
+				</options>
+				<options value="font1">
+					<title xml:lang="ko">사용자 웹폰트 1</title>
+				</options>
+				<options value="font2">
+					<title xml:lang="ko">사용자 웹폰트 2</title>
+				</options>
+				<options value="font3">
+					<title xml:lang="ko">사용자 웹폰트 3</title>
+				</options>
+				<options value="google1">
+					<title xml:lang="ko">구글 웹폰트 1</title>
+				</options>
+				<options value="google2">
+					<title xml:lang="ko">구글 웹폰트 2</title>
+				</options>
+				<options value="google3">
+					<title xml:lang="ko">구글 웹폰트 3</title>
+				</options>
+			</var>
+		</group>
+		<group>
+			<title xml:lang="ko">사용자 웹폰트 1</title>
+			<var name="font1_name" type="text">
+				<title xml:lang="ko">'사용자 웹폰트 1' 파일 이름</title>
+				<description xml:lang="ko">
+					사용할 웹폰트의 이름을 입력합니다. 웹폰트 이름에 '띄어쓰기'가 있는 경우에는 ''(괄호) 안에 넣어주세요.
+				</description>
+			</var>
+			<var name="font1_eot" type="text">
+				<title xml:lang="ko">'사용자 웹폰트 1' eot 파일 주소</title>
+				<description xml:lang="ko">
+					사용할 웹폰트 eot 확장자 파일(IE8 이하에 사용)의 주소를 입력합니다. (예 : 'http://www.aaa.com/font/aaa.eot')
+				</description>
+			</var>
+			<var name="font1_woff" type="text">
+				<title xml:lang="ko">'사용자 웹폰트 1' woff 파일 주소</title>
+				<description xml:lang="ko">
+					사용할 웹폰트의 woff 확장자 파일(IE8 이하를 제외한 브라우저에 사용)의 주소를 입력합니다. (예 : 'http://www.aaa.com/font/aaa.woff')
+				</description>
+			</var>
+		</group>
+		<group>
+			<title xml:lang="ko">사용자 웹폰트 2 (사용법은 위와 같습니다.)</title>
+			<var name="font2_name" type="text">
+				<title xml:lang="ko">'사용자 웹폰트 2' 파일 이름</title>
+			</var>
+			<var name="font2_eot" type="text">
+				<title xml:lang="ko">'사용자 웹폰트 2' eot 파일 주소</title>
+			</var>
+			<var name="font2_woff" type="text">
+				<title xml:lang="ko">'사용자 웹폰트 2' woff 파일 주소</title>
+			</var>
+		</group>
+		<group>
+			<title xml:lang="ko">사용자 웹폰트 3 (사용법은 위와 같습니다.)</title>
+			<var name="font3_name" type="text">
+				<title xml:lang="ko">'사용자 웹폰트 3' 파일 이름</title>
+			</var>
+			<var name="font3_eot" type="text">
+				<title xml:lang="ko">'사용자 웹폰트 3' eot 파일 주소</title>
+			</var>
+			<var name="font3_woff" type="text">
+				<title xml:lang="ko">'사용자 웹폰트 3' woff 파일 주소</title>
+			</var>
+		</group>
+		<group>
+			<title xml:lang="ko">Google Webfonts 사용</title>
+			<var name="google1" type="text">
+				<title xml:lang="ko">구글 웹폰트 1</title>
+				<description xml:lang="ko">
+					http://www.google.com/webfonts/ 에서 웹폰트의 '이름'을 입력합니다. (예 : Prata, Merienda One, Julee). 2개 이상 사용할 경우에는 반드시 '구글 웹폰트 1'부터 사용하여야 합니다.
+				</description>
+			</var>
+			<var name="google2" type="text">
+				<title xml:lang="ko">구글 웹폰트 2</title>
+			</var>
+			<var name="google3" type="text">
+				<title xml:lang="ko">구글 웹폰트 3</title>
+			</var>
+		</group>
+	</extra_vars>
+</addon>

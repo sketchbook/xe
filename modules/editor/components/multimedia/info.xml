@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<component version="0.2">
+	<title xml:lang="ko">멀티미디어 입력 도구</title>
+	<title xml:lang="en">Multimedia Component</title>
+	<version>0.9</version>
+	<date>2011-12-08</date>
+	<link>http://code.google.com/p/xe-hika/</link>
+	<description xml:lang="ko">유투브 동영상을 삽입합니다.</description>
+	<author email_address="hikaru100@nate.com" link="http://code.google.com/p/xe-hika/">
+		<name xml:lang="ko">hikaru100</name>
+	</author>
+	<author email_address="misol@korea.ac.kr" link="http://www.imsoo.net">
+		<name xml:lang="ko">misol</name>
+	</author>
+	<extra_vars>
+		<var name="soo_display">
+			<title xml:lang="ko">유뷰트 동영상 목록수</title>
+			<title xml:lang="en">the number of items</title>
+			<description xml:lang="ko">1에서 50사이의 수를 입력해주세요.</description>
+			<description xml:lang="en">Enter the number between 1 and 50.</description>
+		</var>
+	</extra_vars>
+</component>

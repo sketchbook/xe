@@ -1,0 +1,76 @@
+<include target="_header.html" />
+<load target="js/editor.js" type="body" />
+
+<!--@if($oSourceComment->isExists())-->
+<div class="context_data">
+	<div class="fdb_itm" style="margin:0;padding:0;border:0">
+		<div class="meta">
+			<b>{$oSourceComment->getNickName()}</b><span class="date">{$oSourceComment->getRegdate("Y.m.d H:i")}</span>
+		</div>
+		{$oSourceComment->getContent(false)}
+	</div>
+</div>
+<div class="context_message"></div>
+
+<div class="cmt_line">▼</div>
+
+<!--@else-->
+<div class="context_data">
+	<h3 class="title">&quot;{$lang->cmd_reply} {$lang->cmd_modify}&quot;</h3>
+</div>
+<div class="context_message" style="margin-bottom:40px"></div>
+<!--@end-->
+
+<!--// 댓글 수정화면 -->
+<form action="./" method="post" onsubmit="return procFilter(this, insert_comment)" class="bd_wrt bd_wrt_main clear">
+	<input type="hidden" name="mid" value="{$mid}" />
+	<input type="hidden" name="document_srl" value="{$oComment->get('document_srl')}" />
+	<input type="hidden" name="comment_srl" value="{$oComment->get('comment_srl')}" />
+	<input type="hidden" name="content" value="{htmlspecialchars($oComment->get('content'))}" />
+	<input type="hidden" name="parent_srl" value="{$oComment->get('parent_srl')}" />
+	<div cond="!Mobile::isMobileCheckByAgent()" class="get_editor">{$oComment->getEditor()}</div>
+	<div cond="Mobile::isMobileCheckByAgent()" class="m_editor">
+<load target="../../../editor/tpl/js/editor_common.min.js" />
+		<input type="hidden" id="htm_1" value="n" />
+		<textarea id="editor_1" col="50" rows="8"></textarea>
+<script>
+	editorStartTextarea(1,"content","document_srl");
+</script>
+	</div>
+	<div class="edit_opt">
+		<block cond="!$is_logged">
+		<span class="itx_wrp">
+			<label for="nick_name">{$lang->writer}</label>
+			<input type="text" name="nick_name" id="nick_name" class="itx n_p" value="{$oComment->getNickName()}" />
+		</span>
+		<span class="itx_wrp">
+			<label for="password">{$lang->password}</label>
+			<input type="password" name="password" id="password" class="itx n_p" />
+		</span>	
+		<span class="itx_wrp">
+			<label for="email_address">{$lang->email_address}</label>
+			<input type="text" name="email_address" id="email_address" class="itx m_h" />
+		</span>	
+		<span class="itx_wrp">
+			<label for="homepage">{$lang->homepage}</label>
+			<input type="text" name="homepage" id="homepage" class="itx m_h" />
+		</span>
+		</block>
+	</div>
+	<div class="opt_chk clear">
+		<block cond="$is_logged">
+		<input type="checkbox" name="notify_message" value="Y" id="notify_message" checked="checked"|cond="$oComment->get('notify_message')=='Y' || ($oComment->get('notify_message')!='Y' && @in_array(notify,$mi->wrt_opt))" />
+		<label for="notify_message">{$lang->notify}</label>
+		</block>
+		<block cond="$mi->use_status!='PUBLIC'">
+		<input type="checkbox" name="is_secret" value="Y" id="is_secret" checked="checked"|cond="$oComment->get('is_secret')=='Y' || ($oComment->get('is_secret')!='Y' && @in_array(secret,$mi->wrt_opt))" />
+		<label for="is_secret">{$lang->secret}</label>
+		</block>
+	</div>
+	<div class="regist">
+		<button type="button" onclick="history.back()" class="bd_btn">{$lang->cmd_back}</button>
+		<input type="submit" value="{$lang->cmd_registration}" class="bd_btn blue" />
+	</div>
+</form>
+
+<include target="_footer.html" />

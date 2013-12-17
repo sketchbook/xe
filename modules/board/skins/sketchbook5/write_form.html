@@ -1,0 +1,133 @@
+<include target="_header.html" />
+
+<script>//<![CDATA[
+var msg_kr_address = '{$lang->msg_kr_address}';
+var msg_kr_address_etc = '{$lang->msg_kr_address_etc}';
+//]]></script>
+
+<load target="js/editor.js" type="body" />
+
+<include cond="Mobile::isMobileCheckByAgent()" target="_write_form_mobile.html" />
+
+<form cond="!Mobile::isMobileCheckByAgent()" action="./" method="post" onsubmit="return procFilter(this, window.insert)" class="bd_wrt bd_wrt_main clear">
+	<input type="hidden" name="mid" value="{$mid}" />
+	<!--@if(!$oDocument->getContentText() && $mi->content_default)-->
+	<input type="hidden" name="content" value="{htmlspecialchars($mi->content_default)}" />
+	<!--@else-->
+	<input type="hidden" name="content" value="{$oDocument->getContentText()}" />
+	<!--@end-->
+	<input type="hidden" name="document_srl" value="{$document_srl}" />
+
+	<!--// 상단 : 카테고리, 제목 -->
+	<table class="bd_wrt_hd bd_tb">
+		<tr>
+			<td>
+				<select cond="$mi->use_category=='Y' && $category_list" name="category_srl" class="category">
+					<option value="">{$lang->category}</option>
+					<option loop="$category_list => $val" disabled="disabled"|cond="!$val->grant" value="{$val->category_srl}" selected="selected"|cond="$val->grant&&$val->selected||$val->category_srl==$oDocument->get('category_srl')">
+						{str_repeat("&nbsp;&nbsp;",$val->depth)} {$val->title} ({$val->document_count})
+					</option>
+				</select>
+			</td>
+			<td width="100%" style="padding-right:12px">
+				<span class="itx_wrp">
+					<label for="postTitle">{$lang->title}</label>
+					<input cond="$oDocument->getTitleText()" type="text" name="title" class="itx" id="postTitle" title="{$lang->title}" value="{htmlspecialchars($oDocument->getTitleText())}" />
+					<input cond="!$oDocument->getTitleText()" type="text" name="title" class="itx" id="postTitle" title="{$lang->title}" />
+				</span>
+			</td>
+			<td cond="$is_logged && !$oDocument->isExists() || $oDocument->get('status')=='TEMP'" class="m_no"><button type="button" class="bd_btn" onclick="doDocumentLoad(this);">{$lang->cmd_load}</button></td>
+		</tr>
+	</table>
+
+	<table cond="count($extra_keys)" class="exForm bd_tb">
+		<caption><strong><em>*</em></strong> <small>: {$lang->is_required}</small></caption>
+		<tr loop="$extra_keys=>$key,$val">
+			<th scope="row"><em cond="$val->is_required=='Y'">*</em> {$val->name}</th>
+			<td>{$val->getFormHTML()}</td>
+		</tr>
+	</table>
+
+	<div class="get_editor">{$oDocument->getEditor()}</div>
+
+	<!--// 태그 -->
+	<div class="tag itx_wrp">
+		<span class="itx_wrp">
+			<label for="tags">{$lang->tag} : {$lang->about_tag}</label>
+            <input type="text" name="tags" id="tags" value="{htmlspecialchars($oDocument->get('tags'))}" class="itx" />
+		</span>
+	</div>
+
+	<!--// 비로그인 입력 -->
+	<div class="edit_opt">
+		<block cond="!$is_logged">
+		<span class="itx_wrp">
+			<label for="nick_name">{$lang->writer}</label>
+            <input type="text" name="nick_name" id="nick_name" value="{$oDocument->getNickName()}" class="itx n_p" />
+		</span>
+		<span class="itx_wrp">
+			<label for="password">{$lang->password}</label>
+            <input type="password" name="password" id="password" class="itx n_p" />
+		</span>
+		<span class="itx_wrp">
+			<label for="email_address">{$lang->email_address}</label>
+            <input type="text" name="email_address" id="email_address" value="{htmlspecialchars($oDocument->get('email_address'))}" class="itx m_h" />
+		</span>
+		<span class="itx_wrp">
+			<label for="homepage">{$lang->homepage}</label>
+            <input type="text" name="homepage" id="homepage" value="{htmlspecialchars($oDocument->get('homepage'))}" class="itx m_h" />
+		</span>
+		</block>
+	</div>
+
+	<!--// 글쓰기 옵션 체크 -->
+	<div class="opt_chk clear">
+		<div cond="$grant->manager || $mi->tl_color=='2'" class="section">
+<!--%load_js_plugin("ui.colorpicker")-->
+			<span class="itx_wrp color_wrp" title="{$lang->title_color}">
+				<span class="fff"></span>
+				<label for="title_color">{$lang->title_color}</label>
+				<input type="text" name="title_color" id="title_color" class="color-indicator" value="{$oDocument->get('title_color')}"|cond="$oDocument->get('title_color')!='N'" />
+			</span>
+			<input type="checkbox" name="title_bold" id="title_bold" value="Y" checked="checked"|cond="$oDocument->get('title_bold')=='Y'" />
+			<label for="title_bold">{$lang->title_bold}</label>
+			<block cond="$grant->manager">
+			<input type="checkbox" name="is_notice" value="Y" checked="checked"|cond="$oDocument->isNotice()" id="is_notice" />
+			<label for="is_notice">{$lang->notice}</label>
+			</block>
+		</div>
+		<div class="section">
+			<input type="checkbox" name="comment_status" value="ALLOW" checked="checked"|cond="$oDocument->allowComment()" id="comment_status" />
+			<label for="comment_status">{$lang->allow_comment}</label>
+			<input type="checkbox" name="allow_trackback" value="Y" checked="checked"|cond="$oDocument->allowTrackback()" id="allow_trackback" />
+			<label for="allow_trackback">{$lang->allow_trackback}</label>
+		</div>
+		<div cond="$is_logged" class="section">
+			<input type="checkbox" name="notify_message" value="Y" checked="checked"|cond="$oDocument->useNotify() || (!$oDocument->useNotify() && @in_array(notify,$mi->wrt_opt))" id="notify_message" />
+			<label for="notify_message">{$lang->notify}</label>
+		</div>
+		<div cond="is_array($status_list)" class="section">
+			<!--@foreach($status_list AS $key=>$value)-->
+			<input cond="@!in_array(secret,$mi->wrt_opt)" type="radio" name="status" value="{$key}" id="{$key}" checked="checked"|cond="$oDocument->get('status')==$key || ($key=='PUBLIC' && !$document_srl)" />
+			<input cond="@in_array(secret,$mi->wrt_opt)" type="radio" name="status" value="{$key}" id="{$key}" checked="checked"|cond="$oDocument->get('status')==$key || ($key=='SECRET' && !$document_srl)" />
+			<label for="{$key}">{$value}</label>
+			<!--@end-->
+		</div>
+	</div>
+
+	<!--// SocialXE -->
+	<div cond="$mi->cmt_wrt=='sns'" class="sns_wrt">
+		<p>※ {$lang->sns_wrt}.</p>
+		<img class="zbxe_widget_output" widget="socialxe_info" colorset="{$mi->colorset}" skin="default"  />
+	</div>
+
+	<!--// Buttons -->
+	<div class="regist">
+		<button cond="$is_logged && !$oDocument->isExists() || $oDocument->get('status')=='TEMP'" type="button" onclick="doDocumentSave(this);" class="bd_btn temp">{$lang->cmd_temp_save}</button>
+		<input type="button" value="{$lang->cmd_preview}" onclick="doDocumentPreview(this);return false" class="bd_btn m_no" />
+		<input type="submit" value="{$lang->cmd_submit}" class="bd_btn blue" />
+		<button type="button" onclick="history.back()" class="bd_btn cancle">{$lang->cmd_back}</button>
+	</div>
+</form>
+
+</div>

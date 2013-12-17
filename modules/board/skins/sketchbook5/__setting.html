@@ -1,0 +1,317 @@
+{@
+	$mi = $module_info;
+	if(!$mi->content_cut_size) $mi->content_cut_size = 240;
+	if(!$mi->duration_new) $mi->duration_new = 24;
+	if(!$mi->colorset) $mi->colorset = 'white';
+	if(!$mi->preview_tx)  $mi->preview_tx = 150;
+	if(!$mi->extra_num) $mi->extra_num = 1;
+	if(!$mi->extra_num2) $mi->extra_num2 = 1;
+	if(!$mi->thumbnail_width)  $mi->thumbnail_width  = 90;
+	if(!$mi->thumbnail_height) $mi->thumbnail_height = 90;
+	if(!$mi->zine_thumb_width) $mi->zine_thumb_width = 90;
+	if(!$mi->zine_thumb_height) $mi->zine_thumb_height = 90;
+	if(!$mi->zine_margin) $mi->zine_margin = 10;
+	if(!$mi->cmt_wrt) $mi->cmt_wrt = 'simple';
+	if(!$mi->img_insert_align) $mi->img_insert_align = 'center';
+
+	<!--// 체크박스 옵션 -->
+	$mi->btm_mn = unserialize($mi->btm_mn);
+	$mi->preview = unserialize($mi->preview);
+	$mi->ext_img = unserialize($mi->ext_img);
+	$mi->cmt_count = unserialize($mi->cmt_count);
+	$mi->wrt_opt = unserialize($mi->wrt_opt);
+	$mi->viewer_itm = unserialize($mi->viewer_itm);
+	$mi->rd_blog_itm = unserialize($mi->rd_blog_itm);
+
+	if($_COOKIE['bd_font']) $mi->font = $_COOKIE['bd_font'];
+	if($_COOKIE['bd_editor']) $mi->cmt_wrt = $_COOKIE['bd_editor'];
+	if($_COOKIE['cookie_viewer_with']) $mi->viewer_with = '';
+
+	if($mi->custom_color) $mi->color = $mi->custom_color;
+	if($mi->custom_shadow) $mi->shadow = $mi->custom_shadow;
+	if(!$mi->color) $mi->color = 333333;
+	if(!$mi->color) $mi->shadow = '#999';
+	if($mi->colorset=='black') $mi->color = EEEEEE;
+	if($mi->colorset=='black') $mi->shadow = '#000';
+	if($mi->color=='87cefa') $mi->shadow = '#5f9ea0';<!--// 라이트스카이블루 -->
+	if($mi->color=='6495ed') $mi->shadow = '#4682b4';<!--// 콘플라워블루 -->
+	if($mi->color=='4169e1' || $mi->color=='4682b4') $mi->shadow = '#646496';<!--// 로얄블루, 스틸블루(비표준) -->
+	if($mi->color=='adff2f') $mi->shadow = '#80E12A';<!--// 그린옐로우(비표준) -->
+	if($mi->color=='80E12A') $mi->shadow = '#4BAF4B';<!--// 초록(비표준) -->
+	if($mi->color=='ffb6c1') $mi->shadow = '#e9967a';<!--// 라이트핑크(비표준) -->
+	if($mi->color=='ff69b4') $mi->shadow = '#db7093';<!--// 핫핑크 -->
+	if($mi->color=='ff1493') $mi->shadow = '#C39';<!--// 딥핑크 -->
+	if($mi->color=='ffd700') $mi->shadow = '#daa520';<!--// 골드 -->
+	if($mi->color=='ffa500') $mi->shadow = '#f08080';<!--// 오렌지 -->
+	if($mi->color=='ff7f50') $mi->shadow = '#d2691e';<!--// 코랄 -->
+	if($mi->color=='ff6347') $mi->shadow = '#dc143c';<!--// 토마토 -->
+	if($mi->color=='bc8f8f') $mi->shadow = '#A36464';<!--// 장미빛(비표준) -->
+	if($mi->color=='ee82ee') $mi->shadow = '#da70d6';<!--// 바이올렛 -->
+	if($mi->color=='c71585') $mi->shadow = '#8b0000';<!--// 미디엄바이올렛 -->
+	if($mi->color=='db7093') $mi->shadow = '#cd5c5c';<!--// 팔레바이올렛 -->
+}
+
+<!--@if(Mobile::isMobileCheckByAgent())-->
+{@
+	$mi->bubble = 'N';
+	$mi->hover = 'N';
+	$mi->font_btn = 'N';
+	$mi->srch_window = 'N';
+	$mi->zine_hover = 'N';
+	$mi->rd_nav_side = 'N';
+	if($mi->cmt_wrt=='editor') $mi->cmt_wrt = 'simple';
+	if($mi->to_sns!='N') $mi->to_sns = 3;
+}
+<!--@end-->
+
+<!--@if($lang_type=='ko')-->
+{@
+	$lang->search_info = '검색창을 열고 닫습니다';
+	$lang->viewer = '뷰어로 보기';
+	$lang->with_viewer = '게시물을 뷰어로 보기';
+	$lang->with_viewer_info = '이 버튼을 활성화시키면, 목록에서 게시물 링크를 클릭 시 \'뷰어로 보기\'로 보게 됩니다';
+	$lang->go_cmt = '댓글로 가기';
+	$lang->more = '더보기';
+	$lang->use_wysiwyg = '에디터 사용하기';
+	$lang->sns_wrt = '설정된 SNS로 작성된 글을 동시에 발송합니다. 발송하려 하는 해당 SNS의 아이콘을 클릭하세요';
+	$lang->shortcut = '단축키';
+	$lang->larger = '크게';
+	$lang->smaller = '작게';
+	$lang->font = '글꼴';
+	$lang->best_font_dsc = '나눔고딕 등의 여러글꼴을 섞어서 사용합니다';
+	$lang->best_font = '추천글꼴';
+	$lang->window_font = '맑은고딕';
+	$lang->tahoma = '돋움';
+	$lang->select_editor = '에디터 선택하기';
+	$lang->textarea = '텍스트 모드';
+	$lang->wysiwyg = '에디터 모드';
+	$lang->sxc_editor = 'SNS 보내기';
+	$lang->noti_rfsh = '※ 주의 : 페이지가 새로고침됩니다';
+	$lang->bd_login = '로그인 하시겠습니까?';
+	$lang->link_site = '사이트';
+	$lang->link_site_viewer = '사이트를 뷰어로 보기';
+	$lang->score = '점';
+	$lang->uploaded_file = '첨부파일';
+	$lang->select_files_to_insert = '본문에 넣을 파일을 선택하세요';
+	$lang->m_img_upoad_1 = '본문 위에 넣기';
+	$lang->m_img_upoad_2 = '본문 아래에 넣기';
+	$lang->m_editor_notice = 'HTML로 작성된 문서를 모바일 기기에서 수정하는 것을 권장하지 않습니다';
+}
+<!--@else-->
+{@
+	$lang->search_info = 'Show or Hide search window';
+	$lang->viewer = 'Viewer';
+	$lang->with_viewer = 'Read with Viewer';
+	$lang->with_viewer_info = 'If this button is activated, when you click links in list, read with Viewer';
+	$lang->go_cmt = 'Go comment';
+	$lang->more = ', More';
+	$lang->use_wysiwyg = 'Write with WYSIWYG';
+	$lang->sns_wrt = 'If you send this post to your SNS, Click the SNS icon';
+	$lang->shortcut = 'Shortcut';
+	$lang->larger = 'Larger Font';
+	$lang->smaller = 'Smaller Font';
+	$lang->font = 'Font';
+	$lang->best_font_dsc = 'Use different fonts';
+	$lang->best_font = 'Suitable';
+	$lang->window_font = 'Segoe UI';
+	if($lang_type=='jp') $lang->window_font = 'メイリオ';
+	$lang->tahoma = 'Tahoma';
+	$lang->select_editor = 'Select Editor';
+	$lang->textarea = 'Textarea';
+	$lang->wysiwyg = 'WYSIWYG';
+	$lang->sxc_editor = 'To SNS';
+	$lang->noti_rfsh = '※ Be careful of Refresh';
+	$lang->bd_login = 'Sign In?';
+	$lang->link_site = 'Website';
+	$lang->link_site_viewer = 'Go Website with Viewer';
+	$lang->score = ' Score';
+	$lang->select_files_to_insert = 'Select files to insert to content';
+	$lang->m_img_upoad_1 = 'Files + Content';
+	$lang->m_img_upoad_2 = 'Content + Files';
+	$lang->m_editor_notice = 'It is not recommended to update an article on mobile devices';
+
+	$lang->cmd_vote = 'Like';
+	$lang->cmd_vote_down = 'Dislike';
+}
+<!--@end-->
+
+<!--@if($listStyle=='list')-->
+{@ $mi->default_style = 'list'}
+<!--@elseif($listStyle=='webzine')-->
+{@ $mi->default_style = 'webzine'}
+<!--@elseif($listStyle=='gallery')-->
+{@ $mi->default_style = 'gallery'}
+<!--@elseif($listStyle=='cloud_gall')-->
+{@ $mi->default_style = 'cloud_gall'}
+<!--@elseif($listStyle=='guest')-->
+{@ $mi->default_style = 'guest'}
+<!--@elseif($listStyle=='blog')-->
+{@ $mi->default_style = 'blog'}
+<!--@elseif($listStyle=='faq')-->
+{@ $mi->default_style = 'faq'}
+<!--@elseif($listStyle=='viewer')-->
+{@ $mi->default_style = 'viewer'}
+<!--@elseif(!in_array($mi->default_style,array('list','webzine','gallery','cloud_gall','guest','blog','faq','viewer')))-->
+{@ $mi->default_style = 'list'}
+<!--@end-->
+
+<!--@if(class_exists(Mobile) && Mobile::isFromMobilePhone())-->
+<load target="../../../../common/js/jquery.min.js" index="-100006" />
+<load target="../../../../common/js/xe.min.js" index="-100006" />
+<load target="../../../../common/js/x.min.js" index="-100006" />
+<load target="../../tpl/js/board.js" />
+<!--@end-->
+
+<!--%load_js_plugin("ui")-->
+<load target="css/board.css" />
+<load target="css/ie8.css" targetie="lt IE 9" />
+<load cond="$mi->colorset=='black'" target="css/black.css" />
+
+<!--// 커스텀 파일 넣기 -->
+<include cond="is_dir(_XE_PATH_.'/modules/board/skins/sketchbook5/custom')" target="custom/custom.php" />
+
+<style id="bdCss">
+.bd,.bd input,.bd textarea,.bd select,.bd button,.bd table{font-family:<!--@if($mi->font=='ng')-->'나눔고딕',NanumGothic,ng,<!--@elseif($mi->font=='window_font')-->'Segoe UI',Meiryo,'맑은 고딕','Malgun Gothic',<!--@elseif($mi->font=='tahoma')-->Tahoma,'돋움',Dotum,<!--@end-->'Segoe UI',Meiryo,'나눔고딕',NanumGothic,ng,'맑은 고딕','Malgun Gothic','돋움',Dotum,AppleGothic,sans-serif}
+<!--@if($mi->font=='tahoma')-->
+.bd .ngeb{font-family:'돋움',Dotum,AppleGothic,sans-serif}
+<!--@end-->
+<!--@if($mi->color!='333333')-->
+.bd a:focus,.bd input:focus,.bd button:focus,.bd textarea:focus,.bd select:focus{outline-color:#{$mi->color};}
+.bd .replyNum{color:#{$mi->color} !important}
+.bd .trackbackNum{color:{$mi->shadow} !important}
+.bd.fdb_count .replyNum{background:#{$mi->color};}
+.bd.fdb_count .trackbackNum{background:{$mi->shadow};}
+<!--@end-->
+.bd em,.bd .color{color:#{$mi->color};}
+.bd .shadow{text-shadow:1px 1px 1px {$mi->shadow};}
+.bd .bolder{color:#{$mi->color};text-shadow:2px 2px 4px {$mi->shadow};}
+.bd .bg_color{background-color:#{$mi->color};}
+<block cond="$mi->colorset=='white'">
+.bd .bg_f_color{background-color:#{$mi->color};background:-moz-linear-gradient(#FFF -50%,#{$mi->color} 50%);background:-webkit-linear-gradient(#FFF -50%,#{$mi->color} 50%);background:linear-gradient(to bottom,#FFF -50%,#{$mi->color} 50%);}
+</block>
+.bd .border_color{border-color:#{$mi->color};}
+.bd .bx_shadow{ -webkit-box-shadow:0 0 2px {$mi->shadow};box-shadow:0 0 2px {$mi->shadow};}
+.viewer_with.on:before{background-color:#{$mi->color};box-shadow:0 0 2px #{$mi->color};}
+<block cond="$mi->ribbon_img">
+.ribbon_v .ribbon{width:{$mi->ribbon_size}px;height:{$mi->ribbon_size}px;background:url({$mi->ribbon_img});border:0;-webkit-box-shadow:none;box-shadow:none}
+</block>
+<block cond="$mi->ribbon_style">
+.ribbon_v2 .ribbon{<!--@if($mi->ribbon_align)-->right:auto;left:-1px;<!--@end-->background-color:{$mi->ribbon_color};border-color:{$mi->ribbon_color};}
+</block>
+<block cond="$mi->no_img">
+.no_img{background:url({$mi->no_img}) 50% 50% no-repeat;background-size:cover;text-indent:-999px}
+</block>
+<block cond="$mi->use_category!='Y' || $mi->cnb">
+.bd_zine.zine li:first-child,.bd_tb_lst.common_notice tr:first-child td{margin-top:2px;border-top:1px solid #DDD}
+</block>
+<block cond="$mi->img_insert">
+.rd_gallery{text-align:{$mi->img_insert_align};{$mi->img_insert_css};}
+.rd_gallery img{width:{$mi->img_insert_width};height:{$mi->img_insert_height};{$mi->img_insert_img_css};}
+</block>
+
+<!--// List Style -->
+<!--@if($mi->default_style=='list')-->
+<!--// Normal -->
+<block cond="$mi->use_category!='Y'">
+.bd_tb_lst{margin-top:0}
+</block>
+<block cond="$mi->lst_viewer=='Y'">
+.bd_tb_lst .hx{position:relative;text-decoration:none}
+</block>
+.bd_tb_lst .cate span,.bd_tb_lst .author span,.bd_tb_lst .last_post small{max-width:{$mi->normal_lst_tdW}px}
+<!--@elseif($mi->default_style=='webzine')-->
+<!--// Webzine -->
+<block cond="!$mi->zine_hover">
+.bd_zine.zine li:hover .tmb_wrp{ -ms-transform:rotate(5deg);-moz-transform:rotate(5deg);-webkit-transform:rotate(5deg);transform:rotate(5deg)}
+.bd_zine.card li:hover{z-index:10;-ms-transform:scale(1.05);-moz-transform:scale(1.05);-webkit-transform:scale(1.05);transform:scale(1.05)}
+</block>
+.bd_zine .tmb_wrp .no_img{width:{$mi->zine_thumb_width}px;height:{$mi->zine_thumb_height}px;line-height:{$mi->zine_thumb_height}px}
+.bd_zine a:hover,.bd_zine a:focus,.bd_zine .select a{z-index:20;border-color:#{$mi->color};}
+.bd_zine.zine .tmb_wrp img,.bd_zine.card li{ {$mi->zine_css} }
+<block cond="!$mi->zine_tx_color">
+.bd_zine .info b,.bd_zine .info a{color:{$mi->shadow};}
+.bd_zine.card h3{color:#{$mi->color};}
+</block>
+<block cond="$list_config['thumbnail']">
+.bd_zine.zine .rt_area{margin-left:{$mi->zine_thumb_width+20}px}
+.bd_zine.zine .tmb_wrp{margin-left:-{$mi->zine_thumb_width+20}px}
+</block>
+<block cond="$mi->zine_style=='3' || $mi->zine_style=='4'">
+.bd_zine{margin:0 auto;padding:{$mi->zine_margin}px 0}
+.bd_zine li{width:{$mi->zine_thumb_width}px;margin:{$mi->zine_margin}px}
+.bd_zine .tmb_wrp .no_img{width:{$mi->zine_thumb_width-2}px;height:{$mi->zine_thumb_width-2}px;line-height:{$mi->zine_thumb_width-2}px;border:1px solid #DDD}
+<!--@if($mi->zine_thumb_width > 399)-->
+.bd_zine.card h3{font-size:15px}
+.bd_zine.card .cnt{margin-top:1.5em}
+.bd_zine.card .info{font-size:12px}
+<!--@elseif($mi->zine_thumb_width > 299)-->
+.bd_zine.card h3{font-size:14px}
+<!--@elseif($mi->zine_thumb_width > 209)-->
+.bd_zine.card h3{font-size:13px;letter-spacing:-1px}
+.bd_zine.card .info{font-size:11px}
+<!--@elseif($mi->zine_thumb_width < 139)-->
+<!--@end-->
+@media screen and (max-width:640px){
+<!--@if($mi->zine_thumb_width > 279)-->
+.bd_zine.card li{width:240px}
+<!--@else-->
+.bd_zine.card li{width:140px}
+<!--@end-->
+}
+@media screen and (max-width:480px){
+<!--@if($mi->zine_thumb_width > 399)-->
+.bd_zine.card li{width:400px}
+<!--@elseif($mi->zine_thumb_width > 139)-->
+.bd_zine.card li{width:200px}
+<!--@else-->
+.bd_zine.card li{width:116px}
+<!--@end-->
+}
+@media screen and (max-width:360px){
+<!--@if($mi->zine_thumb_width > 279)-->
+.bd_zine.card li{width:300px}
+<!--@else-->
+.bd_zine.card li{width:128px}
+<!--@end-->
+}
+</block>
+<!--@elseif($mi->default_style=='gallery')-->
+<!--// Gallery -->
+.bd_tmb_lst li{float:{$mi->gall_align};width:{$mi->thumbnail_width+40}px;height:{$mi->thumbnail_height+80}px;width:{$mi->li_width}px;height:{$mi->li_height}px}
+.bd_tmb_lst .no_img{width:{$mi->thumbnail_width}px;<!--@if($mi->thumbnail_type=='crop')-->height:{$mi->thumbnail_height}px;line-height:{$mi->thumbnail_height}px<!--@else-->height:{$mi->thumbnail_width}px;line-height:{$mi->thumbnail_width}px<!--@end-->}
+.bd_tmb_lst .deco_img{background-image:url({$mi->deco_img})}
+.bd_tmb_lst .tmb_wrp,.bd_tmb_lst.gall_style2 .tmb_wrp{max-width:{$mi->thumbnail_width}px;{$mi->thumb_css} }
+<block cond="$mi->tmb_hover_bg">
+.tmb_wrp .info{background:#{$mi->color};color:#FFF;<!--@if($mi->tmb_hover_bg=='3')-->filter:alpha(opacity=80);opacity:.8<!--@end-->}
+</block>
+<block cond="$mi->gall_deg">
+.bd_tmb_lst .tmb_wrp{ -moz-transition:-moz-transform .5s;-webkit-transition:-webkit-transform .5s;transition:transform .5s}
+.bd_tmb_lst .tmb_wrp:hover{z-index:1;-ms-transform:rotate(0) !important;-moz-transform:rotate(0) !important;-webkit-transform:rotate(0) !important;transform:rotate(0) !important}
+</block>
+@media screen and (max-width:640px){
+<!--@if($mi->thumbnail_width > 279)-->
+.bd_tmb_lst li{width:50%}
+<!--@elseif($mi->thumbnail_width > 179)-->
+.bd_tmb_lst li{width:33.333%}
+<!--@else-->
+.bd_tmb_lst li{width:25%}
+<!--@end-->
+}
+@media screen and (max-width:480px){
+<!--@if($mi->thumbnail_width > 399)-->
+.bd_tmb_lst li{display:block}
+<!--@elseif($mi->thumbnail_width > 139)-->
+.bd_tmb_lst li{width:50%}
+<!--@else-->
+.bd_tmb_lst li{width:33.333%}
+<!--@end-->
+}
+@media screen and (max-width:360px){
+<!--@if($mi->thumbnail_width > 279)-->
+.bd_tmb_lst li{display:block}
+<!--@else-->
+.bd_tmb_lst li{width:50%}
+<!--@end-->
+}
+<!--@end-->
+</style>

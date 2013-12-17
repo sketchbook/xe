@@ -1,0 +1,116 @@
+{@
+$rd_idx=0;
+$mi->fdb_style='fdb_v2';
+}
+<!--%import("filter/insert.xml")-->
+
+<div class="bd_guest clear">
+	<div class="sum"><a href="{getUrl('','mid',$mid)}">Footprints <em>'{number_format($total_count)}'</em></a></div>
+	<!--// 상단 쓰기 -->
+	<form cond="$grant->write_document" action="./" method="post" onsubmit="return procFilter(this, window.insert)" class="bd_wrt bd_wrt_main css3pie clear">
+		<input type="hidden" name="mid" value="{$mid}" />
+		<input type="hidden" name="comment_status" value="ALLOW" id="comment_status" />
+		<input type="hidden" name="allow_trackback" value="Y" id="allow_trackback" />
+		<input type="hidden" name="content" value="{$mi->content_default}"|cond="$mi->content_default" />
+		<input type="hidden" name="document_srl" value="" />
+		<block cond="$mi->cmt_wrt=='editor'">{$oDocument->getEditor()}</block>
+		<div cond="$mi->cmt_wrt!='editor'" class="simple_wrt">
+		<input type="hidden" id="htm_1" name="use_html" value="Y" />
+		<textarea id="editor_1" rows="7" cols="50"></textarea>
+		</div>
+		<div class="edit_opt">
+			<block cond="!$is_logged">
+			<span class="itx_wrp">
+				<label for="nick_name">{$lang->writer}</label>
+				<input type="text" name="nick_name" id="nick_name" value="{htmlspecialchars($oDocument->get('nick_name'))}" class="itx n_p" />
+			</span>
+			<span class="itx_wrp">
+				<label for="password">{$lang->password}</label>
+				<input type="password" name="password" id="password" class="itx n_p" />
+			</span>	
+			<span class="itx_wrp">
+				<label for="email_address">{$lang->email_address}</label>
+				<input type="text" name="email_address" id="email_address" value="{htmlspecialchars($oDocument->get('email_address'))}" class="itx m_h" />
+			</span>
+			<span class="itx_wrp">
+				<label for="homepage">{$lang->homepage}</label>
+				<input type="text" name="homepage" id="homepage" value="{htmlspecialchars($oDocument->get('homepage'))}" class="itx m_h" />
+			</span>
+			</block>
+			<input type="submit" value="{$lang->cmd_registration}" class="btn fr" />
+		</div>
+		<div class="opt_chk fl">
+			<div cond="$is_logged" class="section">
+				<input type="checkbox" name="notify_message" value="Y" checked="checked"|cond="$oDocument->useNotify() || (!$oDocument->useNotify() && @in_array(notify,$mi->wrt_opt))" id="notify_message" />
+				<label for="notify_message">{$lang->notify}</label>
+			</div>
+			<div cond="is_array($status_list)" class="section">
+				<!--@foreach($status_list AS $key=>$value)-->
+				<input cond="@!in_array(secret,$mi->wrt_opt)" type="radio" name="status" value="{$key}" id="{$key}" checked="checked"|cond="$oDocument->get('status')==$key || ($key=='PUBLIC' && !$document_srl)" />
+				<input cond="@in_array(secret,$mi->wrt_opt)" type="radio" name="status" value="{$key}" id="{$key}" checked="checked"|cond="$oDocument->get('status')==$key || ($key=='SECRET' && !$document_srl)" />
+				<label for="{$key}">{$value}</label>
+				<!--@end-->
+			</div>
+		</div>
+		<a cond="$mi->cmt_wrt!='editor'" class="fl" href="{getUrl('act','dispBoardWrite','document_srl','')}" style="margin-top:12px;font-size:11px"><b class="tx_ico_circ bg_color"><span class="ie8_only color">●</span><b>?</b></b> {$lang->use_wysiwyg}</a>
+		<div cond="$mi->cmt_wrt=='sns'" class="sns_wrt clear">
+			<p><b class="tx_ico_circ bg_color"><span class="ie8_only color">●</span><b>?</b></b> {$lang->sns_wrt}.</p>
+			<img class="zbxe_widget_output" widget="socialxe_info" colorset="{$mi->colorset}" skin="default" />
+		</div>
+	</form>
+	<div cond="!$grant->write_document" class="bd_wrt main">
+		<a class="cmt_disable bd_login" href="#"><p style="padding:3em 0;text-align:center;font-size:1em">{$lang->write_comment} {$lang->msg_not_permitted}<block cond="!$is_logged"> {$lang->bd_login}</block></p></a>
+	</div>
+
+<block cond="$mi->cmt_wrt=='sns'">
+{@ $mi->cmt_wrt = 'simple'}
+</block>
+	<!--// 본문 영역 -->
+	<div loop="$document_list=>$no,$oDocument" cond="$grant->view" class="guest_itm fdb_nav_btm clear" style="padding:0"|cond="$oDocument->isSecret() && !$oDocument->isGranted()">
+		<!--@if($oDocument->isSecret() && !$oDocument->isGranted())-->
+		<form action="./" method="get" onsubmit="return procFilter(this, input_password)" class="secretMessage clear">
+			<input type="hidden" name="mid" value="{$mid}" />
+			<input type="hidden" name="page" value="{$page}" />
+			<input type="hidden" name="document_srl" value="{$oDocument->document_srl}" />
+			<p>&quot;{$lang->msg_is_secret}&quot;</p>
+			<span class="itx_wrp">
+				<label for="cpw_{$oDocument->document_srl}">{$lang->password}</label>
+				<input type="password" name="password" id="cpw_{$oDocument->document_srl}" class="itx" />
+			</span>
+			<input class="btn" type="submit" value="{$lang->cmd_input}" />
+		</form>
+		<!--@else-->
+		<!--// 프로필 이미지 -->
+		<div cond="$mi->profile_img!='N'" class="guest_profile">
+			<img cond="$oDocument->getProfileImage()" class="img profile" src="{$oDocument->getProfileImage()}" alt="profile" title="{$oDocument->getNickName()}" />
+			<span cond="!$oDocument->getProfileImage()" class="img profile no_img">?</span>
+		</div>
+		<!--// 글 정보 -->
+		<div class="guest_meta">
+			<a cond="!$oDocument->getMemberSrl() && $oDocument->isExistsHomepage()" href="{$oDocument->getHomepageUrl()}" onclick="window.open(this.href);return false">{$oDocument->getNickName()}</a>
+			<b cond="!$oDocument->getMemberSrl() && !$oDocument->isExistsHomepage()">{$oDocument->getNickName()}</b>
+			<a cond="$oDocument->getMemberSrl()" href="#popup_menu_area" class="member_{$oDocument->get('member_srl')}" onclick="return false">{$oDocument->getNickName()}</a>
+			<span class="date">{getTimeGap($oDocument->get('regdate'), "Y.m.d H:i")}</span><small cond="$grant->manager || $mi->display_ip_address=='Y'" class="m_no">({$oDocument->getIpaddress()})</small>
+			<span cond="$oDocument->isSecret()" class="ico_secret">SECRET</span>
+		</div>
+		<!--// 본문 -->
+		{$oDocument->getContent(false)}
+		<!--// 편집 -->
+		<div class="guest_itm_nav fdb_nav">
+			<block cond="$oDocument->isEditable()">
+			<a href="{getUrl('act','dispBoardWrite','document_srl',$oDocument->document_srl,'comment_srl','')}">{$lang->cmd_modify}</a>
+			<a href="{getUrl('act','dispBoardDelete','document_srl',$oDocument->document_srl,'comment_srl','')}">{$lang->cmd_delete}</a>
+			</block>
+			<a href="#" onclick="jQuery(this).parent().next().slideToggle().find('.fdb_lst_ul,.bd_pg').show();return false">{$lang->comment}<em>{$oDocument->getCommentcount()}</em></a>
+		</div>
+		<!--// 댓글 -->
+		<div class="guest_cmt fdb_v2 clear {$mi->profile_img} {$mi->fdb_hide}">
+			<!--// 댓글 목록 -->
+			<include cond="$oDocument->getCommentcount()" target="_comment.html" />
+			<!--// 댓글 에디터 -->
+			<include target="_comment_write.html" />
+		</div>
+		<!--@end-->
+		{@ $rd_idx=1}
+	</div>
+</div>

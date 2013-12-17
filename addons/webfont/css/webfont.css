@@ -1,0 +1,27 @@
+@charset "utf-8";
+#webfont .wrap{position:relative;width:430px;margin:50px auto}
+#webfont .w_bg{width:430px;height:200px;overflow:hidden;background:url(http://static.campaign.naver.com/0/hangeul/2010/img/bg_install.jpg) no-repeat 0 0}
+#webfont a.w_bg{position:relative;display:block;height:220px;background-position:0 bottom}
+#webfont a.w_bg span{visibility:hidden;overflow:hidden;position:absolute;top:0;left:0;width:1px;height:1px;font-size:0;line-height:0}
+#webfont .cnt{position:absolute;top:60px;left:50%;width:400px;margin-left:-200px;font-family:ng;line-height:2em;text-align:center;letter-spacing:-1px;text-shadow:0 0 1px #EEE;background:#F9F9F9}
+#webfont h2{margin:30px 0;font-size:17px;color:#333}
+#webfont p{font-weight:bold;font-size:14px;color:#999}
+#webfont b,#webfont em,#webfontM b,#webfontM em{font-size:1.1em;color:#2AAE1E}
+#webfont em,#webfontM em{font-weight:bold;font-style:normal;color:#6495ed}
+
+/* Modal Window */
+#webfont .bg{position:absolute;background:#000;_background:none;width:100%;height:100%;opacity:.5;z-index:2;filter:progid:DXImageTransform.Microsoft.Alpha(opacity=50);zoom:1;*left:0}
+#webfont .fg{position:relative;max-width:530px;min-width:324px;_width:50%;margin:5% auto;background:#fff;border:8px solid #ddd;z-index:3;zoom:1;border-radius:5px;-moz-border-radius:5px;-webkit-border-radius:5pxbox-shadow:0 0 6px #000;-moz-box-shadow:0 0 6px #000;-webkit-box-shadow:0 0 6px #000}
+#webfont .ie6{position:absolute;left:0;top:0;width:100%;height:100%;border:0;opacity:0;filter:alpha(opacity=0);z-index:1}
+.modalActive{position:absolute;top:0;left:0;width:100%;_height:100%;min-height:100%;z-index:100}
+.modalClose{position:absolute;right:-8px;top:-8px;border:0;background:#ddd;padding:0;width:28px;height:28px;font-size:14px;font-weight:bold;cursor:pointer;color:#999;border-radius:5px}
+.modalBlur{position:absolute;top:0;right:0;border:0;background:none;padding:0;width:1px;height:1px;overflow:hidden}
+
+/* Mobile */
+#webfontM{padding:16px 8px;background:#FFF;border-bottom:1px solid #DDD;box-shadow:0 0 8px rgba(0,0,0,.1);text-align:center}
+#webfontM h2{margin:0;font-size:15px}
+#webfontM p{margin:8px 0;color:#888}
+#webfontM u{color:#444}
+#webfontM em{font-size:14px}
+#webfontM button{min-width:56px;margin-left:8px;background:#F6F6F6;border:1px solid;border-color:#DDD #DDD #AAA;border-radius:4px;color:#777}
+#webfontM .yes{font-weight:bold;color:#6495ed}

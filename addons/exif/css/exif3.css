@@ -1,0 +1,6 @@
+@charset "utf-8";
+.exif_addon{display:block;padding:8px 0 24px;font:11px/1 Tahoma;text-align:center}
+.exif_addon span{padding:0 7px;border-right:1px solid #DDD;color:#888}
+.black .exif_addon span{border-color:#333}
+.exif_size{border:0 !important}
+.exif_addon span b,.exif_addon button,.exif_addon strong,.exif_addon .exif_none,.exif_addon .exif_gps{display:none}

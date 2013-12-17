@@ -1,0 +1,63 @@
+<!--@if($total)-->
+<hr class="clear first_line" />
+<div cond="$mi->fdb_style==''" class="fdb_tag">
+	<a class="ui_font bubble" href="#" onclick="jQuery(this).parent().nextAll('ul').slideToggle();return false" title="{$lang->comment} {$lang->cmd_view}">Comment <b>'{$total}'</b></a>
+</div>
+<div cond="$mi->fdb_style=='fdb_v2'" class="socialxe_comment_info nametag"><strong class="bg_color ui_font">Comment <b>'{$total}'</b></strong></div>
+<!--@end-->
+
+<ul>
+{@$c = 0}
+<!--@foreach($comment_list as $oComment)-->
+{@$c++}
+<li id="social_comment_{$oComment->get('comment_srl')}" class="socialxe_comment_item fdb_itm">
+	<span id="comment_{$oComment->get('comment_srl')}"></span>
+	<div class="socialxe_profile_image">
+		<!--@if($oComment->get('link'))-->
+			<a href="{$oComment->get('link')}" target="_blank">
+		<!--@end-->
+
+		<!--@if($profile_image = $oComment->getProfileImage())-->
+			<img src="{$profile_image}" alt="profile image" class="profile iePngFix"/>
+		<!--@else-->
+			<span class="profile no_img">?</span>
+		<!--@end-->
+
+		<!--@if($oComment->get('link'))-->
+			</a>
+		<!--@end-->
+	</div>
+	<div class="socialxe_name meta">
+		<a cond="$oComment->get('member_srl') || !$oComment->get('provider')" href="#popup_menu_area" class="member_{$oComment->get('member_srl')}" onclick="return false"><i class="img small bg_color xe"><span class="blind">{$lang->homepage}</span></i></a>
+		<!--@if($oComment->getSocialNickName())-->
+			<!--@if($oComment->get('link'))-->
+				<a href="{$oComment->get('link')}" target="_blank"><i class="img small {$oComment->get('provider')}" title="{$oComment->getSocialNickName()}"><span class="blind">{$lang->provider[$oComment->get('provider')]}</span></i></a>
+			<!--@else-->
+				<span class="img small {$oComment->get('provider')}">{$lang->provider[$oComment->get('provider')]}</span>
+			<!--@end-->
+		<!--@end--> 
+		<strong>{$oComment->getNickName()}</strong><small cond="$oComment->getSocialNickName()" class="secondary">{$oComment->getSocialNickName()}</small>
+		<span class="date">{getTimeGap($oComment->get('regdate'), "Y.m.d H:i:s")}</span>
+	</div>
+	{$oComment->getContent(false)}
+	<div class="socialxe_command fdb_nav">
+		<a cond="$oComment->isGranted()" href="#" onclick="deleteSocialComment({$oComment->get('comment_srl')});return false">{$lang->cmd_delete}</a>
+		
+		<a href="#" id="socialxe_write_comment_{$oComment->get('comment_srl')}" class="socialxe_write_comment" onclick="viewSubComment('{$skin}', {$document_srl}, {$oComment->get('comment_srl')}, '{$content_link}');return false">{$lang->comment}<em>{$oComment->get('sub_comment_count')}</em></a>
+	</div>
+	<div id="socialxe_comment_{$oComment->get('comment_srl')}" class="socialxe_sub_comment" style="display:none"></div>
+<script cond="$use_comment_srl && $auto_login_key" type="text/javascript">
+<!--
+	viewSubComment('{$skin}', {$document_srl}, {$oComment->get('comment_srl')}, '{$content_link}')
+-->
+</script>
+</li>
+{@$last_comment_srl = $oComment->get('comment_srl')}
+<!--@end-->
+</ul>
+<!--@if($c && $c == $list_count)-->
+	<div class="socialxe_more" onclick="moreComment('{$skin}', {$document_srl}, {$last_comment_srl}, {$list_count}, '{$content_link}');">{$lang->more}</div>
+<!--@end-->
+<!--@if($use_comment_srl)-->
+	<div class="socialxe_more" onclick="replaceComment('{$skin}', {$document_srl}, {$list_count}, '{$content_link}');">{$lang->viewComment}</div>
+<!--@end-->

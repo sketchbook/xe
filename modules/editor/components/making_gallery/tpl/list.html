@@ -1,0 +1,55 @@
+﻿<style type="text/css">
+#making_gallery_{$gallery_info->srl}{position:relative;clear:both;width:{$gallery_info->width}; margin:{$gallery_info->div_margin}; padding:{$gallery_info->div_padding}; background-color:#{$gallery_info->div_bg_color}; border:{$gallery_info->div_border_width}px {$gallery_info->div_border_style} #{$gallery_info->div_border_color}; text-align:{$gallery_info->img_align};}
+
+<block cond="$gallery_info->preset=='1'">
+#making_gallery_{$gallery_info->srl} img{ -webkit-box-shadow:2px 2px 6px rgba(0,0,0,.5);box-shadow:2px 2px 6px rgba(0,0,0,.5)}
+.black #making_gallery_{$gallery_info->srl} img{border:1px solid #333;-webkit-box-shadow:2px 2px 8px rgba(0,0,0,.9);box-shadow:2px 2px 8px rgba(0,0,0,.9)}
+</block>
+
+<block cond="$gallery_info->preset=='2'">
+#making_gallery_{$gallery_info->srl} img{border-radius:8px;-webkit-box-shadow:0 1px 3px rgba(0,0,0,.4);box-shadow:0 1px 3px rgba(0,0,0,.4)}
+</block>
+
+<block cond="$gallery_info->preset=='3'">
+#making_gallery_{$gallery_info->srl}{height:480px}
+#making_gallery_{$gallery_info->srl} a{position:absolute;top:0;left:0;width:0;height:0}
+#making_gallery_{$gallery_info->srl} img{display:none;padding:10px 10px 20px;background:#FFF;-webkit-box-shadow:2px 2px 6px rgba(0,0,0,.5);box-shadow:2px 2px 6px rgba(0,0,0,.5)}
+.black #making_gallery_{$gallery_info->srl} img{border:1px solid #999;-webkit-box-shadow:2px 2px 8px rgba(0,0,0,.9)box-shadow:2px 2px 8px rgba(0,0,0,.9)}
+</block>
+
+#making_gallery_{$gallery_info->srl} img{position:relative;vertical-align:top;width:{$gallery_info->img_width}px; height:{$gallery_info->img_height}px; margin:{$gallery_info->img_margin}px; padding:{$gallery_info->img_padding}px; background-color:#{$gallery_info->img_bg_color}; border:{$gallery_info->img_border_width}px {$gallery_info->img_border_style} #{$gallery_info->img_border_color}; border-radius:{$gallery_info->img_border_radius}px; box-shadow:{$gallery_info->img_shadow_hori}px {$gallery_info->img_shadow_vertical}px {$gallery_info->img_shadow_width}px #{$gallery_info->img_shadow_color}; -webkit-box-shadow:{$gallery_info->img_shadow_hori}px {$gallery_info->img_shadow_vertical}px {$gallery_info->img_shadow_width}px #{$gallery_info->img_shadow_color}; transition:transform .4s;-webkit-transition:-webkit-transform .4s;-moz-transition:-moz-transform .4s}
+#making_gallery_{$gallery_info->srl} img:hover{z-index:99 !important;-ms-transform:scale(1.1) rotate(5deg) !important;-webkit-transform:scale(1.1) rotate(5deg) !important;-moz-transform:scale(1.1) rotate(5deg) !important}
+</style>
+
+
+<script cond="$gallery_info->preset=='3'" type="text/javascript">
+<!--%load_js_plugin("ui")-->
+jQuery(function($){
+	counts = [ 1 ];
+	$('#making_gallery_{$gallery_info->srl} img').draggable({
+		containment:"document",
+		start: function(){
+			$(this).css('zIndex',counts[ 0 ]++);
+		}
+	});
+    function cloud(){
+		$('#making_gallery_{$gallery_info->srl} img').each(function(){
+			var t = $(this)
+			var m = Math.floor(Math.random()*40-20);
+			t.css({
+				top:Math.floor(Math.random()*(320)),
+				left:Math.floor(Math.random()*($('#making_gallery_{$gallery_info->srl}').width()-240)),
+				'msTransform':'rotate('+m+'deg)',
+				'-moz-transform':'rotate('+m+'deg)',
+				'-webkit-transform':'rotate('+m+'deg)'
+			});
+			t.fadeIn();
+		});
+    };
+	cloud();
+});
+</script>
+
+<div id="making_gallery_{$gallery_info->srl}" align="{$gallery_info->div_align}">
+	<img loop="$gallery_info->images_list=>$image" src="{$image}" alt="" />
+</div>

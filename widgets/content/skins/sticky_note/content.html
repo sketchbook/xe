@@ -1,0 +1,30 @@
+<load target="./css/widget.css" />
+<load target="./js/widget.js" type="body" />
+<!--%load_js_plugin("ui")-->
+{@ if($widget_info->cols_list_count=='5') $widget_info->cols_list_count = 480}
+
+<div class="wgt_sticky_note" style="height:{$widget_info->cols_list_count}px">
+	<img cond="$widget_info->content_cut_size!='5'" class="wgt_sticky_note_bg" src="{$widget_info->content_cut_size}" alt="Sticky Note Bacground" />
+	<button cond="$widget_info->markup_type" type="button" class="wgt_sticky_note_btn" title="Random Position">Random</button>
+	{@$i=0}
+	<!--@foreach($widget_info->tab as $module_srl => $tab)-->
+	{@$widget_info->content_items = $tab->content_items}
+	<div class="wgt_sticky_note_itm color{$i%5}" style="z-index:{10-$i}">
+		<span class="deco"></span>
+		<h3>{$tab->title}</h3>
+		<ul class="doc">
+			{@$_idx=0}
+			<!--@foreach($widget_info->content_items as $key => $item)-->
+			<li<!--@if($_idx >= $widget_info->list_count)--> style="display:none"<!--@end-->>
+				<a href="{$item->getLink()}">{$item->getTitle($widget_info->subject_cut_size)} <span class="date">{$item->getRegdate("d")} {$item->getRegdate("F Y")} / by {$item->getNickName()}</span></a>
+			</li>
+			{@$_idx++}<!--@end-->
+		</ul>
+		<ul cond="$widget_info->page_count > 1 && $widget_info->list_count<$_idx" class="widgetNavigator">
+			<li><button type="button" class="prev" title="{$lang->cmd_prev}" onclick="content_widget_prev(jQuery(this).parents('ul').prev('ul'),{$widget_info->list_count})" title="{$lang->cmd_prev}"><span>＜</span></button></li>
+			<li><button type="button" class="next" title="{$lang->cmd_next}" onclick="content_widget_next(jQuery(this).parents('ul').prev('ul'),{$widget_info->list_count})" title="{$lang->cmd_next}"><span>＞</span></button></li>
+		</ul>
+	</div>
+	{@$i++}
+	<!--@end-->
+</div>

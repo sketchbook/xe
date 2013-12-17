@@ -1,0 +1,53 @@
+@charset "utf-8";
+.wgt_sticky_note_wrp{overflow:visible !important}
+.wgt_sticky_note{position:relative;height:480px}
+.wgt_sticky_note_itm{display:none}
+.wgt_sticky_note_bg{display:block;position:absolute;top:0;width:100%;max-width:100%}
+.wgt_sticky_note_btn{display:block;position:absolute;top:5px;right:5px;width:56px;height:56px;padding:0;background:#FCFCFC;background:-moz-linear-gradient(top,white,#EEE);background:-webkit-linear-gradient(top,white,#EEE);border-width:1px;border-style:solid;border-color:#CCC #BBB #AAA #CCC;border-radius:99px;font:12px/54px "Comic Sans MS",Arial;color:#333;-webkit-box-shadow:0 1px 3px rgba(0,0,0,.2);box-shadow:0 1px 3px rgba(0,0,0,.2)}
+.wgt_sticky_note_btn:hover,.wgt_sticky_note_btn:focus{background:#666;background:-moz-linear-gradient(top,#666,#333);background:-webkit-linear-gradient(top,#666,#333);font-weight:bold;color:#FFF}
+.wgt_sticky_note_btn:active{top:6px}
+
+.wgt_sticky_note_itm ul{list-style:none;margin:0;padding:0}
+.wgt_sticky_note_itm .clearLeft{clear:left}
+.wgt_sticky_note_itm .clearRight{clear:right}
+.wgt_sticky_note_itm .widgetNavigator{z-index:-100;position:absolute;top:50%;width:100%;left:0}
+.wgt_sticky_note_itm .widgetNavigator button{padding:2px;font:bold 15px Tahoma;cursor:pointer;background:none;border:0}
+.wgt_sticky_note_itm .widgetNavigator button.prev{float:left}
+.wgt_sticky_note_itm .widgetNavigator button.next{float:right}
+
+.wgt_sticky_note_itm{position:absolute;margin:15px;padding:20px 30px;cursor:move;-webkit-box-shadow:0 3px 8px rgba(0,0,0,.4);box-shadow:0 3px 8px rgba(0,0,0,.4);filter:alpha(opacity=70);opacity:.7;-ms-transition:.5s;-moz-transition:.5s;-webkit-transition:.5s;transition:.5s}
+@media \0screen{
+.wgt_sticky_note_itm{border:1px solid #EEE}
+}
+.wgt_sticky_note_itm:hover{z-index:100 !important;filter:alpha(opacity=90);opacity:.9;-ms-transform:scale(1.2) rotate(0) !important;-moz-transform:rotate(-1.2deg) !important;-webkit-transform:scale(1.2) rotate(0) !important;transform:scale(1.2) rotate(0) !important}
+.wgt_sticky_note_itm h3{margin:0 0 8px;font-weigt:bold;font-size:16px;text-align:center}
+.wgt_sticky_note_itm .doc a{overflow:hidden;display:block;margin-bottom:5px;white-space:nowrap;letter-spacing:-1px;font-weight:bold}
+.wgt_sticky_note_itm .date{display:block;font-weight:normal;font-size:11px;color:#666}
+.wgt_sticky_note_itm .deco{display:block;position:absolute;top:-13px;left:50%;margin-left:-38px;width:77px;height:27px;background:url(../img/tape.png) no-repeat}
+
+/* Pink */
+.wgt_sticky_note_itm.color0{background-color:#FFE8F3;background:-webkit-linear-gradient(top,#FFE8F3,#FFD0DF);color:#F69}
+.wgt_sticky_note_itm.color0 a,.wgt_sticky_note_itm.color0 button{color:#F69}
+/* Sky */
+.wgt_sticky_note_itm.color1{background-color:#D1EAFC;background:-webkit-linear-gradient(top,#D1EAFC,#C0D8FB);color:#369}
+.wgt_sticky_note_itm.color1 a,.wgt_sticky_note_itm.color1 button{color:#369}
+/* Green */
+.wgt_sticky_note_itm.color2{background-color:#EFC;background:-webkit-linear-gradient(top,#EFC,#DFB);color:#3C0}
+.wgt_sticky_note_itm.color2 a,.wgt_sticky_note_itm.color2 button{color:#3C0}
+/* Yellow */
+.wgt_sticky_note_itm.color3{background-color:#FFFFD0;background:-webkit-linear-gradient(top,#FFFFD3,#FFFF90);color:#F96}
+.wgt_sticky_note_itm.color3 a,.wgt_sticky_note_itm.color3 button{color:#F96}
+/* violet */
+.wgt_sticky_note_itm.color4{background-color:#F2E6FF;background:-webkit-linear-gradient(top,#F2E6FF,#EBE);color:#C6C}
+.wgt_sticky_note_itm.color4 a,.wgt_sticky_note_itm.color4 button{color:#C6C}
+
+
+@media screen and (max-width:533px){
+.wgt_sticky_note{height:auto !important}
+.wgt_sticky_note_btn{display:none}
+.wgt_sticky_note_itm{position:relative !important;float:left;top:auto !important;left:auto !important;width:206px;margin:20px 10px;padding:20px;-ms-transform:none !important;-moz-transform:none !important;-webkit-transform:none !important;transform:none !important}
+.wgt_sticky_note_itm:hover{-ms-transform:none !important;-moz-transform:none !important;-webkit-transform:none !important;transform:none !important}
+}
+@media screen and (max-width:480px){
+.wgt_sticky_note_itm{float:none;width:auto}
+}

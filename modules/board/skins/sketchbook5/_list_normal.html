@@ -1,0 +1,124 @@
+<!--@if($order_type=="desc")-->
+{@
+$order_icon="down";
+$order_type="asc";
+}
+<!--@else-->
+{@
+$order_icon="up";
+$order_type="desc";
+}
+<!--@end-->
+
+<p cond="!$document_list && !$notice_list" class="no_doc">{$lang->no_documents}</p>
+<table cond="$document_list || $notice_list" class="bd_lst bd_tb_lst bd_tb">
+	<caption class="blind">List of Articles</caption>
+	<thead class="bg_f_f9">
+		<!--// 테이블 헤더 -->
+		<tr>
+			<block loop="$list_config=>$key,$val">
+			<th scope="col" cond="$val->type=='no' && $val->idx==-1" class="no"><span><a href="{getUrl('order_type',$order_type)}" title="<!--@if($order_type=="desc")-->{$lang->order_desc}<!--@else-->{$lang->order_asc}<!--@end-->">{$lang->no}</a></span></th>
+			<block cond="$val->type=='title' && $val->idx==-1">
+			<th scope="col" cond="!$mi->show_cate && $mi->use_category=='Y'" class="m_no"><span>{$lang->category}</span></th>
+			<th scope="col" class="title"><span><a href="{getUrl('sort_index','title','order_type',$order_type)}"><!--@if(!$mi->link_board)-->{$lang->title}<!--@else-->{$lang->link_site}<!--@end--><i cond="$sort_index=='title'" class="arrow {$order_icon}"></i></a></span></th>
+			</block>
+			<th scope="col" cond="$val->type=='nick_name' && $val->idx==-1"><span>{$lang->writer}</span></th>
+			<th scope="col" cond="$val->type=='user_id' && $val->idx==-1"><span>{$lang->user_id}</span></th>
+			<th scope="col" cond="$val->type=='user_name' && $val->idx==-1"><span>{$lang->user_name}</span></th>
+			<th scope="col" cond="$val->type=='regdate' && $val->idx==-1"><span><a href="{getUrl('sort_index','regdate','order_type',$order_type)}">{$lang->date}<i cond="$sort_index=='regdate'" class="arrow {$order_icon}"></i></a></span></th>
+			<th scope="col" cond="$val->type=='last_update' && $val->idx==-1" class="m_no"><span><a href="{getUrl('sort_index','last_update','order_type',$order_type)}">{$lang->last_update}<i cond="$sort_index=='last_update'" class="arrow {$order_icon}"></i></a></span></th>
+			<th scope="col" cond="$val->type=='last_post' && $val->idx==-1" class="m_no"><span>{$lang->last_post}</span></th>
+			<th scope="col" cond="$val->type=='readed_count' && $val->idx==-1" class="m_no"><span><a href="{getUrl('sort_index','readed_count','order_type',$order_type)}">{$lang->readed_count}<i cond="$sort_index=='readed_count'" class="arrow {$order_icon}"></i></a></span></th>
+			<th scope="col" cond="$val->type=='voted_count' && $val->idx==-1" class="m_no"><span><a href="{getUrl('sort_index','voted_count','order_type',$order_type)}">{$lang->voted_count}<i cond="$sort_index=='voted_count'" class="arrow {$order_icon}"></i></a></span></th>
+			<th scope="col" cond="$val->idx!=-1" class="m_no"|cond="$val->eid!='link_url'"><span><a href="{getUrl('sort_index',$val->eid,'order_type',$order_type)}">{$val->name}</a></span></th>
+			</block>
+			<th scope="col" cond="$grant->manager" class="m_no"><span><input type="checkbox" onclick="XE.checkboxToggleAll({ doClick:true });" class="iCheck" title="Check All" /></span></th>
+		</tr>
+	</thead>
+	<tbody>
+		<!--// Notice -->
+		<tr class="notice" loop="$notice_list=>$no,$document">
+			<block loop="$list_config=>$key,$val">
+			<td cond="$val->type=='no' && $val->idx==-1" class="no">
+				<block cond="$document_srl==$document->document_srl">&raquo;</block><strong cond="$document_srl!=$document->document_srl">{$lang->notice}</strong>
+			</td>
+			<block cond="$val->type=='title' && $val->idx==-1">
+			<td cond="!$mi->show_cate && $module_info->use_category=='Y'" class="cate" style="color:{$category_list[$document->get('category_srl')]->color}"|cond="$category_list[$document->get('category_srl')]->color!='transparent'"><strong>{$category_list[$document->get('category_srl')]->title}</strong></td>
+			<td class="title">
+				<a href="{getUrl('document_srl',$document->document_srl, 'listStyle', $listStyle, 'cpage','')}"><strong>{$document->getTitle($mi->subject_cut_size)}</strong></a>
+				<block cond="!$mi->link_board">
+				<a cond="$document->getCommentCount()" href="{getUrl('document_srl', $document->document_srl)}#{$document->document_srl}_comment" class="replyNum" title="{$lang->comment}">{$document->getCommentCount()}</a>
+				<a cond="$document->getTrackbackCount()" href="{getUrl('document_srl', $document->document_srl)}#{$document->document_srl}_trackback" class="trackbackNum" title="{$lang->trackback}">{$document->getTrackbackCount()}</a>
+				</block>
+				<span class="extraimages">{$document->printExtraImages(60*60*$mi->duration_new)}</span>
+			</td>
+			</block>
+			<td class="author" cond="$val->type=='nick_name' && $val->idx==-1"><span><a href="#popup_menu_area" class="member_{$document->get('member_srl')}" onclick="return false">{$document->getNickName()}</a></span></td>
+			<td class="author" cond="$val->type=='user_id' && $val->idx==-1"><span>{$document->getUserID()}</span></td>
+			<td class="author" cond="$val->type=='user_name' && $val->idx==-1"><span>{$document->getUserName()}</span></td>
+			<td class="time" cond="$val->type=='regdate' && $val->idx==-1">{$document->getRegdate('Y.m.d')}</td>
+			<td class="time m_no" cond="$val->type=='last_update' && $val->idx==-1">{zdate($document->get('last_update'),'Y.m.d')}</td>
+			<td class="time last_post m_no" cond="$val->type=='last_post' && $val->idx==-1">
+				<block cond="(int)($document->get('comment_count'))>0">
+					<a href="{getUrl('document_srl',$document->document_srl)}#{$document->document_srl}_comment" title="{getTimeGap($document->get('last_update'), "H:i")}">{zdate($document->get('last_update'),'Y.m.d')}<small cond="$document->getLastUpdater()">(by {$document->getLastUpdater()})</small></a>
+				</block>
+				<block cond="(int)($document->get('comment_count'))==0">&nbsp;</block>
+			</td>
+			<td cond="$val->type=='readed_count' && $val->idx==-1" class="m_no">{$document->get('readed_count')>0?$document->get('readed_count'):'0'}</td>
+			<td cond="$val->type=='voted_count' && $val->idx==-1" class="m_no">{$document->get('voted_count')!=0?$document->get('voted_count'):'0'}</td>
+			<td cond="$val->idx!=-1" class="m_no"|cond="$val->eid!='link_url'">{$document->getExtraValueHTML($val->idx)}</td>
+			</block>
+			<td cond="$grant->manager" class="check m_no"><input type="checkbox" name="cart" value="{$document->document_srl}" class="iCheck" title="Check This Article" onclick="doAddDocumentCart(this)" checked="checked"|cond="$document->isCarted()" /></td>
+		</tr>
+		<!--// Normal -->
+		<tr loop="$document_list=>$no,$document" class="select"|cond="$document_srl==$document->document_srl">
+			<block loop="$list_config=>$key,$val">
+			<td class="no" cond="$val->type=='no' && $val->idx==-1">
+				<block cond="$document_srl==$document->document_srl">&raquo;</block>
+				<block cond="$document_srl!=$document->document_srl">{$no}</block>
+			</td>
+			<block cond="$val->type=='title' && $val->idx==-1">
+			<td cond="!$mi->show_cate && $module_info->use_category=='Y'" class="cate"><span style="color:{$category_list[$document->get('category_srl')]->color}"|cond="$category_list[$document->get('category_srl')]->color!='transparent'">{$category_list[$document->get('category_srl')]->title}</span></td>
+			<td class="title">
+				<!--// 제목 -->
+				<!--@if(!$mi->preview || (@!in_array(tx,$mi->preview) && !$document->thumbnailExists()))-->
+				<a <!--@if(!$mi->link_board)-->href="{getUrl('document_srl',$document->document_srl,'listStyle',$listStyle,'cpage','')}"<!--@else-->href="{$document->getExtraEidValue('link_url')}" target="_blank"<!--@end--> class="hx" data-viewer="{getUrl('document_srl',$document->document_srl,'listStyle','viewer','page','')}">
+					{$document->getTitle($mi->subject_cut_size)}
+				</a>
+				<!--@else-->
+				<a <!--@if(!$mi->link_board)-->href="{getUrl('document_srl',$document->document_srl,'listStyle',$listStyle,'cpage','')}"<!--@else-->href="{$document->getExtraEidValue('link_url')}" target="_blank"<!--@end--> class="hx bubble no_bubble<!--@if(@!in_array(tx,$mi->preview))--> only_img<!--@end-->" data-viewer="{getUrl('document_srl',$document->document_srl,'listStyle','viewer','page','')}">
+					{$document->getTitle($mi->subject_cut_size)}
+					<span cond="!$document->isSecret()" class="wrp">
+						<img cond="$document->thumbnailExists() && @in_array(img,$mi->preview)" src="{$document->getThumbnail($mi->thumbnail_width,$mi->thumbnail_height,$mi->thumbnail_type)}" alt="" />
+						<span class="speech">{htmlspecialchars($document->getSummary($mi->preview_tx))}</span><i class="edge"></i>
+						<!--// ie8; --><i class="ie8_only bl"></i><i class="ie8_only br"></i>
+					</span>
+				</a>
+				<!--@end-->
+				<block cond="!$mi->link_board">
+				<a cond="$document->getCommentCount()" href="{getUrl('document_srl', $document->document_srl)}#{$document->document_srl}_comment" class="replyNum" title="{$lang->comment}">{$document->getCommentCount()}</a>
+				<a cond="$document->getTrackbackCount()" href="{getUrl('document_srl', $document->document_srl)}#{$document->document_srl}_trackback" class="trackbackNum" title="{$lang->trackback}">{$document->getTrackbackCount()}</a>
+				</block>
+				<span class="extraimages">{$document->printExtraImages(60*60*$mi->duration_new)}<i cond="$document->thumbnailExists()" class="attached_image" title="Image"></i></span>
+				<a cond="$mi->link_board && $document->isEditable()" class="link_modify" href="{getUrl('document_srl',$document->document_srl)}">{$lang->cmd_modify}</a>
+			</td>
+			</block>
+			<td class="author" cond="$val->type=='nick_name' && $val->idx==-1"><span><a href="#popup_menu_area" class="member_{$document->get('member_srl')}" onclick="return false">{$document->getNickName()}</a></span></td>
+			<td class="author" cond="$val->type=='user_id' && $val->idx==-1"><span>{$document->getUserID()}</span></td>
+			<td class="author" cond="$val->type=='user_name' && $val->idx==-1"><span>{$document->getUserName()}</span></td>
+			<td class="time" cond="$val->type=='regdate' && $val->idx==-1" title="{getTimeGap($document->get('regdate'), "H:i")}">{$document->getRegdate('Y.m.d')}</td>
+			<td class="time last_update m_no" cond="$val->type=='last_update' && $val->idx==-1">{zdate($document->get('last_update'),'Y.m.d')}</td>
+			<td class="time last_post m_no" cond="$val->type=='last_post' && $val->idx==-1">
+				<block cond="(int)($document->get('comment_count'))>0">
+					<a href="{getUrl('document_srl',$document->document_srl)}#{$document->document_srl}_comment" title="{getTimeGap($document->get('last_update'), "H:i")}">{zdate($document->get('last_update'),'Y.m.d')}<small cond="$document->getLastUpdater()">(by {$document->getLastUpdater()})</small></a>
+				</block>
+				<block cond="(int)($document->get('comment_count'))==0">&nbsp;</block>
+			</td>
+			<td cond="$val->type=='readed_count' && $val->idx==-1" class="m_no">{$document->get('readed_count')>0?$document->get('readed_count'):'0'}</td>
+			<td cond="$val->type=='voted_count' && $val->idx==-1" class="m_no">{$document->get('voted_count')!=0?$document->get('voted_count'):'0'}</td>
+			<td cond="$val->idx!=-1" class="<!--@if($val->eid=='link_url')-->link_url<!--@else-->m_no<!--@end-->"><!--@if($val->eid=='rating')--><span class="starRating" title="{$document->getExtraValueHTML($val->idx)}{$lang->score}"><span style="width:{$document->getExtraValueHTML($val->idx)*10}%">{$document->getExtraValueHTML($val->idx)}</span></span><!--@else-->{$document->getExtraValueHTML($val->idx)}<!--@end--></td>
+			</block>
+			<td cond="$grant->manager" class="check m_no"><input type="checkbox" name="cart" value="{$document->document_srl}" class="iCheck" title="Check This Article" onclick="doAddDocumentCart(this)" checked="checked"|cond="$document->isCarted()" /></td>
+		</tr>
+	</tbody>
+</table>

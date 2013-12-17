@@ -1,0 +1,178 @@
+<!--// Mobile Upload
+	Source : http://www.phpletter.com/
+	For XE : http://www.userpin.org/
+	Modify & UI : http://sketchbooks.co.kr/
+	문제
+	1. 파일이름에 작은따옴표가 들어가는 경우 에러
+-->
+
+{@
+include_once(_XE_PATH_.'/modules/file/file.class.php');
+include_once(_XE_PATH_.'/modules/file/file.controller.php');
+$oFileController = &getController('file');
+$editor_sequence = '1';
+$upload_target_srl = $document_srl;
+$oFileController->setUploadInfo($editor_sequence, $upload_target_srl);
+$_SESSION['upload_info'][$editor_sequence]->enabled = true;
+$_SESSION['upload_info'][$editor_sequence]->upload_target_srl = $upload_target_srl;
+}
+
+<load target="css/m_editor.css" />
+<load target="js/editor_m.js" />
+<load target="js/ajaxfileupload.js" type="body" />
+
+<script>//<![CDATA[
+var lang_confirm_delete ='{$lang->confirm_delete}';
+var needBr = '<!--@if(!Mobile::isFromMobilePhone() || $document_srl)-->1<!--@else-->0<!--@end-->';
+//]]></script>
+
+<block cond="$document_srl">
+<div class="context_data">
+	<h3>※ {$lang->m_editor_notice}.</h3>
+</div>
+<div class="context_message"><br /></div>
+</block>
+
+<div class="bd_wrt bd_wrt_main clear">
+
+<form action="./" method="POST" id="ff">
+	<input type="hidden" name="mid" value="{$mid}" />
+	<input type="hidden" name="document_srl" value="{$document_srl}" />
+	<input type="hidden" name="use_html" value="Y" />
+	<!--// 상단 : 카테고리, 제목 -->
+	<table class="bd_wrt_hd bd_tb">
+		<tr>
+			<td>
+				<select cond="$mi->use_category=='Y' && $category_list" name="category_srl" class="category">
+					<option value="">{$lang->category}</option>
+					<option loop="$category_list => $val" disabled="disabled"|cond="!$val->grant" value="{$val->category_srl}" selected="selected"|cond="$val->grant&&$val->selected||$val->category_srl==$oDocument->get('category_srl')">
+						{str_repeat("&nbsp;&nbsp;",$val->depth)} {$val->title} ({$val->document_count})
+					</option>
+				</select>
+			</td>
+			<td width="100%" style="padding-right:12px">
+				<span class="itx_wrp">
+					<label for="postTitle">{$lang->title}</label>
+					<input cond="$oDocument->getTitleText()" type="text" name="title" class="itx" id="postTitle" title="{$lang->title}" value="{htmlspecialchars($oDocument->getTitleText())}" />
+					<input cond="!$oDocument->getTitleText()" type="text" name="title" class="itx" id="postTitle" title="{$lang->title}" />
+				</span>
+			</td>
+			<td cond="$is_logged && !$oDocument->isExists() || $oDocument->get('status')=='TEMP'" class="m_no"><button type="button" class="bd_btn" onclick="doDocumentLoad(this);">{$lang->cmd_load}</button></td>
+		</tr>
+	</table>
+
+	<table cond="count($extra_keys)" class="exForm bd_tb">
+		<caption><strong><em>*</em></strong> <small>: {$lang->is_required}</small></caption>
+		<tr loop="$extra_keys=>$key,$val">
+			<th scope="row"><em cond="$val->is_required=='Y'">*</em> {$val->name}</th>
+			<td>{$val->getFormHTML()}</td>
+		</tr>
+	</table>
+
+	<!--// 내용 -->
+	<div class="m_editor">
+		<textarea name="content" id="nText" col="50" rows="8" value="<!--@if(!$oDocument->getContentText() && $mi->content_default)-->{htmlspecialchars($mi->content_default)}<!--@else-->{$oDocument->getContentText()}<!--@end-->"><!--@if(!$oDocument->getContentText() && $mi->content_default)-->{htmlspecialchars($mi->content_default)}<!--@else-->{$oDocument->getContentText()}<!--@end--></textarea>
+	</div>
+
+	<!--// 태그 -->
+	<div class="tag itx_wrp">
+		<span class="itx_wrp">
+			<label for="tags">{$lang->tag} : {$lang->about_tag}</label>
+            <input type="text" name="tags" id="tags" value="{htmlspecialchars($oDocument->get('tags'))}" class="itx" />
+		</span>
+	</div>
+
+	<!--// 비로그인 입력 -->
+	<div class="edit_opt">
+		<block cond="!$is_logged">
+		<span class="itx_wrp">
+			<label for="nick_name">{$lang->writer}</label>
+            <input type="text" name="nick_name" id="nick_name" value="{$oDocument->getNickName()}" class="itx n_p" />
+		</span>
+		<span class="itx_wrp">
+			<label for="password">{$lang->password}</label>
+            <input type="password" name="password" id="password" class="itx n_p" />
+		</span>
+		<span class="itx_wrp">
+			<label for="email_address">{$lang->email_address}</label>
+            <input type="text" name="email_address" id="email_address" value="{htmlspecialchars($oDocument->get('email_address'))}" class="itx m_h" />
+		</span>
+		<span class="itx_wrp">
+			<label for="homepage">{$lang->homepage}</label>
+            <input type="text" name="homepage" id="homepage" value="{htmlspecialchars($oDocument->get('homepage'))}" class="itx m_h" />
+		</span>
+		</block>
+	</div>
+
+	<!--// 글쓰기 옵션 체크 -->
+	<div class="opt_chk clear">
+		<div cond="$grant->manager" class="section">
+			<input type="checkbox" name="is_notice" value="Y" checked="checked"|cond="$oDocument->isNotice()" id="is_notice" />
+			<label for="is_notice">{$lang->notice}</label>
+		</div>
+		<div class="section">
+			<input type="checkbox" name="comment_status" value="ALLOW" checked="checked"|cond="$oDocument->allowComment()" id="comment_status" />
+			<label for="comment_status">{$lang->allow_comment}</label>
+			<input type="checkbox" name="allow_trackback" value="Y" checked="checked"|cond="$oDocument->allowTrackback()" id="allow_trackback" />
+			<label for="allow_trackback">{$lang->allow_trackback}</label>
+		</div>
+		<div cond="$is_logged" class="section">
+			<input type="checkbox" name="notify_message" value="Y" checked="checked"|cond="$oDocument->useNotify() || (!$oDocument->useNotify() && @in_array(notify,$mi->wrt_opt))" id="notify_message" />
+			<label for="notify_message">{$lang->notify}</label>
+		</div>
+		<div cond="is_array($status_list)" class="section">
+			<!--@foreach($status_list AS $key=>$value)-->
+			<input cond="@!in_array(secret,$mi->wrt_opt)" type="radio" name="status" value="{$key}" id="{$key}" checked="checked"|cond="$oDocument->get('status')==$key || ($key=='PUBLIC' && !$document_srl)" />
+			<input cond="@in_array(secret,$mi->wrt_opt)" type="radio" name="status" value="{$key}" id="{$key}" checked="checked"|cond="$oDocument->get('status')==$key || ($key=='SECRET' && !$document_srl)" />
+			<label for="{$key}">{$value}</label>
+			<!--@end-->
+		</div>
+	</div>
+</form>
+
+	<!--// 이미지 업로드 -->
+	<div id="mUpload">
+		<div class="bg_f_f9 clear">
+			<strong class="fl">{$lang->uploaded_file}</strong> <button type="button" class="bd_btn fr" onclick="jQuery('#Filedata').click()">{$lang->upload_file}</button>
+			<form name="form" action="" method="POST" enctype="multipart/form-data" class="blind">
+				<input id="Filedata" type="file" name="Filedata" onchange="ajaxFileUpload()" />
+			</form>
+		</div>
+		<ul id="files" class="clear">
+			<block cond="$oDocument->hasUploadedFiles()" loop="$oDocument->getUploadedFiles()=>$key,$file">
+{@
+	$ext = substr($file->source_filename, -4);
+	$ext = strtolower($ext);
+	$type = 'etc';
+	if(in_array($ext,array('.jpg','jpeg','.gif','.png'))) $type = 'img';
+	if(in_array($ext,array('.mp3','.wav','.ogg','.aac'))) $type = 'music';
+	if(in_array($ext,array('webm','.mp4','.ogv','.avi','.mov','.mkv'))) $type = 'media';
+}
+			<li cond="$type=='img'" id="{$file->file_srl}" class="success"><button type="button" data-file="{$file->uploaded_filename}" data-type="img" title="{$file->source_filename}" style="background-image:url({$file->uploaded_filename})" onclick="jQuery(this).parent().toggleClass('select')"><b>✔</b></button><a href="#" onclick="delete_file({$file->file_srl});return false"><b>X</b></a></li>
+			<li cond="$type!='img'" id="{$file->file_srl}" class="success type2 {$type}"><small>{$file->source_filename}</small><button type="button" data-file="{$file->uploaded_filename}" data-type="{$type}" data-dnld="{$file->download_url}" onclick="jQuery(this).parent().toggleClass('select')"><b>✔</b></button><a href="#" onclick="delete_file({$file->file_srl});return false"><b>X</b></a></li>
+			</block>
+			<li id="loading"></li>
+			<li class="info clear<!--@if($oDocument->hasUploadedFiles())--> is_img<!--@end-->">
+				<span>{$lang->no_files}</span>
+				<div>
+					<p><i class="tx_ico_chk">✔</i>{$lang->select_files_to_insert}</p>
+					<input type="radio" name="m_img_upoad" id="m_img_upoad_1" checked="checked" /><label for="m_img_upoad_1">{$lang->m_img_upoad_1}</label>
+					<input type="radio" name="m_img_upoad" id="m_img_upoad_2" /><label for="m_img_upoad_2">{$lang->m_img_upoad_2}</label>
+				</div>
+			</li>
+		</ul>
+	</div>
+
+	<!--// SocialXE -->
+	<div cond="$mi->cmt_wrt=='sns'" class="sns_wrt">
+		<p>※ {$lang->sns_wrt}.</p>
+		<img class="zbxe_widget_output" widget="socialxe_info" colorset="{$mi->colorset}" skin="default"  />
+	</div>
+
+	<!--// Buttons -->
+	<div class="regist">
+		<button cond="$is_logged && !$oDocument->isExists() || $oDocument->get('status')=='TEMP'" type="button" onclick="doDocumentSave(this);" class="bd_btn temp">{$lang->cmd_temp_save}</button>
+        <input type="submit" id="frmSubmit" value="{$lang->cmd_submit}" class="bd_btn blue" onclick="frmSubmit();return false" />
+		<button type="button" onclick="history.back()" class="bd_btn cancle">{$lang->cmd_back}</button>
+	</div>
+</div>

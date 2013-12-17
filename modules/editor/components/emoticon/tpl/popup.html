@@ -1,0 +1,32 @@
+<!--%import("popup.js")-->
+<!--%import("popup.css")-->
+
+<div id="hd" class="clear">
+	<h1 style="display:none">{$component_info->title}</h1>
+	<div id="gnb" class="fnb ui_font">
+		<!--@foreach($emoticon_list as $key => $val)-->
+		<div class="select"|cond="$val=='Onion'">
+			<input type="radio" name="emoticon" id="val_{$val}" class="fnb_item_{$val}" checked="checked"|cond="$val=='Onion'" value="{$val}" />
+			<label for="val_{$val}" class="label">{$val}</label>
+			<span></span>
+		</div>
+		<!--@end-->
+	</div>
+</div>
+
+<div id="body">
+	<div id="cnt" class="clear">
+		<div id="emoticons"></div>
+	</div>
+</div>
+
+<div id="ft">
+	<div class="fnb">
+		<div class="fl">
+			<span>본문에 넣기를 원하시는 이모티콘을 클릭하세요.</span>
+		</div>
+		<div class="fr">
+			<span class="btn" style="display:none"><button type="submit">등록하기</button></span>
+		</div>
+	</div>
+</div>

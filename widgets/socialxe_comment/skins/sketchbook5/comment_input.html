@@ -1,0 +1,73 @@
+<fieldset class="socialxe_service bg_f_f9">
+<legend class="blind">{$lang->select_service}</legend>
+	<ul class="fl">
+		<!--@foreach($provider_list as $provider)-->
+		<li>
+			<!--@if($provider_is_logged[$provider])-->
+			<a cond="$provider!='xe'" class="bubble" href="{getUrl('', 'mid', $mid, 'module', 'socialxe', 'act', 'dispSocialxeLogout', 'provider', $provider, 'query', $query)}" onclick="providerLogout('{$provider}', '{$skin}'); return false;" class="bubble" title="{$lang->provider[$provider]}({$nick_names[$provider]}) Logout">
+				<b class="img {$provider}"><span class="blind">{$lang->provider[$provider]}({$nick_names[$provider]}) Logout</span></b>
+			</a>
+			<a cond="$provider=='xe'" class="bubble" href="{getUrl('', 'vid', $vid, 'mid', $mid, 'document_srl', $_document_srl, 'act', 'dispMemberLogout')}" title="{$lang->homepage} Logout">
+				<b class="img xe bg_color"><span class="blind">{$lang->homepage} Logout</span></b>
+			</a>
+			<!--@else-->
+			<a cond="$provider!='xe'" class="bubble" href="{getUrl('', 'mid', $mid, 'module', 'socialxe', 'act', 'dispSocialxeLogin', 'provider', $provider, 'query', $query)}" onclick="providerLogin(this.href,'{$skin}');return false;" title="{$lang->provider[$provider]} Login">
+				<b class="img off {$provider}"><span class="blind">{$lang->provider[$provider]}({$nick_names[$provider]}) Logout</span></b>
+			</a>
+			<a cond="$provider=='xe'" class="bubble" href="{getUrl('', 'vid', $vid, 'mid', $mid, 'document_srl', $_document_srl, 'act', 'dispMemberLoginForm')}" title="{$lang->homepage} Login">
+				<b class="img off xe bg_color"><span class="blind">{$lang->homepage} Login</span></b>
+			</a>
+			<!--@end-->
+		</li>
+		<!--@end-->
+	</ul>
+	<div class="socialxe_name">
+		<!--@if($nick_name)-->
+			<b class="img small {$master_provider}<!--@if($master_provider=='xe')--> bg_color<!--@end-->"><span class="blind">{$lang->provider[$master_provider]}</span></b> <b cond="$slave_provider" class="img small {$slave_provider}" title="{$slave_nick_name}"><span class="blind">{$lang->provider[$slave_provider]}</span></b> <strong>{$nick_name}</strong><small cond="$slave_provider" class="secondary">{$slave_nick_name}</small>
+			<!--@if(in_array('xe',$logged_provider))-->
+			{@$logged_count-=1;}
+			<!--@end-->
+			<span cond="$logged_count>1" class="socialxe_master_change_wrp">
+				<a href="#" onclick="jQuery(this).next().fadeToggle(200);return false" class="socialxe_master_change">{$lang->cmd_master}<span class="arrow down"></span></a>
+				<span class="socialxe_master_change_list">
+					<span class="box_wrp">
+						<!--@foreach($logged_provider as $provider)-->
+						<a cond="$provider!='xe'" href="#" onclick="changeMaster('{$provider}', '{$skin}');return false"><b class="img small {$provider}"><span class="blind">{$lang->provider[$provider]}</span></b>{$lang->provider[$provider]}</a>
+						<!--@end-->
+					</span>
+				</span>
+			</span>
+		<!--@else-->
+			{$lang->msg_login}
+		<!--@end-->
+	</div>
+</fieldset>
+
+<fieldset class="socialxe_input">
+<legend class="blind">{$lang->cmd_reply}</legend>
+	<div class="socialxe_wrap sxc_wrt">
+		<div class="socialxe_left">
+			<!--@if($profile_image)-->
+				<div class="socialxe_profile_image"><img src="{$profile_image}" alt="profile image" class="profile iePngFix" /></div>
+			<!--@else-->
+				<div class="socialxe_profile_image"><span class="profile no_img">?</span></div>
+			<!--@end-->
+
+			<div class="socialxe_content_input text">
+				<!--// IE6 textarea width 100% 버그 fix -->
+				<fieldset><div>
+				<textarea name="content" id="socialxe_main_content" rows="3" cols="50" <!--@if($nick_name)-->class="socialxe_resizable"<!--@else-->class="socialxe_resizable disabled" disabled="disabled"<!--@end-->>{$_COOKIE["socialxe_content"]}</textarea>
+				</div></fieldset>
+			</div>
+		</div>
+		<div class="socialxe_submit"><input type="submit" value="{$lang->cmd_submit}" class="bd_btn" /></div>
+	</div>
+</fieldset>
+<i class="img socialxe_poweredby"><span class="blind">Powered by SocialXE</span></i>
+<!--@if($enter_send == 'Y')-->
+<script type="text/javascript">
+<!--
+	enterSend();
+-->
+</script>
+<!--@end-->

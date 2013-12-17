@@ -1,0 +1,108 @@
+<!--%import("popup.js")-->
+<!--%import("popup.css")-->
+<!--%import("../lang")-->
+
+<script language="javascript" type="text/javascript">//<![CDATA[
+<!--
+var no_result="{$lang->msg_no_result}";
+var soo_msg_total="{$lang->soo_msg_total}";
+var soo_msg_result_num="{$lang->soo_msg_result_num}";
+var soo_msg_nextpage="{$lang->soo_msg_nextpage}";
+var soo_msg_beforepage="{$lang->soo_msg_beforepage}";
+var soo_msg_insert="{$lang->soo_msg_insert_all}";
+var soo_msg_insert_linkonly="{$lang->soo_msg_insert_linkonly}";
+
+var soo_view_count = '{$lang->readed_count}';
+var author = '{$lang->author}';
+var regdate = '{$lang->regdate}';
+var last_update = '{$lang->last_update}';
+var play_time = '{$lang->soo_playtime}';
+var pre_view = '{$lang->cmd_preview}';
+var go_doc = '{$lang->soo_godoc}';
+var size_select = '{$lang->size_select}';
+//-->
+//]]></script>
+
+<div id="hd" class="clear">
+	<h1>{$component_info->title}</h1>
+	<div id="gnb" class="fnb ui_font">
+		<div>
+			<input id="fnb1" name="fnb" class="fnb_item_list1" value="list1">
+			<label for="fnb1" class="label">파일 선택 입력</label>
+			<span></span>
+		</div>
+		<div class="select">
+			<input id="fnb3" name="fnb" class="fnb_item_list3" value="list3" checked="checked">
+			<label for="fnb3" class="label">YouTube 동영상</label>
+			<span></span>
+		</div>
+	</div>
+</div>
+<div id="body">
+	<div id="cnt" class="clear">
+<!--// 파일 선택 입력 -->
+<form action="./" method="get" onsubmit="return false" id="form1">
+    <div class="article">
+		<div class="hgroup ui_font">
+			<h3><a href="#" class="open_ul">미디어 파일 입력</a></h3>
+			<h4>미디어 파일을 입력하고 설정합니다.</h4>
+		</div>
+		<ul class="ul" style="display:block">
+			<li>
+				<div class="dt">파일 주소 입력</div>
+				<div class="dd"><input type="text" id="multimedia_src" value="" style="width:99%" /></div>
+			</li>
+			<li>
+				<div class="dt">미리보기 이미지</div>
+				<div class="dd"><input type="text" id="src" value="" style="width:99%" /></div>
+			</li>
+			<li>
+				<div class="dt">넓이</div>
+				<div class="dd"><input type="text"  size="3" id="width" value="640" />px</div>
+			</li>
+			<li>
+				<div class="dt">높이</div>
+				<div class="dd"><input type="text"  size="3" id="height" value="480" />px</div>
+			</li>
+			<li>
+				<div class="dt">자동 시작</div>
+				<div class="dd"><input type="checkbox" id="auto_start" value="" /></div>
+			</li>
+		</ul>
+    </div>
+</form>
+
+<!--// 유튜브 -->
+<form action="./" method="get" onSubmit="soo_search(); return false;" id="form3">
+<div class="srch_area">
+	<img src="http://s.ytimg.com/yt/img/logos/youtube_logo_standard_againstwhite-vflKoO81_.png" alt="YouTube Logo" />
+	<span class="srch">
+		<select size="1" id="sort">
+			<option value="relevance">{$lang->soo_sort_sim}</option>
+			<option value="published">{$lang->soo_sort_published}</option>
+			<option value="viewCount">{$lang->soo_sort_viewCount}</option>
+			<option value="rating">{$lang->soo_sort_rating}</option>
+		</select>
+		<input type="text" class="itx" id="query" value="" />
+		<span class="button"><input type="submit" value="{$lang->cmd_search}" /></span>
+	</span>
+</div>
+<div class="list_area clear">
+	<div id="soo_result_info"></div>
+	<div id="results">
+		<div class="result_view" id="result_view_layer"></div>
+		<div class="result_list_box" id="result_list_layer"><p style="position:absolute;left:0;width:100%;text-align:center;font-weight:bold">검색어를 입력하세요</p></div>
+	</div>
+</div>
+</form>
+
+	</div>
+</div>
+
+<div id="ft">
+	<div class="fl">이 글쓰기 도구는 YouTube API를 사용하였습니다.</div>
+	<div class="fr">
+		<span class="button button1"><button type="submit" onclick="insertFile()">등록하기</button></span>
+		<span class="button button2"><button type="submit" onclick="insertHtml()">등록하기</button></span>
+	</div>
+</div>

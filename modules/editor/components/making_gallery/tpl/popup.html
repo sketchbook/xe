@@ -1,0 +1,237 @@
+<!--%import("popup.js")-->
+<!--%import("popup.css")-->
+<!--%import("../lang")-->
+
+<div id="hd" class="clear">
+    <h1>{$component_info->title}</h1>
+	<div id="gnb" class="fnb ui_font">
+		<div class="select">
+			<input id="list_btn" name="gall_style" checked="checked" class="fnb_item_list" value="list" onclick="window.location.reload();">
+			<label for="list_btn" class="label">리스트 갤러리</label>
+			<span></span>
+		</div>
+		<div>
+			<input id="list_btn2" name="gall_style" class="fnb_item_slide" value="slide">
+			<label for="list_btn2" class="label">슬라이드 갤러리</label>
+			<span></span>
+		</div>
+	</div>
+</div>
+
+<div id="body">
+	<div id="cnt" class="clear">
+	<form action="./" method="get" onSubmit="return false" id="fo">
+		<input type="hidden" name="editor_sequence" value="{$editor_sequence}" />
+		<div class="article gallery">
+			<div class="hgroup ui_font">
+				<h3><a href="#" class="open_ul">프리셋</a></h3>
+				<h4>미리 설정된 스타일을 사용하실 수 있습니다.</h4>
+			</div>
+			<div id="preset" class="ul change preset" style="display:block;padding:10px">
+				<span class="radio">
+					<input type="radio" id="preset1" name="preset" checked="checked" value="1">
+					<label for="preset1" class="label">그림자</label>
+				</span>
+				<span class="radio">
+					<input type="radio" id="preset2" name="preset" value="2">
+					<label for="preset2" class="label">둥근 모서리</label>
+				</span>
+				<span class="radio">
+					<input type="radio" id="preset3" name="preset" value="3">
+					<label for="preset3" class="label">폴라로이드</label>
+				</span>
+				<span class="radio">
+					<input type="radio" id="preset4" name="preset" value="N">
+					<label for="preset4" class="label">없음</label>
+				</span>
+			</div>
+		</div>
+		<div class="article gallery">
+			<div class="hgroup ui_font">
+				<h3><a href="#" class="open_ul">갤러리 상자</a></h3>
+				<h4>썸네일 갤러리를 감싸는 전체 상자의 넓이, 정렬, 여백, 배경색, 테두리 등을 설정할 수 있습니다. </h4>
+			</div>
+			<ul class="ul">
+				<li class="change width">
+					<div class="dt">갤러리 넓이</div>
+					<div class="dd">
+						<input type="text" class="inputTypeText" size="5" id="width" value="100%" title="※ 주의 : 단위'까지 입력하세요." />px, %
+						<span>☞ <strong>'단위'</strong>까지 적어주세요. (ex. 100%, 720px..)</span>
+					</div>
+				</li>
+				<li class="change slide_opt" style="display:none">
+					<div class="dt">슬라이드 설정</div>
+					<div class="dd">
+						<strong>이동 효과</strong>
+						<select id="slide_effect">
+							<option value="">슬라이드</option>
+							<option value="fade">사라지기</option>
+						</select>,
+						<strong>이미지 축소</strong>
+						<select id="img_align">
+							<option value="">원본 비율</option>
+							<option value="crop">채우기</option>
+						</select>
+					</div>
+				</li>
+				<li>
+					<div class="dt">갤러리 정렬</div>
+					<div class="dd">
+						<select id="div_align">
+							<option value="center">center</option>
+							<option value="left">left</option>
+							<option value="right">right</option>
+						</select>
+					</div>
+				</li>
+				<li>
+					<div class="dt">갤러리 여백</div>
+					<div class="dd" title="'px' 또는 '%' 같은 '단위'까지 적어주세요">
+						<strong>바깥쪽</strong> <input type="text" class="inputTypeText" size="3" id="div_margin" value="" />,  
+						<strong>안쪽</strong> <input type="text" class="inputTypeText" size="3" id="div_padding" value="" />. 
+						<span>☞ <strong>'단위'</strong>까지 적어주세요. (ex. 10px, 2%..) </span>
+					</div>
+				</li>
+				<li>
+					<div class="dt">갤러리 상자 배경색</div>
+					<div class="dd">
+						<div>#<input type="text" id="div_bg_color_input" size="6" maxlength="6" class="inputTypeText" value="" onkeyup="manual_select_color('div_bg',this)"/> <img src="{$tpl_path}/blank.gif" alt="blank" class="bg_preview_color" id="div_bg_preview_color" /></div>
+						<div class="editor_color_box"> 
+							<script type="text/javascript">
+							printColor("div_bg", "{$tpl_path}/blank.gif");
+							</script> 
+						</div>
+					</div>
+				</li>
+				<li>
+					<div class="dt">갤러리 상자 테두리</div>
+					<div class="dd">
+						<strong>넓이</strong> <input type="text" class="inputTypeText" size="3" id="div_border_width" value="" />px, 
+						<strong>스타일</strong> 
+						<select id="div_border_style" title="테두리 스타일">
+							<option value="solid">solid</option>
+							<option value="dotted">dotted</option>
+							<option value="dashed">dashed</option>
+						</select>, 
+						<strong>색상</strong> #<input type="text" id="div_border_color_input" size="6" maxlength="6" class="inputTypeText" value="" onkeyup="manual_select_color('div_border',this)" title="색상을 직접 또는 아래에서 선택하여주세요." /> <img src="{$tpl_path}/border_solid.gif" alt="blank" class="border_preview_color" id="div_border_preview_color" />
+						<div class="editor_color_box"> 
+							<script type="text/javascript">
+							printColor("div_border", "{$tpl_path}/blank.gif");
+							</script> 
+						</div>
+					</div>
+				</li>
+			</ul>
+		</div>
+		<div class="article">
+			<div class="hgroup ui_font">
+				<h3><a href="#" class="open_ul">썸네일 설정</a></h3>
+				<h4>썸네일의 정렬, 여백, 배경색, 테두리, 둥근 모서리, 그림자, 기울이기, 무작위 위치 등을 설정할 수 있습니다.</h4>
+			</div>
+			<ul class="ul">
+				<li class="change img_align">
+					<div class="dt">썸네일 정렬</div>
+					<div class="dd">
+						<select id="img_align">
+							<option value="center">center</option>
+							<option value="left">left</option>
+							<option value="right">right</option>
+						</select>
+					</div>
+				</li>
+				<li class="change img_width">
+					<div class="dt"><em>썸네일 넓이 x 높이</em></div>
+					<div class="dd">
+						<strong>넓이</strong> <input type="text" class="inputTypeText" size="3" id="img_width" value="" />px, 
+						<strong>높이</strong> <input type="text" class="inputTypeText" size="3" id="img_height" value="150" />px
+						<span>☞ <strong>한 쪽</strong> 또는 양쪽 모두 입력할 수도 있습니다.</span>
+					</div>
+				</li>
+				<li class="change img_margin">
+					<div class="dt">썸네일 여백</div>
+					<div class="dd">
+						<strong>바깥쪽</strong> <input type="text" class="inputTypeText" size="3" id="img_margin" value="8" />px,
+						<strong>안쪽</strong> <input type="text" class="inputTypeText" size="3" id="img_padding" value="" />px.
+					</div>
+				</li>
+				<li>
+					<div class="dt">썸네일 배경색</div>
+					<div class="dd">
+						<div>#<input type="text" id="img_bg_color_input" size="6" maxlength="6" class="inputTypeText" value="" onkeyup="manual_select_color('img_bg',this)"/> <img src="{$tpl_path}/blank.gif" alt="blank" class="bg_preview_color" id="img_bg_preview_color" /></div>
+						<div class="editor_color_box"> 
+							<script type="text/javascript">
+							printColor("img_bg", "{$tpl_path}/blank.gif");
+							</script> 
+						</div>
+					</div>
+				</li>
+				<li>
+					<div class="dt">썸네일 테두리</div>
+					<div class="dd">
+						<strong>넓이</strong> <input type="text" class="inputTypeText" size="3" id="img_border_width" value="" />px, 
+						<strong>스타일</strong>
+						<select id="img_border_style" title="테두리 스타일">
+							<option value="solid">solid</option>
+							<option value="dotted">dotted</option>
+							<option value="dashed">dashed</option>
+						</select>, 
+						<strong>색상</strong> #<input type="text" id="img_border_color_input" size="6" maxlength="6" class="inputTypeText" value="" onkeyup="manual_select_color('img_border',this)" title="색상을 직접 또는 아래에서 선택하여주세요." /> <img src="{$tpl_path}/border_solid.gif" alt="blank" class="border_preview_color" id="img_border_preview_color" />
+						<div class="editor_color_box"> 
+							<script type="text/javascript">
+							printColor("img_border", "{$tpl_path}/blank.gif");
+							</script> 
+						</div>
+					</div>
+				</li>
+				<li>
+					<div class="dt">둥근 모서리 정도</div>
+					<div class="dd">
+						<input type="text" class="inputTypeText" size="3" id="img_border_radius" value="" />px
+						<span>☞ 숫자가 높을수록 더 둥글게 표현됩니다. (ex. 5, 10, 20..) </span> </div>
+				</li>
+				<li>
+					<div class="dt">썸네일 그림자</div>
+					<div class="dd">
+						<strong>세로 위치</strong> <input type="text" class="inputTypeText" size="3" id="img_shadow_hori" value="" />px, 
+						<strong>가로 위치</strong> <input type="text" class="inputTypeText" size="3" id="img_shadow_vertical" value="" />px, 
+						<strong>범위</strong> <input type="text" class="inputTypeText" size="3" id="img_shadow_width" value="" />px, 
+						#<input type="text" id="img_shadow_color_input" size="6" maxlength="6" class="inputTypeText" value="" onkeyup="manual_select_color('img_shadow',this)"/> <img src="{$tpl_path}/blank.gif" alt="blank" class="bg_preview_color" id="img_shadow_preview_color" />
+						<div class="editor_color_box"> 
+							<script type="text/javascript">
+							printColor("img_shadow", "{$tpl_path}/blank.gif");
+							</script> 
+						</div>
+					</div>
+				</li>
+				<li class="change img_rotate">
+					<div class="dt">썸네일 기울이기 각도</div>
+					<div class="dd">
+						<input type="text" class="inputTypeText" size="4" id="img_rotate" value="" />°
+						<span>☞ 랜덤(무작위) 각도의 <strong>'범위'</strong>를 설정합니다. (ex. 5, 15..)</span>
+					</div>
+				</li>
+			</ul>
+		</div>
+		<div class="article">
+			<div class="hgroup ui_font">
+				<h3><a href="#" class="open_ul">{$lang->image_list}</a></h3>
+				<h4>이미지 갤러리에 추가할 파일을 선택하세요.</h4>
+			</div>
+			<div id="image_list" class="ul clear" style="display:block">
+				<span class="all button"><button type="button" class="sel">모두 선택</button><button type="button" class="desel">모두 해제</button></span>
+				<ul></ul>
+			</div>
+		</div>
+		<div style="display:none">
+			<input type="text" class="inputTypeText" size="5" id="height" value="" />
+			<input type="text" class="inputTypeText" size="5" id="slide_effect" value="" />
+			<span class="change gall_style"><input type="text" class="inputTypeText" size="5" id="gall_style" value="list" /></span>
+		</div>
+	</form>
+	</div>
+</div>
+
+<div id="ft">
+	<div class="fl">※ <strong>'강조된 글씨'</strong> 항목은 반드시 적어주세요. '수치'의 경우 <strong>'단위'</strong>에 유의하세요.</div>
+	<div class="fr insert"><a href="#" onclick="insertSlideShow()" class="btn ui_font">등록하기</a></div>
+</div>

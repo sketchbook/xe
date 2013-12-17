@@ -1,0 +1,10 @@
+<include target="__setting.html" />
+
+<!--// 상단 html 출력 -->
+<div>{$module_info->header_text}</div>
+
+<div id="bd" class="bd">
+	<div class="bd_hd clear">
+		<!--// 빵조각 메뉴 -->
+		<include cond="!$mi->breadcrumb || $act=='dispBoardWrite'" target="_breadcrumb.html" />
+	</div>
