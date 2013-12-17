@@ -3,4 +3,6 @@ xe
 
 Sketchbook'dev for XE(Xpress Engine)
 
-contact@sketchbooks.co.kr
+mail : contact@sketchbooks.co.kr
+
+Home : http://xe.sketchbooks.co.kr/
