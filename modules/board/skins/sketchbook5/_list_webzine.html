@@ -35,7 +35,7 @@
 				<span cond="$list_config['voted_count']" class="itm">Votes<b>{$document->get('voted_count')}</b></span>
 				<!--// 확장변수 -->
 				<block loop="$list_config=>$key,$val" cond="$mi->zine_extra=='Y' && $val->idx!=-1">
-				<span cond="$val->eid!='rating' && $val->eid!='link_url'" class="itm">{$val->name}<b>{$document->getExtraValueHTML($val->idx)}</b></span>
+				<span cond="$val->eid!='rating' && $val->eid!='link_url' && $document->getExtraValueHTML($val->idx)" class="itm br">{$val->name}<b>{$document->getExtraValueHTML($val->idx)}</b></span>
 				<span cond="$val->eid=='rating'" class="itm starRating"><span style="width:{$document->getExtraValueHTML($val->idx)*10}%">{$document->getExtraValueHTML($val->idx)}</span></span>
 				</block>
 				<span cond="@in_array(zine,$mi->ext_img)">{$document->printExtraImages(60*60*$mi->duration_new)}</span>
@@ -97,7 +97,7 @@
 				<span cond="$list_config['voted_count']" class="itm">Votes<b>{$document->get('voted_count')}</b></span>
 				<!--// 확장변수 -->
 				<block loop="$list_config=>$key,$val" cond="($mi->zine_extra=='Y' || $mi->link_board) && $val->idx!=-1">
-				<span cond="$val->eid!='rating'" class="itm<!--@if($val->eid=='link_url')--> link_url<!--@end-->">{$val->name}<b>{$document->getExtraValueHTML($val->idx)}</b></span>
+				<span cond="$val->eid!='rating' && $document->getExtraValueHTML($val->idx)" class="itm br<!--@if($val->eid=='link_url')--> link_url<!--@end-->">{$val->name}<b>{$document->getExtraValueHTML($val->idx)}</b></span>
 				<span cond="$val->eid=='rating'" class="itm starRating"><span style="width:{$document->getExtraValueHTML($val->idx)*10}%">{$document->getExtraValueHTML($val->idx)}</span></span>
 				</block>
 				<span cond="@in_array(zine,$mi->ext_img)">{$document->printExtraImages(60*60*$mi->duration_new)}</span>

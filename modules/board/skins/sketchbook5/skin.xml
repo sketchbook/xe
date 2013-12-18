@@ -2,7 +2,7 @@
 <skin version="0.2">
 	<title xml:lang="ko">sketchbook5</title>
 	<description xml:lang="ko">sketchbook5 Board Skin. 한국형 게시판 스타일, 여러 목록 유형 제공, 사용자 편의를 고려한 다양한 기능, 모바일까지 대응.</description>
-	<version>1.7.0-rc.9</version>
+	<version>1.7.0-rc.10</version>
 	<date>2010-11-16</date>
 	<author email_address="contact@sketchbooks.co.kr" link="http://sketchbooks.co.kr/">
 		<name xml:lang="ko">sketchbook</name>

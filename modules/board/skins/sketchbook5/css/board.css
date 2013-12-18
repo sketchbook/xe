@@ -664,7 +664,7 @@
 .bd_zine .tmb_wrp{text-align:center;-ms-transition:all .4s;-moz-transition:all .4s;-webkit-transition:all .4s;transition:all .4s}
 .bd_zine.zine .tmb_wrp{float:left}
 .bd_zine.zine .tmb_wrp img,.bd_zine .no_img{border:1px solid #DDD}
-.bd_zine h3{margin:0;font-size:15px;letter-spacing:-1px;color:#444;text-shadow:0 1px 0 #F9F3C9}
+.bd_zine h3{margin:0;font-size:15px;letter-spacing:-1px;color:#444;text-shadow:0 0 1px rgba(0,0,0,.08)}
 .bd_zine .cnt{margin-top:8px;font-size:11px}
 .bd_zine .info{color:#888}
 .bd_zine .info b{padding-left:4px;color:#666}
@@ -679,6 +679,8 @@
 .bd_zine.card .cnt{margin-top:1em}
 .bd_zine.card .info{margin-top:.8em;font-size:10px;line-height:1.4}
 .bd_zine.card .info b{padding:0 4px 0 3px;font-weight:normal}
+.bd_zine.card .info .br{display:block}
+.bd_zine.card .info .br b{padding-left:8px}
 
 /* Gallery */
 .bd_tmb_lst{padding:24px 0;text-align:center}
@@ -813,7 +815,7 @@
 .bd .starRating{width:79px;vertical-align:middle;text-align:left !important}
 .bd .starRating span{font-size:0;line-height:0;vertical-align:top;text-indent:-100px;*text-indent:0;background-position:0 -14px}
 .bd_zine.zine .info .starRating{margin-top:-4px}
-.bd_zine.card .info .starRating{display:block;margin-top:6px}
+.bd_zine.card .info .starRating{display:block;margin:8px auto}
 .link_modify{margin:0 4px;font-size:11px;border-bottom:1px dotted #999}
 .bd_zine .link_modify{position:relative;z-index:100}
 
