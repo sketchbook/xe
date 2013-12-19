@@ -428,7 +428,7 @@ if(bd.find('div.rd').length || default_style=='guest'){
 			};
 			editorStartTextarea(2,'content','comment_srl');
 		});
-	} else {
+	} else if($('#re_cmt').length) {
 		editorStartTextarea(2,'content','comment_srl');
 	};
 	// Comment Count
