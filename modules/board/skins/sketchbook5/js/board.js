@@ -403,7 +403,6 @@ if(bd.find('div.rd').length || default_style=='guest'){
 	bd.find('.to_sns a.me2day').snspost({type:'me2day'});
 	bd.find('.to_sns a.facebook').snspost({type:'facebook'});
 	// Editor
-	if(default_style=='guest') $.getScript(default_url+"/files/cache/js_filter_compiled/35d29adbe4b14641f9eac243af40093b.ko.compiled.js");
 	var simpleWrt = bd.find('.simple_wrt textarea');
 	simpleWrt.focus(function(){
 		$(this).parent().parent().next().slideDown();
@@ -412,6 +411,10 @@ if(bd.find('div.rd').length || default_style=='guest'){
 	var cmtWrt = bd.find('form.cmt_wrt .simple_wrt textarea');
 	if(cmtWrt.length){
 		$.getScript(default_url+"/modules/editor/tpl/js/editor_common.min.js", function(data, textStatus, jqxhr){
+			if(default_style=='guest'){
+				$.getScript(default_url+"/files/cache/js_filter_compiled/35d29adbe4b14641f9eac243af40093b.ko.compiled.js");
+				editorStartTextarea(1,'content','comment_srl');
+			};
 			if(default_style=='blog' || default_style=='guest'){
 				cmtWrt.each(function(){
 					editorStartTextarea($(this).attr('id').split('_')[1],'content','comment_srl');

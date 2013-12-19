@@ -66,9 +66,9 @@
 				<block cond="$mi->zine_ribbon!='N'">
 				<block cond="!$mi->zine_ribbon || $mi->zine_ribbon=='new_date'">
 				<!--@if((int)($document->getRegdate('YmdHis')>date("YmdHis", time()-$mi->duration_new*60*60)))-->
-				<span class="ribbon nnu new"><i>new</i></span>
+				<span class="ribbon nnu new"><i>NEW</i></span>
 				<!--@elseif((int)(zdate($document->get('last_update'),'YmdHis')>date("YmdHis", time()-$mi->duration_new*60*60)))-->
-				<span class="ribbon nnu update"><i>update</i></span>
+				<span class="ribbon nnu update"><i>Update</i></span>
 				<!--@else-->
 				<span cond="$mi->zine_ribbon=='new_date'" class="ribbon"><i class="date"><b>{$document->getRegdate("d")}</b><small>{$document->getRegdate("M")}</small></i></span>
 				<!--@end-->
