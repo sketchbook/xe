@@ -1,4 +1,5 @@
 {Context::set('layout','none')}
+{Context::set('admin_bar','false')}
 
 <load target="css/print.css" media="print" />
 <load target="js/viewer.js" type="body" />
@@ -35,7 +36,7 @@ body{margin:0;padding:3% 0;background:<!--@if($mi->viewer_style)-->#F3F3F3<!--@e
 </style>
 
 <div id="viewer" class="{$mi->colorset} viewer_style{$mi->viewer_style}<!--@if(!$mi->viewer_style)--> rd_nav_blk<!--@end-->">
-	<div id="bd_{$mi->module_srl}_{$oDocument->document_srl}" class="bd {$_COOKIE['use_np']} {$mi->fdb_count}<!--@if(!$mi->hover)--> hover_effect<!--@end-->" data-default_style="viewer" data-bdFilesType="{$mi->files_type}" data-bdImgOpt="Y"|cond="$mi->img_opt" data-bdImgLink="Y"|cond="!$mi->img_link && Mobile::isMobileCheckByAgent()" data-bdNavSide="N">
+	<div id="bd_{$mi->module_srl}_{$oDocument->document_srl}" class="bd clear {$_COOKIE['use_np']} {$mi->fdb_count}<!--@if(!$mi->hover)--> hover_effect<!--@end-->" data-default_style="viewer" data-bdFilesType="{$mi->files_type}" data-bdImgOpt="Y"|cond="$mi->img_opt" data-bdImgLink="Y"|cond="!$mi->img_link && Mobile::isMobileCheckByAgent()" data-bdNavSide="N">
 		<!--// ie8; --><div id="rd_ie" class="ie8_only"><i class="tl"></i><i class="tc"></i><i class="tr"></i><i class="ml"></i><i class="mr"></i><i class="bl"></i><i class="bc"></i><i class="br"></i></div>
 
 		<include target="_read.html" />

@@ -6,10 +6,10 @@
 .bd a{text-decoration:none;color:#333;-ms-transition:all .4s;-moz-transition:all .4s;-webkit-transition:all .4s;transition:all .4s;*cursor:pointer}
 .bd a:hover{text-decoration:underline;color:#000}
 .bd fieldset{margin:0;padding:0;border:0}
-.bd label{cursor:pointer}
+.bd label,.bd button{cursor:pointer}
 .fl{float:left}
 .fr{float:right}
-.bd,.bd .clear{display:block;position:relative;clear:both;*zoom:1}
+.bd .clear{display:block;position:relative;clear:both;*zoom:1}
 .bd .clear:after{content:"";display:block;clear:both}
 .bd hr.clear{margin:0;border:0;*border:1px solid transparent;*margin:-.8em 0}
 .blind{overflow:hidden;position:absolute;top:0;left:0;width:0;height:0;padding:0;font-size:0;line-height:0}
@@ -64,7 +64,7 @@
 /* Toggle */
 .tg_cnt2{display:none}
 .tg_blur2,.bd .blur{position:absolute;top:0;left:0;border:0;background:none;width:1px;height:1px;overflow:hidden}
-.bd .tg_close2{position:absolute;top:0;right:10px;border:0;background:transparent;font:20px Tahoma;color:#999;cursor:pointer}
+.bd .tg_close2{position:absolute;top:0;right:0;border:0;background:transparent;font:20px Tahoma,AppleGothic,sans-serif;color:#999}
 /* Bubble */
 .bubble{position:relative}
 .bubble .wrp{display:none;position:absolute;left:50%;bottom:100%;z-index:100;margin:8px 0;font-size:11px;background:#FFF;border:1px solid #999;border-radius:5px;white-space:nowrap;-webkit-box-shadow:1px 1px 3px rgba(0,0,0,.2);box-shadow:1px 1px 3px rgba(0,0,0,.2);*text-decoration:none}
@@ -186,7 +186,7 @@
 .bd_cnb .li2{float:none;display:inline-block;margin:0 6px}
 .bd_cnb .li2 a{color:#888}
 .bd_cnb .li2.on a,.bd_cnb .li2 a:hover,.bd_cnb .li2 a:focus{font-weight:bold;color:#222}
-.bd_cnb small,.cTab small{padding-left:1px;font:10px Tahoma;color:#777}
+.bd_cnb small,.cTab small{padding-left:1px;font:10px Tahoma,AppleGothic,sans-serif;color:#777}
 .bd .cnbMore{visibility:hidden;float:right}
 .cnbMore a{margin:7px 0 7px 5px;padding:1px 1px 0;border:1px solid;border-color:#AAA;border-radius:4px;background:#FFF;line-height:16px}
 .cnbMore i{-moz-transition:none;-webkit-transition:none;transition:none}
@@ -235,7 +235,7 @@
 .bd_srch_btm.on .select{display:block}
 /* Pagnation */
 .bd_pg{padding:24px 0;text-align:center}
-.bd_pg a,.bd_pg strong{display:inline-block;min-width:12px;height:24px;padding:0 6px;border:1px solid transparent;border-radius:2px;font:bold 12px/2em Tahoma;letter-spacing:-1px;*display:inline;*zoom:1}
+.bd_pg a,.bd_pg strong{display:inline-block;min-width:12px;height:24px;padding:0 6px;border:1px solid transparent;border-radius:2px;font:bold 12px/2em Tahoma,AppleGothic,sans-serif;letter-spacing:-1px;*display:inline;*zoom:1}
 .bd_pg a{color:#999;text-decoration:none !important}
 .bd_pg .this,.bd_pg a:hover,.bd_pg a:focus{background:#F9F9F9;border-color:#AAA;color:#555}
 .bd_pg .frst_last{color:#555}
@@ -348,7 +348,7 @@
 .rd_gallery img{margin:5px}
 /* Tag */
 .rd_tag{padding:30px 0 0 50px}
-.rd_tag div{float:left;margin:4px 0 2px -50px;padding:0 5px 0 7px;font:10px/12px 'Courier New',Courier,Tahoma;letter-spacing:-1px;color:#FFF;border:1px solid;border-radius:3px 7px 7px 3px;opacity:.8}
+.rd_tag div{float:left;margin:4px 0 2px -50px;padding:0 5px 0 7px;font:10px/12px 'Courier New',Courier,Tahoma,AppleGothic,sans-serif;letter-spacing:-1px;color:#FFF;border:1px solid;border-radius:3px 7px 7px 3px;opacity:.8}
 .rd_tag ul{margin:0;padding:0}
 .rd_tag li{display:inline-block;padding-right:6px;font-size:11px;line-height:20px;*display:inline;*zoom:1}
 .rd li:last-child .comma{display:none}
@@ -390,7 +390,7 @@
 .rd_vote{padding-bottom:30px;text-align:center}
 .bd .rd_vote a{display:inline-block;width:46px;height:46px;margin:0 6px;text-decoration:none;border-radius:2px}
 .rd_vote a.blamed{border:2px solid #BBB;color:#AAA}
-.rd_vote b{display:block;padding-top:7px;font:bold 17px/1 Arial}
+.rd_vote b{display:block;padding-top:7px;font:bold 17px/1 Arial,sans-serif}
 .rd_vote p{margin:0;font-weight:bold;font-size:11px}
 /* SNS */
 .bd .to_sns.big{padding:0 15px 30px;text-align:center}
@@ -579,7 +579,7 @@
 .bd_lst input[type=checkbox]{position:relative;z-index:30}
 .bd .no_doc{clear:both;padding:20px;text-align:center}
 .bd .attached_image{display:inline-block;width:12px;height:11px;background:url(../../../../document/tpl/icons/image.gif);vertical-align:middle;*display:inline;*zoom:1}
-.bd .replyNum,.bd .trackbackNum{margin-left:4px;font:bold 11px Tahoma;white-space:nowrap}
+.bd .replyNum,.bd .trackbackNum{margin-left:4px;font:bold 11px Tahoma,AppleGothic,sans-serif;white-space:nowrap}
 .bd .replyNum{color:#C66}
 .bd .trackbackNum{color:#39C}
 .bd.fdb_count .replyNum,.bd.fdb_count .trackbackNum{padding:1px 5px 2px;border-radius:2px;font-weight:normal;text-decoration:none;color:#FFF !important}
@@ -657,8 +657,8 @@
 .bd_zine.zine2 li{padding-left:118px}
 .bd_zine .hx,.bd_zine .notice a{display:block;position:absolute;top:-2px;left:-2px;width:100%;height:100%;border:2px solid transparent;background-image:url(../img/blank.gif);text-decoration:none}
 .bd_zine .big_date{float:left;margin-left:-90px;text-align:center;white-space:nowrap}
-.bd_zine .dd{font:bold 42px/48px Tahoma;letter-spacing:-2px}
-.bd_zine .mmyy{font:bold 14px/22px Tahoma;letter-spacing:-1px;color:#777}
+.bd_zine .dd{font:bold 42px/48px Tahoma,AppleGothic,sans-serif;letter-spacing:-2px}
+.bd_zine .mmyy{font:bold 14px/22px Tahoma,AppleGothic,sans-serif;letter-spacing:-1px;color:#777}
 .bd_zine .yy{font-weight:normal}
 .bd_zine .hh{letter-spacing:-1px;color:#888}
 .bd_zine .tmb_wrp{text-align:center;-ms-transition:all .4s;-moz-transition:all .4s;-webkit-transition:all .4s;transition:all .4s}
@@ -720,7 +720,7 @@
 .bd_cloud_btn button.off{color:#FFF;background:#999;border-color:#666}
 
 /* Guestbook */
-.bd_guest .sum{margin:0 20px 15px;padding-left:30px;font:bold 15px Tahoma;background:url(../img/ico_24px.png) no-repeat 0 -48px}
+.bd_guest .sum{margin:0 20px 15px;padding-left:30px;font:bold 15px Tahoma,AppleGothic,sans-serif;background:url(../img/ico_24px.png) no-repeat 0 -48px}
 .bd_guest .sum a{color:#999}
 .bd_guest .sum em{font-size:20px}
 .bd_guest .bd_wrt_main{margin:0 20px 30px}
@@ -895,14 +895,14 @@
 .rd_nav a{padding:9px;opacity:1}
 .fdb_v2 .fdb_lst{padding:52px 12px 12px}
 .fdb_tag{margin:0}
-.fdb_itm,.guest_itm,.bd_guest .fdb_itm{padding:10px !important}
-.fdb_itm .profile{margin:0 12px 0 0 !important}
+.fdb_itm,.guest_itm,.bd_guest .fdb_itm{padding:10px 10px 10px 66px !important}
+.fdb_itm .profile{width:40px;height:40px;margin-left:-56px !important}
 .fdb_nav{position:static;padding-top:5px;text-align:right}
 .fdb_nav a,.fdb_nav_btm .re_comment{height:auto !important}
-.cmt_editor{padding-bottom:48px !important}
+.cmt_editor{padding-bottom:60px !important}
 .simple_wrt{position:static;margin:0}
 .simple_wrt textarea{min-height:72px}
-.simple_wrt .bd_btn{position:absolute;top:100%;right:-1px;width:100%;height:36px;margin-top:8px;font-weight:bold;line-height:36px}
+.simple_wrt .bd_btn{position:absolute;top:100%;right:-1px;width:100%;height:36px;margin-top:12px;font-weight:bold;line-height:36px}
 .edit_opt{display:block !important}
 .edit_opt .itx{width:100%;padding:6px 0}
 .bd_wrt_main{padding:12px}

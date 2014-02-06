@@ -216,15 +216,15 @@
 
 		<!--// Vote -->
 		<div cond="$mi->votes!='N'" class="rd_vote">
-			<a class="bg_f_f9 bd_login" href="#" onclick="doCallModuleAction('document','procDocumentVoteUp','{$oDocument->document_srl}');return false"|cond="$is_logged" style="border:2px solid #{$mi->color};color:#{$mi->color};">
+			<a class="bg_f_f9 bd_login" href="#" onclick="doCallModuleAction('document','procDocumentVoteUp','{$oDocument->document_srl}');return false;"|cond="$is_logged" style="border:2px solid #{$mi->color};color:#{$mi->color};">
 				<b>♥ {$oDocument->get('voted_count')}</b>
 				<p>{$lang->cmd_vote}</p>
 			</a>
-			<a cond="!$mi->votes" class="bg_f_f9 blamed bd_login" href="#" onclick="doCallModuleAction('document','procDocumentVoteDown','{$oDocument->document_srl}');return false"|cond="$is_logged">
+			<a cond="!$mi->votes" class="bg_f_f9 blamed bd_login" href="#" onclick="doCallModuleAction('document','procDocumentVoteDown','{$oDocument->document_srl}');return false;"|cond="$is_logged">
 				<b>♥ {$oDocument->get('blamed_count')}</b>
 				<p>{$lang->cmd_vote_down}</p>
 			</a>
-			<a cond="$mi->declare" class="bg_f_f9 blamed declare bd_login" href="#" onclick="doCallModuleAction('document','procCommentDeclare','{$oDocument->document_srl}');return false"|cond="$is_logged">
+			<a cond="$mi->declare" class="bg_f_f9 blamed declare bd_login" href="#" onclick="doCallModuleAction('document','procDocumentDeclare','{$oDocument->document_srl}');return false;"|cond="$is_logged">
 				<b>☏</b>
 				<p>{$lang->cmd_declare}</p>
 			</a>

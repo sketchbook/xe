@@ -400,7 +400,6 @@ if(bd.find('div.rd').length || default_style=='guest'){
 	};
 	// To SNS
 	bd.find('.to_sns a.twitter').snspost({type:'twitter'});
-	bd.find('.to_sns a.me2day').snspost({type:'me2day'});
 	bd.find('.to_sns a.facebook').snspost({type:'facebook'});
 	// Editor
 	var simpleWrt = bd.find('.simple_wrt textarea');
@@ -410,9 +409,9 @@ if(bd.find('div.rd').length || default_style=='guest'){
 	.autoGrow();
 	var cmtWrt = bd.find('form.cmt_wrt .simple_wrt textarea');
 	if(cmtWrt.length){
-		$.getScript(default_url+"/modules/editor/tpl/js/editor_common.min.js", function(data, textStatus, jqxhr){
+		$.getScript("modules/editor/tpl/js/editor_common.min.js", function(data, textStatus, jqxhr){
 			if(default_style=='guest'){
-				$.getScript(default_url+"/files/cache/js_filter_compiled/35d29adbe4b14641f9eac243af40093b.ko.compiled.js");
+				$.getScript("files/cache/js_filter_compiled/35d29adbe4b14641f9eac243af40093b.ko.compiled.js");
 				editorStartTextarea(1,'content','comment_srl');
 			};
 			if(default_style=='blog' || default_style=='guest'){
@@ -570,7 +569,7 @@ function bdCloud(bd){
 		$.cookie('cg_rd','N');
 		noRotate();
 		cGall.imagesLoaded(function(){
-			if($(window).width()<534){
+			if($(window).width()<640){
 				cGall.masonry({
 					itemSelector:'a',
 					isFitWidth:true
@@ -619,7 +618,7 @@ function bdCloud(bd){
 			noRotate();
 		};
 	});
-	if($(window).width()<534 || cgRd.hasClass('off')){
+	if($(window).width()<640 || cgRd.hasClass('off')){
 		noRand();
 	} else {
 		cloud();
