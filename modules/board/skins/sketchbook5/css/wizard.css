@@ -1,0 +1,29 @@
+@charset "utf-8";
+#bd_wizard{position:fixed;top:0;left:-480px;z-index:999;width:480px;height:100%;background:#FFF;box-shadow:3px 0 3px 0 rgba(0,0,0,.3)}
+#bd_wizard_tg{display:block;position:absolute;top:40px;left:100%;height:auto;margin:0;padding:0;border-radius:0 4px 4px 0;box-shadow:inset -1px 0 6px rgba(255,255,255,.2),inset 5px 0 8px rgba(0,0,0,.08),1px 1px 3px rgba(0,0,0,.2);cursor:pointer}
+#bd_wizard_tg b{display:block;overflow:hidden;width:39px; height:39px;background:url(../img/setup.png) 50% 50% no-repeat;line-height:999px;opacity:.5}
+#bd_wizard_tg:hover b,.open #bd_wizard_tg b{opacity:.8}
+#bd_wizard h1{margin:0;padding:12px;background:#444;font-size:14px;line-height:16px;color:#FFF}
+#bd_wizard_scroll{overflow-y:scroll;visibility:hidden;position:absolute;top:40px;bottom:0;left:0;right:0}
+.open #bd_wizard_scroll{visibility:visible}
+
+#bd_wizard .section{overflow:hidden;position:relative;height:40px;border-bottom:1px solid #DDD}
+#bd_wizard .section.on{height:auto}
+#bd_wizard .section h2{position:relative;margin:0;padding:12px;font-size:13px;border-bottom:1px solid #DDD;background:#F9F9F9;line-height:16px;cursor:pointer}
+#bd_wizard .section h2:before{content:"Open/Close";display:block;overflow:hidden;position:absolute;top:4px;right:0;width:32px;height:32px;background:url(../../../../admin/tpl/img/glyphicons-halflings.png) -303px -112px;line-height:999px;opacity:.5}
+#bd_wizard .section.on h2:before{background-position:-279px -112px;opacity:1}
+#bd_wizard .section.on h2{background:#666 !important;color:#FFF !important}
+#bd_wizard .section:nth-child(even) h2{background:#EEE}
+#bd_wizard .x_control-group{clear:both;position:relative;padding:8px 20px 8px 128px;border-bottom:1px solid #DDD;font-size:11px}
+#bd_wizard .x_control-group:after{content:"";display:block;clear:both}
+#bd_wizard .x_control-group *{vertical-align:middle}
+#bd_wizard .x_control-label{float:left;width:100px;margin:2px 0 0 -116px;font-weight:700}
+#bd_wizard .x_control-group .x_controls>label{display:inline-block;margin:2px 8px 2px 0;word-break:keep-all}
+#bd_wizard input[type="radio"]{margin:-2px 0 0 0}
+#bd_wizard input[type="text"],#bd_wizard select{width:90%;margin:-2px 0;padding:2px 4px;background:#FAFAFA;border:1px solid;border-color:#BBB #DDD #DDD #BBB}
+#bd_wizard textarea{width:90%;height:36px;margin:0;padding:2px 4px;}
+#bd_wizard .x_icon-question-sign{display:block;overflow:hidden;position:absolute;top:10px;right:10px;width:14px;height:14px;background:url(../../../../admin/tpl/img/glyphicons-halflings.png) -96px -96px;line-height:999px;opacity:.6}
+#bd_wizard .x_controls>p{font-family:dotum,'돋움',sans-serif;color:#555}
+#bd_wizard .x_btn{display:block;width:90%;margin:20px auto;padding:0;border:0;border-radius:3px;box-shadow:0 1px 1px rgba(0,0,0,.8);background:#999;font-weight:700;font-size:15px;line-height:40px;color:#FFF;text-shadow:0 1px 0 #000;text-align:center}
+#bd_wizard.barrier .section:after{content:"";display:block;position:absolute;top:40px;bottom:0;left:0;right:0;background:url(../img/wh_op7.png);background:rgba(255,255,255,.7)}
+#bd_wizard.barrier .x_btn{display:none}

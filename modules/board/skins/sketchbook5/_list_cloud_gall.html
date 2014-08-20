@@ -17,7 +17,7 @@
 
 <ul class="bd_lst bd_cloud clear" style="height:{$mi->cloud_y}px" data-deg="{$mi->cloud_deg}" data-y="{$mi->cloud_y}" data-tmb="{$mi->thumbnail_width}" data-z="{$mi->list_count}">
 	<li loop="$document_list=>$no,$document" cond="$document->thumbnailExists()">
-		<a class="hx np" href="{getUrl('document_srl',$document->document_srl,'listStyle',$listStyle, 'cpage','')}" style="z-index:{$mi->list_count-$cg_idx};margin:{$mi->cloud_margin}px;<!--@if($mi->tmb_effect!='N')-->;display:none<!--@end-->" data-viewer="{getUrl('document_srl',$document->document_srl,'listStyle','viewer','page','')}">
+		<a class="hx np" href="{getUrl('document_srl',$document->document_srl,'listStyle',$listStyle,'cpage','')}" style="z-index:{$mi->list_count-$cg_idx};margin:{$mi->cloud_margin}px;<!--@if($mi->tmb_effect!='N')-->;display:none<!--@end-->" data-viewer="{getUrl('document_srl',$document->document_srl,'listStyle','viewer','page','')}">
 			<span class="tmb_wrp">
 				<img class="tmb" src="{$document->getThumbnail($mi->thumbnail_width, $mi->thumbnail_height, $mi->thumbnail_type)}" alt="" />
 				<i class="ico_32px deco1 fixed"></i><i class="ico_32px deco2 fixed"></i>

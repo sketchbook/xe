@@ -60,20 +60,20 @@
 		<!--// 편집 등 -->
 		<div class="fdb_nav img_tx">
 			<block cond="$mi->cmt_this_btn=='2' && $is_logged">
-			<a href="#" onclick="doCallModuleAction('comment','procCommentDeclare','{$comment->comment_srl}');return false">☎ {$lang->cmd_declare}</a>
-			<a href="#" onclick="doCallModuleAction('comment','procCommentVoteUp','{$comment->comment_srl}');return false"><i class="fdb_nav_ico"><em>♥</em></i> {$lang->cmd_vote}</a>
-			<a cond="!$mi->cmt_vote_down" href="#" onclick="doCallModuleAction('comment','procCommentVoteDown','{$comment->comment_srl}');return false"><i class="fdb_nav_ico">♥</i> {$lang->cmd_vote_down}</a>
+			<a href="#" onclick="doCallModuleAction('comment','procCommentDeclare','{$comment->comment_srl}');return false"><i class="fa fa-phone"></i>{$lang->cmd_declare}</a>
+			<a href="#" onclick="doCallModuleAction('comment','procCommentVoteUp','{$comment->comment_srl}');return false"><i class="fa fa-heart color"></i>{$lang->cmd_vote}</a>
+			<a cond="!$mi->cmt_vote_down" href="#" onclick="doCallModuleAction('comment','procCommentVoteDown','{$comment->comment_srl}');return false"><i class="fa fa-heart"></i>{$lang->cmd_vote_down}</a>
 			</block>
-			<a cond="(!$mi->cmt_this_btn && $is_logged) || $grant->manager" class="comment_{$comment->comment_srl} m_no" href="#popup_menu_area" onclick="return false"><span class="tx_ico_chk">✔</span>{$lang->cmd_comment_do}</a>
+			<a cond="(!$mi->cmt_this_btn && $is_logged) || $grant->manager" class="comment_{$comment->comment_srl} m_no" href="#popup_menu_area" onclick="return false"><i class="fa fa-ellipsis-h"></i>{$lang->cmd_comment_do}</a>
 			<block cond="$comment->isGranted() || !$comment->get('member_srl')">
-			<a href="{getUrl('act','dispBoardModifyComment','comment_srl',$comment->comment_srl)}"><span class="ico_16px write"></span>{$lang->cmd_modify}</a>
-			<a href="{getUrl('act','dispBoardDeleteComment','comment_srl',$comment->comment_srl)}"><span class="ico_16px delete"></span>{$lang->cmd_delete}</a>
+			<a href="{getUrl('act','dispBoardModifyComment','comment_srl',$comment->comment_srl)}"><i class="fa fa-pencil"></i>{$lang->cmd_modify}</a>
+			<a href="{getUrl('act','dispBoardDeleteComment','comment_srl',$comment->comment_srl)}"><i class="fa fa-eraser"></i>{$lang->cmd_delete}</a>
 			</block>
-			<a cond="$oDocument->allowComment()" class="re_comment" href="{getUrl('act','dispBoardReplyComment','comment_srl',$comment->comment_srl)}" onclick="<!--@if(!$grant->write_comment || !$oDocument->isEnableComment())-->alert('{$lang->msg_not_permitted}')<!--@else-->reComment({$comment->get('document_srl')},{$comment->get('comment_srl')},'{getUrl('act','dispBoardReplyComment','comment_srl',$comment->comment_srl)}');<!--@end-->return false"><span class="ico_16px reply"></span>{$lang->cmd_reply}</a>
+			<a cond="$oDocument->allowComment()" class="re_comment" href="{getUrl('act','dispBoardReplyComment','comment_srl',$comment->comment_srl)}" onclick="<!--@if(!$grant->write_comment || !$oDocument->isEnableComment())-->alert('{$lang->msg_not_permitted}')<!--@else-->reComment({$comment->get('document_srl')},{$comment->get('comment_srl')},'{getUrl('act','dispBoardReplyComment','comment_srl',$comment->comment_srl)}')<!--@end-->;return false;"><i class="fa fa-comment"></i> {$lang->cmd_reply}</a>
 			<!--// 추천-비추천 -->
 			<span cond="$mi->cmt_vote!='N' && ($mi->cmt_vote=='2' || $comment->get('voted_count')!=0 || $comment->get('blamed_count')!=0)" class="vote ui_font">
-				<a class="bd_login" href="#" onclick="doCallModuleAction('comment','procCommentVoteUp','{$comment->comment_srl}');return false"|cond="$is_logged" title="{$lang->cmd_vote}"><em><b>♥</b> {$comment->get('voted_count')?$comment->get('voted_count'):0}</em></a>
-				<a cond="!$mi->cmt_vote_down" class="bd_login" href="#" onclick="doCallModuleAction('comment','procCommentVoteDown','{$comment->comment_srl}');return false"|cond="$is_logged" title="{$lang->cmd_vote_down}"><b>♥</b> {abs($comment->get('blamed_count')?$comment->get('blamed_count'):0)}</a>
+				<a class="bd_login" href="#" onclick="doCallModuleAction('comment','procCommentVoteUp','{$comment->comment_srl}');return false"|cond="$is_logged" title="{$lang->cmd_vote}"><em><i class="fa fa-heart color"></i> {$comment->get('voted_count')?$comment->get('voted_count'):0}</em></a>
+				<a cond="!$mi->cmt_vote_down" class="bd_login" href="#" onclick="doCallModuleAction('comment','procCommentVoteDown','{$comment->comment_srl}');return false"|cond="$is_logged" title="{$lang->cmd_vote_down}"><i class="fa fa-heart"></i> {abs($comment->get('blamed_count')?$comment->get('blamed_count'):0)}</a>
 			</span>
 		</div>
 	</li>

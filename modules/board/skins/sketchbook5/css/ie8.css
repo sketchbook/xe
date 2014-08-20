@@ -13,15 +13,14 @@
 .bd_cnb .a1.on{border-color:#CCC #BBB #AAA}
 .bd_cnb .a1.on:before{content:none}
 
-.tx_ico_circ{position:relative;background:none !important}
-.tx_ico_circ .ie8_only{position:absolute;top:0;left:0;margin:-95% 0 0 -22%;font:bold normal 2.8em/1 Tahoma}
-.tx_ico_circ b{position:relative;z-index:1}
-.cmt_editor_tl .ie8_only{font-size:30px}
+.bd .bd_go_page .bd_btn{margin:8px 4px}
+.bd_wrt .regist .blue{min-width:56px}
+.simple_wrt textarea,.sxc_wrt textarea{min-height:46px}
 
 .bd_tmb_lst .shadow{position:absolute;top:100%;left:0;width:100%;height:6px;margin-top:1px;background:none;*display:none}
 .ribbon_v2 .ribbon.nnu:before{padding:1px;background:url(../img/ie/ribbon_v2.png)}
 
-.bd_faq .mark{top:7px;left:16px;width:26px;height:26px;background:url(../img/ie/ie8_faq.png) no-repeat;border:0;line-height:25px}
+.bd_faq .mrk{top:7px;left:16px;width:26px;height:26px;background:url(../img/ie/ie8_faq.png) no-repeat;border:0;line-height:25px}
 .bd_faq.faq_official .fr{margin-top:4px;*margin-top:-18px}
 
 #viewer .bd{*border:1px solid #DDD;*border-bottom-color:#CCC}
@@ -37,6 +36,7 @@
 .bd .btn_img:after{content:"";display:block;position:absolute;top:0;right:-3px;width:3px;height:100%;background:url(../img/ie/wh/btn_img.png) 100% 0}
 .bd .btn_img.no{padding:6px 15px 6px 18px}
 #re_cmt .btn_img{margin-right:1px}
+.rd_ft_nav .btn_img{height:28px;margin-right:6px}
 .bd_pg .this,.bd_pg a:hover,.bd_pg a:focus{position:relative;padding:1px 5px 1px 7px;margin-right:2px;border:0;background:url(../img/ie/wh/bd_pg.png)}
 .bd_pg .this:after,.bd_pg a:hover:after,.bd_pg a:focus:after{content:"";display:block;position:absolute;top:0;right:-2px;width:2px;height:100%;background:url(../img/ie/wh/bd_pg.png) 100% 0}
 #viewer_pn a:after,#viewer_pn strong:after{content:none}

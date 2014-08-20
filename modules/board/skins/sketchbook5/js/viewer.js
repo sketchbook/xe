@@ -1,11 +1,11 @@
 // Viewer Prev-Next
 function viewerPrevNext(){
 	jQuery('.bd_rd_prev .wrp').imagesLoaded(function(){
-		var t = jQuery(this);
+		var t = jQuery('.bd_rd_prev .wrp');
 		t.css('margin-top',-t.height()/2+32);
 	});
 	jQuery('.bd_rd_next .wrp').imagesLoaded(function(){
-		var t = jQuery(this);
+		var t = jQuery('.bd_rd_next .wrp');
 		t.css('margin-top',-t.height()/2+32);
 	});
 };
@@ -13,7 +13,7 @@ function viewerPrevNext(){
 // Viewer List
 function viewerList(){
 	var v = jQuery('#viewer_lst');
-	v.find('#viewer_lst_tg,#viewer_lst .tg_close2').click(function(){
+	v.find('#viewer_lst_tg').click(function(){
 		if(v.hasClass('open')){
 			v.animate({left:-455},{duration:750,specialEasing:{left:'easeInOutBack'},complete:function(){
 				jQuery(this).removeClass('open');
@@ -25,7 +25,7 @@ function viewerList(){
 		};
 	});
 	v.find('#viewer_lst_scroll').height(v.height()-132).imagesLoaded(function(){
-		jQuery(this).mCustomScrollbar({
+		v.find('#viewer_lst_scroll').mCustomScrollbar({
 			mouseWheelPixels:240,
 			scrollButtons:{
 				enable:true

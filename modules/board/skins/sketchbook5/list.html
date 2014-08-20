@@ -1,7 +1,7 @@
 <!--// Setting -->
+<load target="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" />
 <include target="__setting.html" />
 <load target="js/imagesloaded.pkgd.min.js" type="body" />
-<load target="js/jquery.masonry.min.js" type="body" />
 <load target="js/jquery.cookie.js" type="body" />
 <load target="js/board.js" type="body" />
 
@@ -16,31 +16,44 @@ jQuery(function($){
 <!--// 뷰어로 보기 -->
 <include cond="$mi->default_style=='viewer' && $grant->view" target="_viewer.html" />
 <block cond="$mi->default_style!='viewer'">
+<script>
+jQuery(function($){
+	$.cookie('bd_viewer_font',$('body').css('font-family'));
+});
+</script>
+<load target="js/jquery.masonry.min.js" type="body" />
 
 <!--// 상단내용 -->
 <div cond="!$mi->hd_tx">{$mi->header_text}</div>
 <div cond="$mi->hd_tx=='2' && $oDocument->isExists()">{$mi->header_text}</div>
 <div cond="$mi->hd_tx=='3' && !$oDocument->isExists()">{$mi->header_text}</div>
 
-<div id="bd_{$mi->module_srl}_{$oDocument->document_srl}" class="bd clear {$_COOKIE['use_np']} {$mi->fdb_count}<!--@if(!$mi->hover)--> hover_effect<!--@end--><!--@if(!$mi->select_lst && ($mi->cnb || $mi->use_category!='Y'))--> small_lst_btn{$oDocument->isExists()}<!--@end--><!--@if($mi->select_lst_more)--> select_lst_cloud<!--@end-->" data-default_style="{$mi->default_style}" data-link_board="{$mi->link_board}"|cond="$mi->link_board" data-bdBubble="N"|cond="$mi->bubble=='N'" data-lstViewer="{$lang->with_viewer}"|cond="$mi->lst_viewer=='Y'" data-bdFilesType="{$mi->files_type}" data-bdImgOpt="Y"|cond="$mi->img_opt" data-bdImgLink="Y"|cond="!$mi->img_link && Mobile::isMobileCheckByAgent()" data-bdNavSide="N"|cond="$mi->rd_nav_side || $mi->default_style=='blog' || $mi->default_style=='guest'">
+<div id="bd_{$mi->module_srl}_{$oDocument->document_srl}" class="bd {$_COOKIE['use_np']} {$mi->fdb_count}<!--@if(!$mi->hover)--> hover_effect<!--@end--><!--@if(!$mi->select_lst && ($mi->cnb || $mi->use_category!='Y'))--> small_lst_btn{$oDocument->isExists()}<!--@end--><!--@if($mi->select_lst_more)--> select_lst_cloud<!--@end-->" data-default_style="{$mi->default_style}" data-link_board="{$mi->link_board}"|cond="$mi->link_board" data-bdBubble="N"|cond="$mi->bubble=='N'" data-lstViewer="{$lang->with_viewer}"|cond="$mi->lst_viewer=='Y'" data-bdFilesType="{$mi->files_type}" data-bdImgOpt="Y"|cond="$mi->img_opt" data-bdImgLink="Y"|cond="!$mi->img_link && Mobile::isMobileCheckByAgent()" data-bdNavSide="N"|cond="$mi->rd_nav_side || $mi->default_style=='blog' || $mi->default_style=='guest'">
+
+<!--// Wizard -->
+<block cond="$grant->manager && $mi->wizard!='N' && !Mobile::isMobileCheckByAgent()">
+<load target="css/wizard.css" />
+<include target="_wizard.php" />
+</block>
 
 <!--// 헤더 -->
-<div class="bd_hd clear">
+<div class="bd_hd<!--@if($oDocument->isExists())--> v2<!--@end--> clear">
 	<include cond="!$mi->breadcrumb" target="_breadcrumb.html" />
 	<!--// 폰트 버튼 -->
-	<div cond="$mi->font_btn!='N'" class="bd_font fr" style="display:none"|cond="$oDocument->isExists() || $mi->font_btn=='2'">
+	<div cond="$mi->font_btn!='N'" class="bd_font m_no fr" style="display:none"|cond="$oDocument->isExists() || $mi->font_btn=='2'">
+<load target="js/font_ng.js" type="body" />
 		<a class="select tg_btn2" href="#" data-href=".bd_font_select"><b>T</b><strong><!--@if($mi->font=='ng')-->나눔고딕<!--@elseif($mi->font=='window_font')-->{$lang->window_font}<!--@elseif($mi->font=='tahoma')-->{$lang->tahoma}<!--@else-->{$lang->best_font}<!--@end--></strong><span class="arrow down"></span></a>
 		<div class="bd_font_select tg_cnt2"><button type="button" class="tg_blur2"></button>
 			<ul>
 				<li class="ui_font<!--@if(!$mi->font)--> on<!--@end-->"><a href="#" title="{$lang->best_font_dsc}">{$lang->best_font}</a><em>✔</em></li>
-				<li class="ng<!--@if($mi->font=='ng')--> on<!--@end-->"><a href="#popup_menu_area">나눔고딕</a><em>✔</em></li>
+				<li class="ng<!--@if($mi->font=='ng')--> on<!--@end-->"><a href="#">나눔고딕</a><em>✔</em></li>
 				<li class="window_font<!--@if($mi->font=='window_font')--> on<!--@end-->"><a href="#">{$lang->window_font}</a><em>✔</em></li>
 				<li class="tahoma<!--@if($mi->font=='tahoma')--> on<!--@end-->"><a href="#">{$lang->tahoma}</a><em>✔</em></li>
 			</ul><button type="button" class="tg_blur2"></button>
 		</div>
 	</div>
 	<!--// 우측 상단 설정 메뉴 -->
-	<div class="bd_set fr m_btn_wrp">
+	<div class="bd_set fr m_btn_wrp m_no">
 		<block cond="$grant->view && $mi->default_style!='guest' && $mi->default_style!='blog'">
 		<a cond="$oDocument->isExists() && !$mi->viewer" class="bg_f_f9" href="#" onclick="window.open('{getUrl('listStyle','viewer','page','')}','viewer','width=9999,height=9999,scrollbars=yes,resizable=yes,toolbars=no');return false"><em>✔</em> <strong>{$lang->viewer}</strong></a>
 		<!--@if($mi->link_board)-->
@@ -102,7 +115,7 @@ jQuery(function($){
 		<a class="home" href="{getUrl('category','','page','','document_srl','')}" title="{$lang->document_count} '{number_format($total_count)}'"><i class="home ico_16px">Category</i></a>
 		<div class="dummy_ie fr"></div>
 		<ul class="bubble bg_f_f9 css3pie">
-			<li class="cnbMore"><a href="#" class="bubble" title="{$lang->category} {$lang->more}"><i class="ui-icon<!--@if($mi->cnb_open)--> ui-icon-triangle-1-n<!--@else--> ui-icon-triangle-1-s<!--@end-->"></i></a></li>
+			<li class="cnbMore"><a href="#" class="bubble" title="{$lang->category} {$lang->more}"><i class="fa<!--@if($mi->cnb_open)--> fa-caret-up<!--@else--> fa-caret-down<!--@end-->"></i></a></li>
 			<li loop="$cate_list=>$key,$val" class="on"|cond="$category==$val->category_srl">
 				<a class="a1<!--@if($category==$val->category_srl)--> on<!--@end-->" href="{getUrl(category,$val->category_srl,'document_srl','','page','')}" title="{$lang->document_count} {$val->document_count}"|cond="!$mi->cnb_count" style="color:{$val->color}"|cond="$val->color!='transparent'">{$val->title}<small cond="$mi->cnb_count">({$val->document_count})</small></a>
 				<ul cond="count($val->children)" class="wrp">
@@ -118,6 +131,10 @@ jQuery(function($){
 			<ul cond="count($val->children)">
 				<li loop="$val->children=>$idx,$item" class="on_"|cond="$category==$item->category_srl"><a href="{getUrl(category,$item->category_srl,'document_srl','','page','')}" style="color:{$item->color}"|cond="$item->color!='transparent'">{$item->title}</a></li>
 			</ul>
+		</li>
+	</ul>
+	<ul cond="$mi->cnb=='cnb3' || $mi->cnb=='cnb4'" class="cnb3 {$mi->cnb} {$mi->cnb3_align} clear">
+		<li class="home<!--@if(!$category)--> on<!--@end-->"><a href="{getUrl('category','','page','','document_srl','')}" title="{$lang->document_count} {number_format($total_count)}">{$lang->total}<small cond="$mi->cnb_count">({number_format($total_count)})</small></a></li><li loop="$cate_list=>$key,$val" class="on"|cond="$category==$val->category_srl"><a href="{getUrl(category,$val->category_srl,'document_srl','','page','')}" style="color:{$val->color}"|cond="$val->color!='transparent'">{$val->title}<small cond="$mi->cnb_count">({$val->document_count})</small></a>
 		</li>
 	</ul>
 </div>
@@ -163,7 +180,7 @@ jQuery(function($){
 		<include target="_search.html" />
 	</div>
 	<div class="fl">
-		<a cond="@in_array(home,$mi->btm_mn)" class="btn_img fl" href="{getUrl('','mid',$mid,'page',$page,'document_srl','','listStyle',$listStyle)}"><i class="ico_16px list"></i> {$lang->cmd_list}</a>
+		<a cond="@in_array('home',$mi->btm_mn)" class="btn_img fl" href="{getUrl('','mid',$mid,'page',$page,'document_srl','','listStyle',$listStyle)}"><i class="fa fa-bars"></i> {$lang->cmd_list}</a>
 		<!--// 하단 검색창 -->
 		<form cond="$mi->srch_btm!='N' && !Mobile::isMobileCheckByAgent()" action="{getUrl()}" method="get" onsubmit="return procFilter(this, search)" class="bd_srch_btm<!--@if($mi->srch_btm==2 || $search_keyword)--> on<!--@end-->" no-error-return-url="true">
 			<input type="hidden" name="vid" value="{$vid}" />
@@ -183,7 +200,7 @@ jQuery(function($){
 		</form>
 	</div>
 	<div class="fr">
-		<a cond="@in_array(tag,$mi->btm_mn)" class="btn_img m_no" href="{getUrl('act','dispBoardTagList')}"><i class="ico_16px tag"></i> {$lang->tag}</a>
+		<a cond="@in_array('tag',$mi->btm_mn)" class="btn_img m_no" href="{getUrl('act','dispBoardTagList')}"><i class="fa fa-tag"></i> {$lang->tag}</a>
 		<a cond="!$mi->write_btm_btn || ($mi->write_btm_btn!='N' && $grant->write_document)" class="btn_img" href="{getUrl('act','dispBoardWrite','document_srl','')}"><i class="ico_16px write"></i> {$lang->cmd_write}</a>
 		<block cond="$grant->manager">
 		<a class="btn_img" href="{getUrl('act','dispBoardAdminBoardInfo')}"><i class="ico_16px setup"></i> {$lang->cmd_setup}</a>

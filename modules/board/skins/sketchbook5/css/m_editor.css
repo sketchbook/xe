@@ -1,23 +1,48 @@
 @charset "utf-8";
 /* Mobile Editor */
-#mUpload{margin:16px 0;border:1px solid #DDD;background:#FFF}
+#mUpload{margin:12px 0 24px;border:1px solid #DDD;background:#FFF}
 #mUpload .bg_f_f9{padding:4px 12px;border-bottom:1px solid #DDD;box-shadow:inset 0 -1px 1px #FFF}
-#mUpload .fl{padding:0 20px;background:url(../img/photo.png) no-repeat 0 50%;font-size:13px;line-height:30px}
-#mUpload ul{list-style:none;min-height:32px;margin:0 -2px;padding:4px}
-#mUpload li{position:relative;float:left;margin:4px;text-align:center;border-radius:5px;box-shadow:0 1px 4px rgba(0,0,0,.3)}
-#mUpload li button{display:block;width:88px;height:88px;border:0;border-radius:5px;background-position:50% 50%;background-repeat:no-repeat;background-size:cover}
-#mUpload .type2:before{display:block;position:absolute;top:10px;left:26px;width:36px;height:40px;font-size:28px;line-height:40px;color:#FFA500;text-shadow:0 1px 1px #f08080}
-#mUpload .music:before{content:"♪";font-size:40px}
+#mUpload .fl{padding:0 20px;background:url(../img/photo.png) no-repeat 0 50%;font-size:13px;line-height:34px}
+#mUpload ul{list-style:none;min-height:32px;margin:0;padding:1%}
+#mUpload li{position:relative;float:left;width:29.333333%;margin:2%;padding-top:29.333333%;text-align:center}
+#mUpload li>button{display:block;position:absolute;top:0;left:0;width:100%;height:100%;margin:0;padding:0;border:0;border-radius:5px;background-color:transparent;background-position:50% 50%;background-repeat:no-repeat;background-size:cover;box-shadow:0 1px 4px rgba(0,0,0,.3)}
+#mUpload .type2:before{display:block;position:absolute;top:10px;left:50%;width:36px;height:40px;margin-left:-18px;font-weight:700;font-size:32px;line-height:40px;color:#FFA500;text-shadow:0 1px 1px #f08080}
+#mUpload .music:before{content:"♪";font-size:36px}
 #mUpload .media:before{content:"▶"}
-#mUpload .etc:before{content:"?";background:#F6F6F6;box-shadow:0 1px 4px rgba(0,0,0,.3)}
-#mUpload li small{overflow:hidden;position:absolute;top:56px;padding:0 8px;width:72px;height:20px;line-height:10px;text-overflow:ellipsis;color:#777}
-#mUpload .select button:before{content:"";position:absolute;top:0;left:0;width:80px;height:80px;border:4px solid #FFA500}
+#mUpload .etc:before{content:"?"}
+#mUpload li small{overflow:hidden;position:absolute;top:52px;left:5%;width:90%;height:20px;line-height:10px;text-overflow:ellipsis;color:#777}
+#mUpload .select>button:before{content:"";position:absolute;top:0;left:0;bottom:0;right:0;border:4px solid #FFA500}
 #mUpload a{display:block;position:absolute;bottom:0;left:0;width:50%;height:50%}
 #mUpload b{display:block;position:absolute;top:0;right:0;width:18px;height:18px;border-radius:0 5px;background:rgba(0,0,0,.4);font-weight:bold;line-height:18px;text-decoration:none;color:#FFF}
 #mUpload a b{top:auto;right:0;bottom:0;left:0}
 #mUpload .select b{background:#FFA500}
+#mUpload .insert_file{left:auto;right:0}
+#mUpload .insert_file i{display:block;position:absolute;bottom:4px;right:4px;width:24px;height:24px;background:rgba(100,0,225,.6);border-radius:50%;font-size:14px;line-height:24px;color:#FFF}
+#mUpload .select .insert_file{display:none}
 #mUpload #loading{display:none;width:86px;height:86px;background:url(../img/white/loading.gif) 50% 50% no-repeat;box-shadow:none}
 #mUpload .info{float:none;width:auto;height:auto;margin:4px 0;padding:4px 0;box-shadow:none}
-#mUpload .is_img span,#mUpload .info div{display:none}
-#mUpload .is_img div{display:block;border-top:1px solid #DDD}
+#mUpload .is_img>span,#mUpload .info div{display:none}
+#mUpload .is_img div{display:block;margin-top:4px}
 #mUpload .is_img div *{vertical-align:middle}
+#mUpload .is_img div .bd_btn{padding:4px 8px}
+#mUpload .is_img div .bd_btn span:last-child,
+#mUpload .is_img div .on span:nth-child(2){display:none}
+#mUpload .is_img div .on span:last-child{display:inline}
+
+#editor{overflow-y:auto;max-height:260px;min-height:180px;padding:12px;border:1px solid;border-color:#CCC #DDD #DDD #CCC;border-radius:3px;box-shadow:inset 1px 1px 3px #EEE;background:#FFF;font-size:16px;-webkit-box-sizing:border-box;box-sizing:border-box}
+.btn-toolbar{margin-bottom:12px}
+.btn-toolbar .btn{height:28px !important;line-height:28px !important;font-size:14px}
+.btn-toolbar .btn-info{color:#fff !important;text-shadow:0 -1px 0 rgba(0, 0, 0, 0.25);background-color:#49afcd;background-image:-moz-linear-gradient(top, #5bc0de, #2f96b4);background-image:-webkit-gradient(linear, 0 0, 0 100%, from(#5bc0de), to(#2f96b4));background-image:-webkit-linear-gradient(top, #5bc0de, #2f96b4);background-image:-o-linear-gradient(top, #5bc0de, #2f96b4);background-image:linear-gradient(to bottom, #5bc0de, #2f96b4);background-repeat:repeat-x;filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff5bc0de', endColorstr='#ff2f96b4', GradientType=0);border-color:#2f96b4 #2f96b4 #1f6377;border-color:rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);*background-color:#2f96b4;filter:progid:DXImageTransform.Microsoft.gradient(enabled = false)}
+
+/* xe.css */
+.btn{display:inline-block;*display:inline;margin:0;padding:0 12px!important;height:24px!important;overflow:visible;border:1px solid #bbb;border-color:#e6e6e6 #e6e6e6 #bfbfbf;border-color:rgba(0,0,0,.1) rgba(0,0,0,.1) rgba(0,0,0,.25);border-bottom-color:#a2a2a2;border-radius:2px;text-decoration:none!important;text-align:center;text-shadow:0 1px 1px rgba(255,255,255,.75);vertical-align:top;line-height:24px!important;font-family:inherit;font-size:12px;color:#333;*zoom:1;cursor:pointer;box-shadow:inset 0 1px 0 rgba(255,255,255,.2),0 1px 2px rgba(0,0,0,.05);background-color:#f5f5f5;*background-color:#e6e6e6;background-image:-moz-linear-gradient(top,#fff,#e6e6e6);background-image:-webkit-linear-gradient(top,#fff,#e6e6e6);background-image:-webkit-gradient(top,#fff,#e6e6e6);background-image:-o-linear-gradient(top,#fff,#e6e6e6);background-image:linear-gradient(top,#fff,#e6e6e6);background-repeat:repeat-x;filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#e6e6e6', GradientType=0);filter:progid:DXImageTransform.Microsoft.gradient(enabled=false)}button.btn,input.btn{height:26px!important}.btn:active,.btn:hover,.btn[disabled]{color:#333;background-color:#e6e6e6;*background-color:#d9d9d9}.btn>a,.btn>button,.btn>input,.btn>span{display:inline-block;*zoom:1;margin:0 -12px!important;padding:0 12px!important;overflow:visible;width:auto;height:24px;border:0;vertical-align:top;text-decoration:none!important;line-height:24px;font-family:inherit;font-size:12px;color:#333;cursor:pointer;background:0 0}.btn-group{position:relative;display:inline-block;*display:inline;*margin-left:.3em;white-space:nowrap;vertical-align:middle;font-size:0;*zoom:1}.btn-group:first-child{*margin-left:0}.btn-group+.btn-group{margin-left:5px}.btn-group>.btn{position:relative;-webkit-border-radius:0;-moz-border-radius:0;border-radius:0}.btn-group>.btn+.btn{margin-left:-1px}.btn-group>.btn:first-child{margin-left:0;-webkit-border-bottom-left-radius:4px;-moz-border-radius-bottomleft:4px;border-bottom-left-radius:4px;-webkit-border-top-left-radius:4px;-moz-border-radius-topleft:4px;border-top-left-radius:4px}.btn-group>.btn:last-child{-webkit-border-top-right-radius:4px;-moz-border-radius-topright:4px;border-top-right-radius:4px;-webkit-border-bottom-right-radius:4px;-moz-border-radius-bottomright:4px;border-bottom-right-radius:4px}.btn-group>.btn.active,.btn-group>.btn:active,.btn-group>.btn:focus,.btn-group>.btn:hover{z-index:2}
+
+@media screen and (min-width:480px){
+#mUpload ul{padding:4px}
+#mUpload li{width:88px;margin:4px;padding-top:88px}
+}
+
+@media screen and (max-width:320px){
+#editor{height:180px;}
+#mUpload .insert_file i{bottom:3px;right:3px;width:20px;height:20px;font-size:12px;line-height:20px}
+}

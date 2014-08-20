@@ -13,10 +13,10 @@ $mi->fdb_style='fdb_v2';
 		<input type="hidden" name="allow_trackback" value="Y" id="allow_trackback" />
 		<input type="hidden" name="content" value="{$mi->content_default}"|cond="$mi->content_default" />
 		<input type="hidden" name="document_srl" value="" />
-		<block cond="$mi->cmt_wrt=='editor'">{$oDocument->getEditor()}</block>
+		<div cond="$mi->cmt_wrt=='editor'" class="wysiwyg">{$oDocument->getEditor()}</div>
 		<div cond="$mi->cmt_wrt!='editor'" class="simple_wrt">
-		<input type="hidden" id="htm_1" name="use_html" value="Y" />
-		<textarea id="editor_1" rows="7" cols="50"></textarea>
+			<input type="hidden" id="htm_1" name="use_html" value="Y" />
+			<textarea id="editor_1" rows="7" cols="50"></textarea>
 		</div>
 		<div class="edit_opt">
 			<block cond="!$is_logged">
@@ -37,17 +37,17 @@ $mi->fdb_style='fdb_v2';
 				<input type="text" name="homepage" id="homepage" value="{htmlspecialchars($oDocument->get('homepage'))}" class="itx m_h" />
 			</span>
 			</block>
-			<input type="submit" value="{$lang->cmd_registration}" class="btn fr" />
+			<input type="submit" value="{$lang->cmd_registration}" class="bd_btn fr" />
 		</div>
 		<div class="opt_chk fl">
 			<div cond="$is_logged" class="section">
-				<input type="checkbox" name="notify_message" value="Y" checked="checked"|cond="$oDocument->useNotify() || (!$oDocument->useNotify() && @in_array(notify,$mi->wrt_opt))" id="notify_message" />
+				<input type="checkbox" name="notify_message" value="Y" checked="checked"|cond="$oDocument->useNotify() || (!$oDocument->useNotify() && @in_array('notify',$mi->wrt_opt))" id="notify_message" />
 				<label for="notify_message">{$lang->notify}</label>
 			</div>
 			<div cond="is_array($status_list)" class="section">
 				<!--@foreach($status_list AS $key=>$value)-->
-				<input cond="@!in_array(secret,$mi->wrt_opt)" type="radio" name="status" value="{$key}" id="{$key}" checked="checked"|cond="$oDocument->get('status')==$key || ($key=='PUBLIC' && !$document_srl)" />
-				<input cond="@in_array(secret,$mi->wrt_opt)" type="radio" name="status" value="{$key}" id="{$key}" checked="checked"|cond="$oDocument->get('status')==$key || ($key=='SECRET' && !$document_srl)" />
+				<input cond="@!in_array('secret',$mi->wrt_opt)" type="radio" name="status" value="{$key}" id="{$key}" checked="checked"|cond="$oDocument->get('status')==$key || ($key=='PUBLIC' && !$document_srl)" />
+				<input cond="@in_array('secret',$mi->wrt_opt)" type="radio" name="status" value="{$key}" id="{$key}" checked="checked"|cond="$oDocument->get('status')==$key || ($key=='SECRET' && !$document_srl)" />
 				<label for="{$key}">{$value}</label>
 				<!--@end-->
 			</div>
@@ -58,8 +58,8 @@ $mi->fdb_style='fdb_v2';
 			<img class="zbxe_widget_output" widget="socialxe_info" colorset="{$mi->colorset}" skin="default" />
 		</div>
 	</form>
-	<div cond="!$grant->write_document" class="bd_wrt main">
-		<a class="cmt_disable bd_login" href="#"><p style="padding:3em 0;text-align:center;font-size:1em">{$lang->write_comment} {$lang->msg_not_permitted}<block cond="!$is_logged"> {$lang->bd_login}</block></p></a>
+	<div cond="!$grant->write_document" class="bd_wrt bd_wrt_main">
+		<a class="cmt_disable bd_login" href="#">{$lang->cmd_write} {$lang->msg_not_permitted}<block cond="!$is_logged"> {$lang->bd_login}</block></a>
 	</div>
 
 <block cond="$mi->cmt_wrt=='sns'">
@@ -77,7 +77,7 @@ $mi->fdb_style='fdb_v2';
 				<label for="cpw_{$oDocument->document_srl}">{$lang->password}</label>
 				<input type="password" name="password" id="cpw_{$oDocument->document_srl}" class="itx" />
 			</span>
-			<input class="btn" type="submit" value="{$lang->cmd_input}" />
+			<input class="bd_btn" type="submit" value="{$lang->cmd_input}" />
 		</form>
 		<!--@else-->
 		<!--// 프로필 이미지 -->

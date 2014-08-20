@@ -1,4 +1,5 @@
-<table id="files_{$oDocument->document_srl}" class="rd_fnt rd_file bd_tb<!--@if(!$mi->show_files)--> hide<!--@end-->">
+<div id="files_{$oDocument->document_srl}" class="rd_fnt rd_file<!--@if(!$mi->show_files)--> hide<!--@end-->">
+<table class="bd_tb">
 	<caption class="blind">Atachment</caption>
 	<tr>
 		<th scope="row" class="ui_font"><strong>{$lang->uploaded_file}</strong> <span class="fnt_count">'<b>{$oDocument->get('uploaded_count')}</b>'</span></th>
@@ -24,3 +25,4 @@
 		</td>
 	</tr>
 </table>
+</div>

@@ -1,10 +1,5 @@
 <include target="_header.html" />
 
-<script>//<![CDATA[
-var msg_kr_address = '{$lang->msg_kr_address}';
-var msg_kr_address_etc = '{$lang->msg_kr_address_etc}';
-//]]></script>
-
 <load target="js/editor.js" type="body" />
 
 <include cond="Mobile::isMobileCheckByAgent()" target="_write_form_mobile.html" />
@@ -29,7 +24,7 @@ var msg_kr_address_etc = '{$lang->msg_kr_address_etc}';
 					</option>
 				</select>
 			</td>
-			<td width="100%" style="padding-right:12px">
+			<td width="100%">
 				<span class="itx_wrp">
 					<label for="postTitle">{$lang->title}</label>
 					<input cond="$oDocument->getTitleText()" type="text" name="title" class="itx" id="postTitle" title="{$lang->title}" value="{htmlspecialchars($oDocument->getTitleText())}" />
@@ -40,7 +35,7 @@ var msg_kr_address_etc = '{$lang->msg_kr_address_etc}';
 		</tr>
 	</table>
 
-	<table cond="count($extra_keys)" class="exForm bd_tb">
+	<table cond="count($extra_keys)" class="et_vars exForm bd_tb">
 		<caption><strong><em>*</em></strong> <small>: {$lang->is_required}</small></caption>
 		<tr loop="$extra_keys=>$key,$val">
 			<th scope="row"><em cond="$val->is_required=='Y'">*</em> {$val->name}</th>
@@ -85,9 +80,8 @@ var msg_kr_address_etc = '{$lang->msg_kr_address_etc}';
 		<div cond="$grant->manager || $mi->tl_color=='2'" class="section">
 <!--%load_js_plugin("ui.colorpicker")-->
 			<span class="itx_wrp color_wrp" title="{$lang->title_color}">
-				<span class="fff"></span>
 				<label for="title_color">{$lang->title_color}</label>
-				<input type="text" name="title_color" id="title_color" class="color-indicator" value="{$oDocument->get('title_color')}"|cond="$oDocument->get('title_color')!='N'" />
+				<input type="text" name="title_color" id="title_color" class="itx color-indicator" value="{$oDocument->get('title_color')}"|cond="$oDocument->get('title_color')!='N'" />
 			</span>
 			<input type="checkbox" name="title_bold" id="title_bold" value="Y" checked="checked"|cond="$oDocument->get('title_bold')=='Y'" />
 			<label for="title_bold">{$lang->title_bold}</label>
@@ -103,13 +97,13 @@ var msg_kr_address_etc = '{$lang->msg_kr_address_etc}';
 			<label for="allow_trackback">{$lang->allow_trackback}</label>
 		</div>
 		<div cond="$is_logged" class="section">
-			<input type="checkbox" name="notify_message" value="Y" checked="checked"|cond="$oDocument->useNotify() || (!$oDocument->useNotify() && @in_array(notify,$mi->wrt_opt))" id="notify_message" />
+			<input type="checkbox" name="notify_message" value="Y" checked="checked"|cond="$oDocument->useNotify() || (!$oDocument->useNotify() && @in_array('notify',$mi->wrt_opt))" id="notify_message" />
 			<label for="notify_message">{$lang->notify}</label>
 		</div>
 		<div cond="is_array($status_list)" class="section">
 			<!--@foreach($status_list AS $key=>$value)-->
-			<input cond="@!in_array(secret,$mi->wrt_opt)" type="radio" name="status" value="{$key}" id="{$key}" checked="checked"|cond="$oDocument->get('status')==$key || ($key=='PUBLIC' && !$document_srl)" />
-			<input cond="@in_array(secret,$mi->wrt_opt)" type="radio" name="status" value="{$key}" id="{$key}" checked="checked"|cond="$oDocument->get('status')==$key || ($key=='SECRET' && !$document_srl)" />
+			<input cond="@!in_array('secret',$mi->wrt_opt)" type="radio" name="status" value="{$key}" id="{$key}" checked="checked"|cond="$oDocument->get('status')==$key || ($key=='PUBLIC' && !$document_srl)" />
+			<input cond="@in_array('secret',$mi->wrt_opt)" type="radio" name="status" value="{$key}" id="{$key}" checked="checked"|cond="$oDocument->get('status')==$key || ($key=='SECRET' && !$document_srl)" />
 			<label for="{$key}">{$value}</label>
 			<!--@end-->
 		</div>

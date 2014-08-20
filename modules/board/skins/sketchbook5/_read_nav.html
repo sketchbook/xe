@@ -1,28 +1,35 @@
-<div class="rd_nav img_tx fr m_btn_wrp">
+<div class="rd_nav <!--@if($mi->rd_nav_tx)-->rd_nav_tx<!--@else-->img_tx<!--@end--> fr m_btn_wrp">
+	<!--@if($ft_read_nav)-->
+	<block cond="$mi->prev_next=='2' && !$oDocument->isNotice() && $mi->default_style!='blog'">
+	<a class="rd_prev bubble no_bubble" href="#" title="{$lang->cmd_prev}"><i class="fa fa-arrow-left"></i><b class="tx">{$lang->cmd_prev}</b></a>
+	<a class="rd_next bubble no_bubble" href="#" title="{$lang->cmd_next}"><i class="fa fa-arrow-right"></i><b class="tx">{$lang->cmd_next}</b></a>
+	</block>
+	<!--@else-->
 	<div cond="$mi->prev_next!='N' || $mi->default_style=='viewer'" class="help bubble left m_no">
-		<a class="text" href="#" onclick="jQuery(this).next().fadeToggle();return false">?</a>
+		<a class="text" href="#" onclick="jQuery(this).next().fadeToggle();return false;">?</a>
 		<div class="wrp">
 			<div class="speech">
 				<h4>{$lang->shortcut}</h4>
-				<p><strong><b class="ui-icon ui-icon-arrow-1-w"><span class="blind">Prev</span></b></strong>{$lang->cmd_prev} {$lang->document}</p>
-				<p><strong><b class="ui-icon ui-icon-arrow-1-e"><span class="blind">Next</span></b></strong>{$lang->cmd_next} {$lang->document}</p>
+				<p><strong><i class="fa fa-long-arrow-left"></i><span class="blind">Prev</span></strong>{$lang->cmd_prev} {$lang->document}</p>
+				<p><strong><i class="fa fa-long-arrow-right"></i><span class="blind">Next</span></strong>{$lang->cmd_next} {$lang->document}</p>
 				<p cond="$mi->default_style=='viewer'"><strong>ESC</strong>{$lang->cmd_close}</p>
 			</div>
 			<i class="edge"></i>
 			<!--// ie8; --><i class="ie8_only bl"></i><i class="ie8_only br"></i>
 		</div>
 	</div>
-	<a cond="$mi->font_btn!='N' && $lang_type=='ko'" class="tg_btn2 bubble m_no" href="#" data-href=".bd_font_select" title="글꼴 선택"><b>가</b><span class="arrow down"></span></a>
-	<a class="font_plus bubble" href="#" title="{$lang->larger}"><b class="ui-icon ui-icon-zoomin">+</b></a>
-	<a class="font_minus bubble" href="#" title="{$lang->smaller}"><b class="ui-icon ui-icon-zoomout">-</b></a>
-	<a cond="$mi->viewer=='2'" class="if_viewer bubble" href="#" onclick="window.open('{getUrl('listStyle','viewer','page','')}','viewer','width=9999,height=9999,scrollbars=yes,resizable=yes,toolbars=no');return false" title="{$lang->viewer}"><b class="ui-icon ui-icon-image">Viewer</b></a>
-	<a class="back_to bubble m_no" href="#bd_{$mi->module_srl}_{$oDocument->document_srl}" title="{$lang->cmd_move_up}"><b class="ui-icon ui-icon-arrow-1-n">Up</b></a>
-	<a class="back_to bubble m_no" href="#rd_end_{$oDocument->document_srl}" title="({$lang->cmd_list}) {$lang->cmd_move_down}"><b class="ui-icon ui-icon-arrow-1-s">Down</b></a>
-	<a class="comment back_to bubble if_viewer m_no" href="#{$oDocument->document_srl}_comment" title="{$lang->go_cmt}"><b class="ui-icon ui-icon-comment">Comment</b></a>
-	<a cond="!$mi->rd_nav_item" class="print_doc bubble m_no<!--@if($mi->default_style=='viewer')--> this<!--@end-->" href="{getUrl('listStyle','viewer','act')}" title="{$lang->cmd_print}"><b class="ui-icon ui-icon-print">Print</b></a>
-	<a cond="(!$mi->show_files || $mi->show_files=='2') && $oDocument->hasUploadedFiles()" class="file back_to bubble m_no" href="#files_{$oDocument->document_srl}" onclick="jQuery('#files_{$oDocument->document_srl}').show();return false" title="{$lang->uploaded_file}"><b class="ui-icon ui-icon-disk">Files</b></a>
-	<a cond="$is_logged" class="document_{$oDocument->document_srl} action bubble m_no" href="#popup_menu_area" onclick="return false" title="{$lang->cmd_document_do}"><b class="ui-icon ui-icon-arrowthickstop-1-s">More</b></a>
-	<block cond="$oDocument->isEditable() && !$mi->rd_nav">
+	<a cond="$mi->font_btn!='N' && $lang_type=='ko'" class="tg_btn2 bubble m_no" href="#" data-href=".bd_font_select" title="글꼴 선택"><strong>가</strong><i class="arrow down"></i></a>
+	<a class="font_plus bubble" href="#" title="{$lang->larger}"><i class="fa fa-search-plus"></i><b class="tx">{$lang->larger}</b></a>
+	<a class="font_minus bubble" href="#" title="{$lang->smaller}"><i class="fa fa-search-minus"></i><b class="tx">{$lang->smaller}</b></a>
+	<a cond="$mi->viewer=='2'" class="if_viewer bubble" href="#" onclick="window.open('{getUrl('listStyle','viewer','page','')}','viewer','width=9999,height=9999,scrollbars=yes,resizable=yes,toolbars=no');return false;" title="{$lang->viewer}"><i class="fa fa-picture-o"></i><b class="tx">{$lang->viewer}</b></a>
+	<!--@end-->
+	<a class="back_to bubble m_no" href="#bd_{$mi->module_srl}_{$oDocument->document_srl}" title="{$lang->cmd_move_up}"><i class="fa fa-arrow-up"></i><b class="tx">{$lang->cmd_move_up}</b></a>
+	<a class="back_to bubble m_no" href="#rd_end_{$oDocument->document_srl}" title="({$lang->cmd_list}) {$lang->cmd_move_down}"><i class="fa fa-arrow-down"></i><b class="tx">{$lang->cmd_move_down}</b></a>
+	<a class="comment back_to bubble if_viewer m_no" href="#{$oDocument->document_srl}_comment" title="{$lang->go_cmt}"><i class="fa fa-comment"></i><b class="tx">{$lang->go_cmt}</b></a>
+	<a cond="!$mi->rd_nav_item" class="print_doc bubble m_no<!--@if($mi->default_style=='viewer')--> this<!--@end-->" href="{getUrl('listStyle','viewer','act')}" title="{$lang->cmd_print}"><i class="fa fa-print"></i><b class="tx">{$lang->cmd_print}</b></a>
+	<a cond="(!$mi->show_files || $mi->show_files=='2') && $oDocument->hasUploadedFiles()" class="file back_to bubble m_no" href="#files_{$oDocument->document_srl}" onclick="jQuery('#files_{$oDocument->document_srl}').show();return false" title="{$lang->uploaded_file}"><i class="fa fa-paperclip"></i><b class="tx">{$lang->uploaded_file}</b></a>
+	<a cond="$is_logged" class="document_{$oDocument->document_srl} action bubble m_no" href="#popup_menu_area" onclick="return false;" title="{$lang->cmd_document_do}"><i class="fa fa-ellipsis-h"></i><b class="tx">{$lang->cmd_document_do}</b></a>
+	<block cond="$oDocument->isEditable()">
 	<a class="edit" href="{getUrl('act','dispBoardWrite','document_srl',$oDocument->document_srl,'comment_srl','')}"><i class="ico_16px write"></i>{$lang->cmd_modify}</a>
 	<a class="edit" href="{getUrl('act','dispBoardDelete','document_srl',$oDocument->document_srl,'comment_srl','')}"><i class="ico_16px delete"></i>{$lang->cmd_delete} </a>
 	</block>

@@ -44,8 +44,8 @@
 	<!--// 제목(기본) -->
 	<p cond="!$mi->gallery_tl && !$mi->gall_style">
 		<b>{$document->getTitle($mi->gall_tl_cut)}</b>
-		<a cond="@in_array(gall,$mi->cmt_count)" class="replyNum" href="{getUrl('document_srl',$document->document_srl,'listStyle',$listStyle, 'cpage','')}#comment">{$document->getCommentCount()}</a>
-		<span cond="@in_array(gall,$mi->ext_img)" class="extraimages">{$document->printExtraImages(60*60*$mi->duration_new)}</span>
+		<a cond="@in_array('gall',$mi->cmt_count)" class="replyNum" href="{getUrl('document_srl',$document->document_srl,'listStyle',$listStyle, 'cpage','')}#comment">{$document->getCommentCount()}</a>
+		<span cond="@in_array('gall',$mi->ext_img)" class="extraimages">{$document->printExtraImages(60*60*$mi->duration_new)}</span>
 		<input cond="$grant->manager" type="checkbox" name="cart" value="{$document->document_srl}" title="Check this" onclick="doAddDocumentCart(this)" checked="checked"|cond="$document->isCarted()" />
 	</p>
 </li>
@@ -114,8 +114,8 @@
 	<!--// 제목(기본) -->
 	<p cond="!$mi->gallery_tl && !$mi->gall_style">
 		<b>{$document->getTitle($mi->gall_tl_cut)}</b>
-		<a cond="@in_array(gall,$mi->cmt_count)" class="replyNum" href="{getUrl('document_srl',$document->document_srl,'listStyle',$listStyle, 'cpage','')}#comment">{$document->getCommentCount()}</a>
-		<span cond="@in_array(gall,$mi->ext_img)" class="extraimages">{$document->printExtraImages(60*60*$mi->duration_new)}</span>
+		<a cond="@in_array('gall',$mi->cmt_count)" class="replyNum" href="{getUrl('document_srl',$document->document_srl,'listStyle',$listStyle, 'cpage','')}#comment">{$document->getCommentCount()}</a>
+		<span cond="@in_array('gall',$mi->ext_img)" class="extraimages">{$document->printExtraImages(60*60*$mi->duration_new)}</span>
 		<input cond="$grant->manager" type="checkbox" name="cart" value="{$document->document_srl}" title="Check this" onclick="doAddDocumentCart(this)" checked="checked"|cond="$document->isCarted()" />
 	</p>
 </li>

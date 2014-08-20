@@ -1,5 +1,5 @@
 <include cond="$notice_list && $mi->notice_style=='2'" target="_notice.html" />
-<ol class="bd_lst bd_zine<!--@if(!$mi->zine_style)--> zine zine1<!--@elseif($mi->zine_style=='2')--> zine zine2<!--@elseif($mi->zine_style=='3')--> card card1<!--@elseif($mi->zine_style=='4')--> card card2<!--@end--> img_load{$mi->tmb_effect}" data-masonry="_{$mi->card_effect}"|cond="$mi->zine_style=='3' || $mi->zine_style=='4'">
+<ol class="{$mi->zine_info_icon} bd_lst bd_zine<!--@if(!$mi->zine_style)--> zine zine1<!--@elseif($mi->zine_style=='2')--> zine zine2<!--@elseif($mi->zine_style=='3')--> card card1<!--@elseif($mi->zine_style=='4')--> card card2<!--@end--> img_load{$mi->tmb_effect}" data-masonry="_{$mi->card_effect}"|cond="$mi->zine_style=='3' || $mi->zine_style=='4'">
 	<li cond="!$document_list && !$notice_list" class="no_doc">{$lang->no_documents}</li>
 	<!--// 공지 목록 -->
 	<li cond="$notice_list && !$mi->notice_style" loop="$notice_list=>$no,$document" class="notice clear">
@@ -27,18 +27,18 @@
 			<div class="cnt" cond="$list_config['summary']">{$document->getSummary($mi->content_cut_size)}</div>
 			<!--// 글 정보 -->
 			<div class="info">
-				<span cond="$list_config['regdate'] && $mi->zine_style!='2'" class="itm">Date<b>{$document->getRegdate("Y.m.d")}</b></span>
-				<span cond="$mi->use_category=='Y' && $document->get('category_srl')" class="itm">Category<b>{$category_list[$document->get('category_srl')]->title}</b></span>
-				<span cond="$list_config['nick_name']" class="itm">By<b>{$document->getNickName()}</b></span>
-				<span cond="@in_array(zine,$mi->cmt_count)" class="itm">Reply<b>{$document->getCommentCount()}</b></span>
-				<span cond="$list_config['readed_count']" class="itm">Views<b>{$document->get('readed_count')}</b></span>
-				<span cond="$list_config['voted_count']" class="itm">Votes<b>{$document->get('voted_count')}</b></span>
+				<span cond="$list_config['regdate'] && $mi->zine_style!='2'"><i class="fa fa-clock-o"></i><span>Date</span><b>{$document->getRegdate("Y.m.d")}</b></span>
+				<span cond="$mi->use_category=='Y' && $document->get('category_srl')"><i class="fa fa-bars"></i><span>Category</span><b>{$category_list[$document->get('category_srl')]->title}</b></span>
+				<span cond="$list_config['nick_name']"><i class="fa fa-user"></i><span>By</span><b><a href="#popup_menu_area" class="member_{$document->get('member_srl')}" onclick="return false;">{$document->getNickName()}</a></b></span>
+				<span cond="@in_array('zine',$mi->cmt_count)"><i class="fa fa-comment"></i><span>Reply</span><b>{$document->getCommentCount()}</b></span>
+				<span cond="$list_config['readed_count']"><i class="fa fa-eye"></i><span>Views</span><b>{$document->get('readed_count')}</b></span>
+				<span cond="$list_config['voted_count']"><i class="fa fa-heart"></i><span>Votes</span><b>{$document->get('voted_count')}</b></span>
 				<!--// 확장변수 -->
-				<block loop="$list_config=>$key,$val" cond="$mi->zine_extra=='Y' && $val->idx!=-1">
-				<span cond="$val->eid!='rating' && $val->eid!='link_url' && $document->getExtraValueHTML($val->idx)" class="itm br">{$val->name}<b>{$document->getExtraValueHTML($val->idx)}</b></span>
-				<span cond="$val->eid=='rating'" class="itm starRating"><span style="width:{$document->getExtraValueHTML($val->idx)*10}%">{$document->getExtraValueHTML($val->idx)}</span></span>
+				<block loop="$list_config=>$key,$val" cond="($mi->zine_extra=='Y' || $mi->link_board) && $val->idx!=-1">
+				<span cond="$val->eid!='rating' && $document->getExtraValueHTML($val->idx)" class="itm br<!--@if($val->eid=='link_url')--> link_url<!--@end-->">{$val->name}<b>{$document->getExtraValueHTML($val->idx)}</b></span>
+				<span cond="$val->eid=='rating'"><strong class="starRating"><span style="width:{$document->getExtraValueHTML($val->idx)*10}%">{$document->getExtraValueHTML($val->idx)}</span></strong></span>
 				</block>
-				<span cond="@in_array(zine,$mi->ext_img)">{$document->printExtraImages(60*60*$mi->duration_new)}</span>
+				<span cond="@in_array('zine',$mi->ext_img)">{$document->printExtraImages(60*60*$mi->duration_new)}</span>
 				<input cond="$grant->manager" type="checkbox" name="cart" value="{$document->document_srl}" title="Check" onclick="doAddDocumentCart(this)" checked="checked"|cond="$document->isCarted()" />
 			</div>
 		</div>
@@ -89,18 +89,18 @@
 			<div class="cnt" cond="$list_config['summary']">{$document->getSummary($mi->content_cut_size)}</div>
 			<!--// 글 정보 -->
 			<div class="info">
-				<span cond="$list_config['regdate'] && $mi->zine_style!='2'" class="itm">Date<b>{$document->getRegdate("Y.m.d")}</b></span>
-				<span cond="$mi->use_category=='Y' && $document->get('category_srl')" class="itm">Category<b>{$category_list[$document->get('category_srl')]->title}</b></span>
-				<span cond="$list_config['nick_name']" class="itm">By<b>{$document->getNickName()}</b></span>
-				<span cond="@in_array(zine,$mi->cmt_count)" class="itm">Reply<b>{$document->getCommentCount()}</b></span>
-				<span cond="$list_config['readed_count']" class="itm">Views<b>{$document->get('readed_count')}</b></span>
-				<span cond="$list_config['voted_count']" class="itm">Votes<b>{$document->get('voted_count')}</b></span>
+				<span cond="$list_config['regdate'] && $mi->zine_style!='2'"><i class="fa fa-clock-o"></i><span>Date</span><b>{$document->getRegdate("Y.m.d")}</b></span>
+				<span cond="$mi->use_category=='Y' && $document->get('category_srl')"><i class="fa fa-bars"></i><span>Category</span><b>{$category_list[$document->get('category_srl')]->title}</b></span>
+				<span cond="$list_config['nick_name']"><i class="fa fa-user"></i><span>By</span><b><a href="#popup_menu_area" class="member_{$document->get('member_srl')}" onclick="return false;">{$document->getNickName()}</a></b></span>
+				<span cond="@in_array('zine',$mi->cmt_count)"><i class="fa fa-comment"></i><span>Reply</span><b>{$document->getCommentCount()}</b></span>
+				<span cond="$list_config['readed_count']"><i class="fa fa-eye"></i><span>Views</span><b>{$document->get('readed_count')}</b></span>
+				<span cond="$list_config['voted_count']"><i class="fa fa-heart"></i><span>Votes</span><b>{$document->get('voted_count')}</b></span>
 				<!--// 확장변수 -->
 				<block loop="$list_config=>$key,$val" cond="($mi->zine_extra=='Y' || $mi->link_board) && $val->idx!=-1">
 				<span cond="$val->eid!='rating' && $document->getExtraValueHTML($val->idx)" class="itm br<!--@if($val->eid=='link_url')--> link_url<!--@end-->">{$val->name}<b>{$document->getExtraValueHTML($val->idx)}</b></span>
-				<span cond="$val->eid=='rating'" class="itm starRating"><span style="width:{$document->getExtraValueHTML($val->idx)*10}%">{$document->getExtraValueHTML($val->idx)}</span></span>
+				<span cond="$val->eid=='rating'"><strong class="starRating"><span style="width:{$document->getExtraValueHTML($val->idx)*10}%">{$document->getExtraValueHTML($val->idx)}</span></strong></span>
 				</block>
-				<span cond="@in_array(zine,$mi->ext_img)">{$document->printExtraImages(60*60*$mi->duration_new)}</span>
+				<span cond="@in_array('zine',$mi->ext_img)">{$document->printExtraImages(60*60*$mi->duration_new)}</span>
 				<input cond="$grant->manager" type="checkbox" name="cart" value="{$document->document_srl}" title="Check" onclick="doAddDocumentCart(this)" checked="checked"|cond="$document->isCarted()" />
 				<a cond="$mi->link_board && $document->isEditable()" class="link_modify" href="{getUrl('act','dispBoardWrite','document_srl',$document->document_srl,'comment_srl','')}">{$lang->cmd_modify}</a>
 			</div>

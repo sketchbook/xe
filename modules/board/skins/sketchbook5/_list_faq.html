@@ -1,9 +1,9 @@
 <include cond="$notice_list && $mi->notice_style=='2'" target="_notice.html" />
-<ul class="bd_lst bd_faq {$mi->faq_style}<!--@if($grant->manager)--> manager<!--@end-->">
+<ul class="bd_lst bd_faq {$mi->faq_style}">
 	<!--// Notice -->
-	<li cond="$notice_list && !$mi->notice_style" loop="$notice_list=>$no,$document" class="li notice clear">
-		<a class="q" href="{getUrl('document_srl',$document->document_srl,'cpage','')}">
-			<b class="mark">{$lang->notice}</b>
+	<li cond="$notice_list && !$mi->notice_style" loop="$notice_list=>$no,$document" class="notice clear">
+		<a class="q clear" href="{getUrl('document_srl',$document->document_srl,'cpage','')}">
+			<b class="mrk">{$lang->notice}</b>
 			<strong cond="$mi->use_category=='Y' && $document->get('category_srl')" class="cate">&#91;{$category_list[$document->get('category_srl')]->title}&#93;</strong>
 			<span class="tl">{$document->getTitle($mi->subject_cut_size)}</span>
 			<span class="fr">
@@ -16,21 +16,21 @@
 		<input cond="$grant->manager" type="checkbox" name="cart" value="{$document->document_srl}" class="iCheck" title="Check This Article" onclick="doAddDocumentCart(this)" checked="checked"|cond="$document->isCarted()" />
 	</li>
 	<!--// Normal -->
-	<li loop="$document_list=>$no,$document" class="li article hide clear">
-		<a href="#" class="q">
-			<b class="mark markQ">Q<span>:</span></b>
+	<li loop="$document_list=>$no,$document" id="bdFaq_{$document->document_srl}" class="article clear">
+		<input cond="$grant->manager" type="checkbox" name="cart" value="{$document->document_srl}" class="iCheck" title="Check This Article" onclick="doAddDocumentCart(this)" checked="checked"|cond="$document->isCarted()" />
+		<a class="q clear" href="{getUrl('document_srl',$document->document_srl,'cpage','')}" onClick="bdFaq({$document->document_srl});return false;">
+			<b class="mrk mrkQ">Q<span>:</span></b>
 			<strong cond="$mi->use_category=='Y' && $document->get('category_srl')" class="cate">&#91;{$category_list[$document->get('category_srl')]->title}&#93;</strong>
 			<span class="tl">{$document->getTitle($mi->subject_cut_size)}</span>
 			<span class="fr">
 				<span cond="$document->getExtraEidValue('rating')" class="starRating" title="{$document->getExtraEidValue('rating')}점"><span style="width:{$document->getExtraEidValue('rating')*10}%">{$document->getExtraEidValue('rating')}점</span></span>
 				<span cond="$list_config['nick_name']" class="nick">{$document->getNickName()}</span>
 				<span cond="$list_config['regdate']" class="date">{$document->getRegdate('Y.m.d')}</span>
-				<i class="faq_arrow"></i>
 			</span>
+			<i class="faq_arrow"></i>
 		</a>
-		<input cond="$grant->manager" type="checkbox" name="cart" value="{$document->document_srl}" class="iCheck" title="Check This Article" onclick="doAddDocumentCart(this)" checked="checked"|cond="$document->isCarted()" />
-		<div class="a">
-			<b class="mark markA">A<span>:</span></b>
+		<div class="a clear">
+			<b class="mrk mrkA">A<span>:</span></b>
 			<div class="editArea">
 				<a class="url" href="{$document->getPermanentUrl()}">{$document->getPermanentUrl()}</a>
 				<block cond="$document->isEditable()">

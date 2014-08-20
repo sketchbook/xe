@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <skin version="0.2">
-	<title xml:lang="ko">sketchbook5</title>
-	<description xml:lang="ko">sketchbook5 Board Skin. 한국형 게시판 스타일, 여러 목록 유형 제공, 사용자 편의를 고려한 다양한 기능, 모바일까지 대응.</description>
-	<version>1.7.0-rc.13</version>
+	<title xml:lang="ko">SKETCHBOOK5</title>
+	<description xml:lang="ko">SKETCHBOOK5 Board Skin. 한국형 게시판 스타일, 여러 목록 유형 제공, 사용자 편의를 고려한 다양한 기능, 모바일까지 대응.</description>
+	<version>1.7.0-rc.23</version>
 	<date>2010-11-16</date>
 	<author email_address="contact@sketchbooks.co.kr" link="http://sketchbooks.co.kr/">
-		<name xml:lang="ko">sketchbook</name>
+		<name xml:lang="ko">SKETCHBOOK</name>
 	</author>
 	<colorset>
 		<color name="white">
@@ -18,6 +18,16 @@
 	<extra_vars>
 		<group>
 		<title xml:lang="ko">전체 설정</title>
+			<var name="wizard" type="radio">
+				<title xml:lang="ko">위저드 사용</title>
+				<description xml:lang="ko">스킨 설정을 할 수 있는 내비게이션을 게시판 브라우저 좌측에 출력합니다.</description>
+				<options value="">
+					<title xml:lang="ko">관리자만(기본)</title>
+				</options>
+				<options value="N">
+					<title xml:lang="ko">사용 안함</title>
+				</options>
+			</var>
 			<var name="default_style" type="radio">
 				<title xml:lang="ko">목록 유형</title>
 				<options value="list">
@@ -133,9 +143,9 @@
 			</var>
 			<var name="font" type="radio">
 				<title xml:lang="ko">기본 글꼴 설정</title>
-				<description xml:lang="ko">게시판의 기본글꼴을 설정합니다. 단, 아래의 '글꼴 선택 버튼'을 표시하는 경우 사용자가 선택한 글꼴이 우선합니다. '추천글꼴'은 나눔고딕을 기본(한글의 경우)으로 하여 사용자의 다양한 환경에 대비한 여러 글꼴의 조합입니다.</description>
+				<description xml:lang="ko">게시판의 기본글꼴을 설정합니다. 단, 아래의 '글꼴 선택 버튼'을 표시하는 경우 사용자가 선택한 글꼴이 우선합니다.</description>
 				<options value="">
-					<title xml:lang="ko">추천글꼴(기본)</title>
+					<title xml:lang="ko">레이아웃에 따라(기본)</title>
 				</options>
 				<options value="ng">
 					<title xml:lang="ko">나눔고딕</title>
@@ -198,6 +208,7 @@
 			</var>
 			<var name="font_btn" type="radio">
 				<title xml:lang="ko">글꼴 선택 버튼</title>
+				<description xml:lang="ko">'표시 안함' 은 관리자가 설정한 글꼴로 강제합니다.</description>
 				<options value="">
 					<title xml:lang="ko">선택된 글꼴 표시하는 버튼(기본)</title>
 				</options>
@@ -225,12 +236,18 @@
 			</var>
 			<var name="cnb" type="radio">
 				<title xml:lang="ko">카테고리 메뉴 스타일</title>
-				<description xml:lang="ko">'표시 안함' 게시판 설정의 '게시판 정보' 메뉴의 '분류 사용' 항목과 관계없이 표시하지 않습니다.</description>
+				<description xml:lang="ko">'표시 안함' 게시판 설정의 '게시판 정보' 메뉴의 '분류 사용' 항목과 관계없이 표시하지 않습니다. '박스 스타일'은 2차 카테고리를 지원하지 않습니다.</description>
 				<options value="">
-					<title xml:lang="ko">그라데이션+테두리(기본)</title>
+					<title xml:lang="ko">그라데이션 스타일(기본)</title>
 				</options>
 				<options value="cTab">
 					<title xml:lang="ko">탭 스타일</title>
+				</options>
+				<options value="cnb3">
+					<title xml:lang="ko">박스 스타일</title>
+				</options>
+				<options value="cnb4">
+					<title xml:lang="ko">박스+테두리 스타일</title>
 				</options>
 				<options value="N">
 					<title xml:lang="ko">표시 안함</title>
@@ -251,6 +268,26 @@
 				<description xml:lang="ko">'그라데이션+테두리' 스타일에서 처음부터 목록이 펼쳐져 있게 합니다.</description>
 				<options value="Y">
 					<title xml:lang="ko">사용</title>
+				</options>
+			</var>
+			<var name="cnb3_color" type="radio">
+				<title xml:lang="ko">카테고리 박스 스타일 색상</title>
+				<description xml:lang="ko">선택된 메뉴의 색상을 '게시판 색상'에서 선택한 색상으로 사용합니다. 기본 색상은 그레이입니다.</description>
+				<options value="Y">
+					<title xml:lang="ko">사용</title>
+				</options>
+				<options value="">
+					<title xml:lang="ko">사용 안함(기본)</title>
+				</options>
+			</var>
+			<var name="cnb3_align" type="radio">
+				<title xml:lang="ko">카테고리 박스 스타일 정렬</title>
+				<description xml:lang="ko">기본은 좌측 정렬입니다.</description>
+				<options value="">
+					<title xml:lang="ko">좌측(기본)</title>
+				</options>
+				<options value="center">
+					<title xml:lang="ko">가운데</title>
 				</options>
 			</var>
 		</group>
@@ -511,7 +548,7 @@
 			</var>
 			<var name="zine_hover" type="radio">
 				<title xml:lang="ko">마우스 오버 전환 효과</title>
-				<description xml:lang="ko">마우스 오버시에 썸네일이 기울어지거나, 확대되는 효과를 사용하지 않습니다. *테두리 효과에는 영향을 미치지 않습니다.</description>
+				<description xml:lang="ko">마우스 오버시에 섬네일이 기울어지거나, 확대되는 효과를 사용하지 않습니다. *테두리 효과에는 영향을 미치지 않습니다.</description>
 				<options value="">
 					<title xml:lang="ko">사용(기본값)</title>
 				</options>
@@ -520,12 +557,12 @@
 				</options>
 			</var>
 			<var name="zine_thumb_type" type="radio">
-				<title xml:lang="ko">섬네일 비율</title>
+				<title xml:lang="ko">섬네일 비율(*)</title>
 				<options value="">
-					<title xml:lang="ko">사용자 정의(3:2 또는 4:3 비율 권장)</title>
+					<title xml:lang="ko">크롭(기본)</title>
 				</options>
 				<options value="ratio">
-					<title xml:lang="ko">원본과 동일 비율 유지(사용자 정의 비율 무시)</title>
+					<title xml:lang="ko">원본 비율</title>
 				</options>
 			</var>
 			<var name="zine_thumb_width" type="text">
@@ -591,6 +628,19 @@
 					<title xml:lang="ko">흑백톤</title>
 				</options>
 			</var>
+			<var name="zine_info_icon" type="radio">
+				<title xml:lang="ko">메타 정보 아이콘</title>
+				<description xml:lang="ko">메타 정보에 아이콘을 사용합니다.</description>
+				<options value="">
+					<title xml:lang="ko">표시 안함(기본)</title>
+				</options>
+				<options value="info_icon">
+					<title xml:lang="ko">아이콘만 표시</title>
+				</options>
+				<options value="info_icon2">
+					<title xml:lang="ko">아이콘+텍스트 표시</title>
+				</options>
+			</var>
 		</group>
 		<group>
 		<title xml:lang="ko">갤러리 형 (*표시 : '클라우드 갤러리'와 공통)</title>
@@ -604,7 +654,7 @@
 				</options>
 			</var>
 			<var name="gall_align" type="radio">
-				<title xml:lang="ko">썸네일 정렬</title>
+				<title xml:lang="ko">섬네일 정렬</title>
 				<options value="">
 					<title xml:lang="ko">가운데 정렬(기본값)</title>
 				</options>
@@ -615,10 +665,10 @@
 			<var name="thumbnail_type" type="radio">
 				<title xml:lang="ko">섬네일 비율(*)</title>
 				<options value="">
-					<title xml:lang="ko">사용자 정의(3:2 또는 4:3 비율 권장)</title>
+					<title xml:lang="ko">크롭(기본)</title>
 				</options>
 				<options value="ratio">
-					<title xml:lang="ko">원본과 동일 비율 유지(사용자 정의 비율 무시)</title>
+					<title xml:lang="ko">원본 비율</title>
 				</options>
 			</var>
 			<var name="thumbnail_width" type="text">
@@ -648,7 +698,7 @@
 					<title xml:lang="ko">필기체(기본)</title>
 				</options>
 				<options value="ng">
-					<title xml:lang="ko">고딕체</title>
+					<title xml:lang="ko">글꼴 설정에 따라</title>
 				</options>
 			</var>
 			<var name="li_width" type="text">
@@ -660,7 +710,7 @@
 				<description xml:lang="ko">입력하지 않으면 섬네일 높이에 +80 입니다.</description>
 			</var>
 			<var name="gall_shadow" type="radio">
-				<title xml:lang="ko">썸네일 그림자</title>
+				<title xml:lang="ko">섬네일 그림자</title>
 				<options value="">
 					<title xml:lang="ko">표시(기본)</title>
 				</options>
@@ -807,7 +857,7 @@
 			</var>
 			<var name="cloud_rotate" type="radio">
 				<title xml:lang="ko">섬네일 기울기</title>
-				<description xml:lang="ko">※ IE8 이하에서 적용되지 않습니다.</description>
+				<description xml:lang="ko">*css3를 지원하는 브라우저에서만 적용됩니다.</description>
 				<options value="">
 					<title xml:lang="ko">처음부터(기본)</title>
 				</options>
@@ -882,7 +932,7 @@
 			</var>
 			<var name="content_default" type="textarea">
 				<title xml:lang="ko">글 작성시 미리 입력된 글 출력</title>
-				<description xml:lang="ko">글쓰기 화면에서 처음에 미리 입력된 글을 출력하는 기능입니다. HTML을 사용 할 수 있습니다.</description>
+				<description xml:lang="ko">글쓰기 화면에서 글쓰기 창 안에 표시될 글을 출력하는 기능입니다. 미리 준비된 양식이나 글쓰기 안내글 등에 사용할 수 있습니다. HTML을 사용 할 수 있습니다.</description>
 			</var>
 			<var name="cmt_wrt" type="radio">
 				<title xml:lang="ko">댓글 에디터 설정</title>
@@ -1067,6 +1117,19 @@
 				<title xml:lang="ko">본문 전체 여백 설정</title>
 				<description xml:lang="ko">본문의 전체 여백(padding)을 설정합니다. 사용자의 레이아웃에 따라 본문 폭이 달라 필요한 영역 확보를 하지 못하는 경우를 위해 옵션을 두었습니다. 일반 css 입력과 동일하므로 'px', 'em', '%' 등 '단위'까지 반드시(!) 입력해야 합니다(※ '0'으로 사용할 경우 '0'은 저장되지 않으니 '0px'을 입력하세요). 입력하지 않으면 기본설정은 '0 15px' 입니다. 예) '0px', '10px', '10px 20px 30px 10px', '3% 0' 등</description>
 			</var>
+			<var name="rd_nav" type="radio">
+				<title xml:lang="ko">본문 상단 내비</title>
+				<description xml:lang="ko">본문을 읽는 데 도움을 주는 기능('글자의 확대-축소', '상단-댓글-목록으로 이동', '프린트', '첨부파일', '이 게시물을', '수정', '삭제' 등)을 모은 내비게이션입니다.</description>
+				<options value="">
+					<title xml:lang="ko">제목 영역 아래(기본)</title>
+				</options>
+				<options value="2">
+					<title xml:lang="ko">제목 영역 위</title>
+				</options>
+				<options value="N">
+					<title xml:lang="ko">표시 안함</title>
+				</options>
+			</var>
 			<var name="rd_nav_style" type="radio">
 				<title xml:lang="ko">본문 내비 스타일</title>
 				<options value="">
@@ -1084,19 +1147,6 @@
 				</options>
 				<options value="">
 					<title xml:lang="ko">텍스트 표시 안함(기본)</title>
-				</options>
-			</var>
-			<var name="rd_nav" type="radio">
-				<title xml:lang="ko">본문 상단 내비</title>
-				<description xml:lang="ko">'글자의 확대-축소', '상단-댓글-목록으로 이동', '프린트', '첨부파일', '이 게시물을', '수정', '삭제' 버튼의 표시 영역을 결정합니다.</description>
-				<options value="">
-					<title xml:lang="ko">제목 영역 아래(기본)</title>
-				</options>
-				<options value="2">
-					<title xml:lang="ko">제목 영역 위</title>
-				</options>
-				<options value="N">
-					<title xml:lang="ko">표시 안함</title>
 				</options>
 			</var>
 			<var name="rd_nav_side" type="radio">
@@ -1131,6 +1181,10 @@
 				<options value="N">
 					<title xml:lang="ko">사용 안함</title>
 				</options>
+			</var>
+			<var name="prev_next_cut_size" type="text">
+				<title xml:lang="ko">이전글-다음글 제목 글자수 제한</title>
+				<description xml:lang="ko">이전글-다음글의 글자수를 제한합니다. 기본값은 '60' 입니다.</description>
 			</var>
 			<var name="no_attached_img" type="image">
 				<title xml:lang="ko">본문에 이미지가 없는 경우</title>
@@ -1618,8 +1672,8 @@
 		<group>
 		<title xml:lang="ko">'뷰어로 보기' 설정</title>
 			<var name="viewer_with" type="radio">
-				<title xml:lang="ko">목록 상단 버튼</title>
-				<description xml:lang="ko">목록의 게시물 링크를 뷰어로 보게 하는'게시물을 뷰어로 보기' 버튼의 표시 여부를 결정합니다.</description>
+				<title xml:lang="ko">게시판 상단 버튼</title>
+				<description xml:lang="ko">게시판의 상단에 게시물을 클릭 시 바로 뷰어로 보게 하는 '게시물을 뷰어로 보기' 버튼의 표시 여부를 결정합니다.</description>
 				<options value="">
 					<title xml:lang="ko">표시(기본)</title>
 				</options>

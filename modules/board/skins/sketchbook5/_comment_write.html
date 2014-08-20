@@ -3,7 +3,7 @@
 <label for="editor_{$oDocument->document_srl}" class="cmt_editor_tl fl"><em>✔</em><strong>{$lang->write_comment}</strong></label>
 <!--// Editor Select -->
 <div cond="$mi->select_editor!='N'" class="editor_select bubble fr m_no" title="{$lang->noti_rfsh}">
-	<a class="tg_btn2" href="#" data-href="#editor_select"><b class="tx_ico_circ bg_color"><i class="ie8_only color">●</i><b>?</b></b> {$lang->select_editor}</a>
+	<a class="tg_btn2" href="#" data-href="#editor_select"><em class="fa fa-info-circle bd_info_icon"></em> {$lang->select_editor}</a>
 	<div cond="$rd_idx==0" id="editor_select" class="tg_cnt2 wrp m_no"><button type="button" class="tg_blur2"></button>
 		<a class="on"|cond="$mi->cmt_wrt=='simple'" href="#" onclick="jQuery.cookie('bd_editor','simple');location.reload();return false"><em>✔ </em>{$lang->textarea}</a>
 		<a class="on"|cond="$mi->cmt_wrt=='editor'" href="#" onclick="jQuery.cookie('bd_editor','editor');location.reload();return false"><em>✔ </em>{$lang->wysiwyg}</a>
@@ -19,13 +19,13 @@
 	<input type="hidden" name="document_srl" value="{$oDocument->document_srl}" />
 	<input type="hidden" name="comment_srl" value="" />
 	<input type="hidden" name="content" value="" />
-	<block cond="$mi->cmt_wrt=='editor'">{$oDocument->getCommentEditor()}</block>
+	<div cond="$mi->cmt_wrt=='editor'" class="wysiwyg">{$oDocument->getCommentEditor()}</div>
 	<div cond="$mi->cmt_wrt=='simple'" class="simple_wrt">
 		<img cond="$logged_info->profile_image->src" class="profile img" src="{$logged_info->profile_image->src}" alt="profile" />
 		<span cond="!$logged_info->profile_image->src" class="profile img no_img">?</span>
 		<div class="text">
 			<input type="hidden" id="htm_{$oDocument->document_srl}" value="n" />
-			<textarea id="editor_{$oDocument->document_srl}" cols="50" rows="3"></textarea>
+			<textarea id="editor_{$oDocument->document_srl}" cols="50" rows="2"></textarea>
 		</div>
 		<input type="submit" value="{$lang->cmd_submit}" class="bd_btn" />
 	</div>
@@ -51,11 +51,11 @@
         <input cond="$mi->cmt_wrt=='editor'" type="submit" value="{$lang->cmd_submit}" class="bd_btn fr" />
 		<div class="opt_chk">
 			<block cond="$is_logged">
-			<input type="checkbox" name="notify_message" value="Y" id="notify_message_{$oDocument->document_srl}" checked="checked"|cond="@in_array(notify,$mi->wrt_opt)" />
+			<input type="checkbox" name="notify_message" value="Y" id="notify_message_{$oDocument->document_srl}" checked="checked"|cond="@in_array('notify',$mi->wrt_opt)" />
 			<label for="notify_message_{$oDocument->document_srl}">{$lang->notify}</label>
 			</block>
 			<block cond="$mi->use_status!='PUBLIC'">
-			<input type="checkbox" name="is_secret" value="Y" id="is_secret_{$oDocument->document_srl}" checked="checked"|cond="@in_array(secret,$mi->wrt_opt)" />
+			<input type="checkbox" name="is_secret" value="Y" id="is_secret_{$oDocument->document_srl}" checked="checked"|cond="@in_array('secret',$mi->wrt_opt)" />
 			<label for="is_secret_{$oDocument->document_srl}">{$lang->secret}</label>
 			</block>
 		</div>
@@ -66,8 +66,8 @@
 <div cond="$rd_idx==0" id="re_cmt">
 	<label for="editor_2" class="cmt_editor_tl fl"><i class="ico_16px re"></i><strong>{$lang->write_comment}</strong></label>
 	<div class="editor_select fr">
-		<a class="wysiwyg m_no" href="#"><b class="tx_ico_circ bg_color"><span class="ie8_only color">●</span><b>?</b></b> {$lang->use_wysiwyg}</a>
-		<a class="close" href="#" onclick="jQuery('#re_cmt').fadeOut().parent().find('.re_comment').focus();return false"><i class="ui-icon ui-icon-closethick"></i>{$lang->cmd_close}</a>
+		<a class="wysiwyg m_no" href="#"><em class="fa fa-info-circle bd_info_icon"></em> {$lang->use_wysiwyg}</a>
+		<a class="close" href="#" onclick="jQuery('#re_cmt').fadeOut().parent().find('.re_comment').focus();return false"><i class="fa fa-times"></i> {$lang->cmd_close}</a>
 	</div>
 	<form action="./" method="post" onsubmit="return procFilter(this,insert_comment)" class="bd_wrt clear">
 		<input type="hidden" name="mid" value="{$mid}" />
@@ -101,11 +101,11 @@
 		</div>
 		<span class="opt_chk">
 			<block cond="$is_logged">
-				<input type="checkbox" name="notify_message" value="Y" id="notify_message" checked="checked"|cond="@in_array(notify,$mi->wrt_opt)" />
+				<input type="checkbox" name="notify_message" value="Y" id="notify_message" checked="checked"|cond="@in_array('notify',$mi->wrt_opt)" />
 				<label for="notify_message">{$lang->notify}</label>
 			</block>
 			<block cond="$mi->use_status!='PUBLIC'">
-				<input type="checkbox" name="is_secret" value="Y" id="is_secret" checked="checked"|cond="@in_array(secret,$mi->wrt_opt)" />
+				<input type="checkbox" name="is_secret" value="Y" id="is_secret" checked="checked"|cond="@in_array('secret',$mi->wrt_opt)" />
 				<label for="is_secret">{$lang->secret}</label>
 			</block>
 		</span>
@@ -117,10 +117,10 @@
 	<div class="simple_wrt">
 		<span class="profile img no_img">?</span>
 		<div class="text">
-			<a cond="!$is_logged" class="cmt_disable bd_login" href="#"><p>{$lang->write_comment} {$lang->msg_not_permitted} {$lang->bd_login}</p></a>
-			<div cond="$is_logged" class="cmt_disable bd_login"><p>{$lang->write_comment} {$lang->msg_not_permitted}</p></div>
+			<a cond="!$is_logged" class="cmt_disable bd_login" href="#">{$lang->write_comment} {$lang->msg_not_permitted} {$lang->bd_login}</a>
+			<div cond="$is_logged" class="cmt_disable bd_login">{$lang->write_comment} {$lang->msg_not_permitted}</div>
 		</div>
-		<input type="submit" value="{$lang->cmd_submit}" disabled="disabled" class="bd_btn" />
+		<input type="button" value="{$lang->cmd_submit}" disabled="disabled" class="bd_btn" />
 	</div>
 </div>
 <!--@end-->

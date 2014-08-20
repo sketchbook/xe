@@ -23,7 +23,7 @@
 	$mi->viewer_itm = unserialize($mi->viewer_itm);
 	$mi->rd_blog_itm = unserialize($mi->rd_blog_itm);
 
-	if($_COOKIE['bd_font']) $mi->font = $_COOKIE['bd_font'];
+	if($_COOKIE['bd_font'] && !$mi->font_btn) $mi->font = $_COOKIE['bd_font'];
 	if($_COOKIE['bd_editor']) $mi->cmt_wrt = $_COOKIE['bd_editor'];
 	if($_COOKIE['cookie_viewer_with']) $mi->viewer_with = '';
 
@@ -78,8 +78,8 @@
 	$lang->larger = '크게';
 	$lang->smaller = '작게';
 	$lang->font = '글꼴';
-	$lang->best_font_dsc = '나눔고딕 등의 여러글꼴을 섞어서 사용합니다';
-	$lang->best_font = '추천글꼴';
+	$lang->best_font_dsc = '사이트 기본 글꼴을 유지합니다';
+	$lang->best_font = '기본글꼴';
 	$lang->window_font = '맑은고딕';
 	$lang->tahoma = '돋움';
 	$lang->select_editor = '에디터 선택하기';
@@ -91,10 +91,7 @@
 	$lang->link_site = '사이트';
 	$lang->link_site_viewer = '사이트를 뷰어로 보기';
 	$lang->score = '점';
-	$lang->uploaded_file = '첨부파일';
-	$lang->select_files_to_insert = '본문에 넣을 파일을 선택하세요';
-	$lang->m_img_upoad_1 = '본문 위에 넣기';
-	$lang->m_img_upoad_2 = '본문 아래에 넣기';
+	$lang->cmd_deselect_all = '선택 해제';
 	$lang->m_editor_notice = 'HTML로 작성된 문서를 모바일 기기에서 수정하는 것을 권장하지 않습니다';
 }
 <!--@else-->
@@ -111,8 +108,8 @@
 	$lang->larger = 'Larger Font';
 	$lang->smaller = 'Smaller Font';
 	$lang->font = 'Font';
-	$lang->best_font_dsc = 'Use different fonts';
-	$lang->best_font = 'Suitable';
+	$lang->best_font_dsc = 'Default';
+	$lang->best_font = 'Default';
 	$lang->window_font = 'Segoe UI';
 	if($lang_type=='jp') $lang->window_font = 'メイリオ';
 	$lang->tahoma = 'Tahoma';
@@ -125,9 +122,7 @@
 	$lang->link_site = 'Website';
 	$lang->link_site_viewer = 'Go Website with Viewer';
 	$lang->score = ' Score';
-	$lang->select_files_to_insert = 'Select files to insert to content';
-	$lang->m_img_upoad_1 = 'Files + Content';
-	$lang->m_img_upoad_2 = 'Content + Files';
+	$lang->cmd_deselect_all = 'Deselect';
 	$lang->m_editor_notice = 'It is not recommended to update an article on mobile devices';
 
 	$lang->cmd_vote = 'Like';
@@ -170,10 +165,14 @@
 <!--// 커스텀 파일 넣기 -->
 <include cond="is_dir(_XE_PATH_.'/modules/board/skins/sketchbook5/custom')" target="custom/custom.php" />
 
-<style id="bdCss">
-.bd,.bd input,.bd textarea,.bd select,.bd button,.bd table{font-family:<!--@if($mi->font=='ng')-->'나눔고딕',NanumGothic,ng,<!--@elseif($mi->font=='window_font')-->'Segoe UI',Meiryo,'맑은 고딕','Malgun Gothic',<!--@elseif($mi->font=='tahoma')-->Tahoma,'돋움',Dotum,<!--@end-->'Segoe UI',Meiryo,'나눔고딕',NanumGothic,ng,'맑은 고딕','Malgun Gothic','돋움',Dotum,AppleGothic,sans-serif}
+<style data-id="bdCss">
+<!--@if($mi->font)-->
+.bd,.bd input,.bd textarea,.bd select,.bd button,.bd table{font-family:<!--@if($mi->font=='ng')-->'Segoe UI',Meiryo,'나눔고딕',NanumGothic,ng,<!--@elseif($mi->font=='window_font')-->'Segoe UI',Meiryo,'맑은 고딕','Malgun Gothic',<!--@elseif($mi->font=='tahoma')-->Tahoma,'돋움',Dotum,<!--@end-->'돋움',Dotum,Helvetica,'Apple SD Gothic Neo',sans-serif}
 <!--@if($mi->font=='tahoma')-->
-.bd .ngeb{font-family:'돋움',Dotum,AppleGothic,sans-serif}
+.bd .ngeb{font-family:'돋움',Dotum,Helvetica,'Apple SD Gothic Neo',sans-serif}
+<!--@else-->
+.bd .ngeb{font-weight:700;font-family:'Segoe UI',Meiryo,'나눔고딕 ExtraBold','NanumGothic ExtraBold',ngeb,'맑은 고딕','Malgun Gothic','나눔고딕',NanumGothic,ng,'Trebuchet MS','돋움',dotum,Helvetica,'Apple SD Gothic Neo',sans-serif}
+<!--@end-->
 <!--@end-->
 <!--@if($mi->color!='333333')-->
 .bd a:focus,.bd input:focus,.bd button:focus,.bd textarea:focus,.bd select:focus{outline-color:#{$mi->color};}
@@ -187,7 +186,7 @@
 .bd .bolder{color:#{$mi->color};text-shadow:2px 2px 4px {$mi->shadow};}
 .bd .bg_color{background-color:#{$mi->color};}
 <block cond="$mi->colorset=='white'">
-.bd .bg_f_color{background-color:#{$mi->color};background:-moz-linear-gradient(#FFF -50%,#{$mi->color} 50%);background:-webkit-linear-gradient(#FFF -50%,#{$mi->color} 50%);background:linear-gradient(to bottom,#FFF -50%,#{$mi->color} 50%);}
+.bd .bg_f_color{background-color:#{$mi->color};background:-webkit-linear-gradient(#FFF -50%,#{$mi->color} 50%);background:linear-gradient(to bottom,#FFF -50%,#{$mi->color} 50%);}
 </block>
 .bd .border_color{border-color:#{$mi->color};}
 .bd .bx_shadow{ -webkit-box-shadow:0 0 2px {$mi->shadow};box-shadow:0 0 2px {$mi->shadow};}
@@ -208,6 +207,10 @@
 .rd_gallery{text-align:{$mi->img_insert_align};{$mi->img_insert_css};}
 .rd_gallery img{width:{$mi->img_insert_width};height:{$mi->img_insert_height};{$mi->img_insert_img_css};}
 </block>
+<!--@if($mi->cnb3_color)-->
+.cnb3 .on>a,.cnb3 a:hover,.cnb3 a:focus{border-color:{$mi->shadow};background:#{$mi->color};}
+.cnb4 .on>a,.cnb4 a:hover,.cnb4 a:focus{border-color:#{$mi->color};color:#{$mi->color};}
+<!--@end-->
 
 <!--// List Style -->
 <!--@if($mi->default_style=='list')-->
@@ -223,10 +226,10 @@
 <!--// Webzine -->
 <block cond="!$mi->zine_hover">
 .bd_zine.zine li:hover .tmb_wrp{ -ms-transform:rotate(5deg);-moz-transform:rotate(5deg);-webkit-transform:rotate(5deg);transform:rotate(5deg)}
-.bd_zine.card li:hover{z-index:10;-ms-transform:scale(1.05);-moz-transform:scale(1.05);-webkit-transform:scale(1.05);transform:scale(1.05)}
+.bd_zine.card li:hover{ -ms-transform:scale(1.05);-moz-transform:scale(1.05);-webkit-transform:scale(1.05);transform:scale(1.05)}
 </block>
 .bd_zine .tmb_wrp .no_img{width:{$mi->zine_thumb_width}px;height:{$mi->zine_thumb_height}px;line-height:{$mi->zine_thumb_height}px}
-.bd_zine a:hover,.bd_zine a:focus,.bd_zine .select a{z-index:20;border-color:#{$mi->color};}
+.bd_zine a:hover,.bd_zine a:focus,.bd_zine .select a{border-color:#{$mi->color};}
 .bd_zine.zine .tmb_wrp img,.bd_zine.card li{ {$mi->zine_css} }
 <block cond="!$mi->zine_tx_color">
 .bd_zine .info b,.bd_zine .info a{color:{$mi->shadow};}
@@ -239,7 +242,7 @@
 <block cond="$mi->zine_style=='3' || $mi->zine_style=='4'">
 .bd_zine{margin:0 auto;padding:{$mi->zine_margin}px 0}
 .bd_zine li{width:{$mi->zine_thumb_width}px;margin:{$mi->zine_margin}px}
-.bd_zine .tmb_wrp .no_img{width:{$mi->zine_thumb_width-2}px;height:{$mi->zine_thumb_width-2}px;line-height:{$mi->zine_thumb_width-2}px;border:1px solid #DDD}
+.bd_zine .tmb_wrp .no_img{width:{$mi->zine_thumb_width-2}px;<!--@if($mi->thumbnail_type=='crop')-->height:{$mi->zine_thumb_width-2}px;line-height:{$mi->zine_thumb_width-2}px<!--@else-->height:120px;line-height:120px<!--@end-->;border:1px solid #DDD}
 <!--@if($mi->zine_thumb_width > 399)-->
 .bd_zine.card h3{font-size:15px}
 .bd_zine.card .cnt{margin-top:1.5em}

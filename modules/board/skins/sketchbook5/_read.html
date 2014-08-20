@@ -3,9 +3,12 @@
 	if(!$mi->rd_tl_font) $mi->rd_tl_font='ngeb';
 	if(!$mi->rd_top_font) $mi->rd_top_font='ngeb';
 	if(!$mi->rd_btm_font) $mi->rd_btm_font='ngeb';
+	if(!$mi->prev_next_cut_size) $mi->prev_next_cut_size=60;
+	$sns_link=$oDocument->getPermanentUrl().'?l='.$lang_type;
+	$sns_title=urlencode($oDocument->getTitle());
 }
 
-<div class="rd<!--@if(!$mi->rd_nav_style)--> rd_nav_style2<!--@end--><!--@if($mi->default_style=='blog')--> rd_blog {$mi->blog_style}<!--@end--> clear" style="padding:{$mi->rd_padding};" data-docSrl="{$oDocument->document_srl}" data-snsLink="{$oDocument->getPermanentUrl()}?l={$lang_type}">
+<div class="rd<!--@if(!$mi->rd_nav_style)--> rd_nav_style2<!--@end--><!--@if($mi->default_style=='blog')--> rd_blog {$mi->blog_style}<!--@end--> clear" style="padding:{$mi->rd_padding};" data-docSrl="{$oDocument->document_srl}">
 	<!--// Header -->
 	<div class="rd_hd clear" style="<!--@if(!$mi->rd_style)-->margin:0 -15px 20px<!--@end--><!--@if($mi->rd_padding)-->;margin-left:0;margin-right:0<!--@end-->">
 		<!--// 제목 : 게시판 스타일 -->
@@ -14,7 +17,7 @@
 				<strong cond="!$mi->rd_cate && $mi->use_category=='Y' && $oDocument->get('category_srl')" class="cate fl" title="Category">{$category_list[$oDocument->get('category_srl')]->title}</strong>
 				<div class="fr">
 					<a cond="$mi->rd_nick=='2'" href="#popup_menu_area" class="nick member_{$oDocument->get('member_srl')}" onclick="return false">{$oDocument->getNickName()}</a>
-					<span cond="!$mi->rd_date" class="date">{$oDocument->getRegdate('Y.m.d H:i')}</span>
+					<span cond="!$mi->rd_date" class="date m_no">{$oDocument->getRegdate('Y.m.d H:i')}</span>
 				</div>
 				<h1 class="np_18px"><a href="{$oDocument->getPermanentUrl()}">{$oDocument->getTitle()}</a></h1>
 			</div>
@@ -22,7 +25,7 @@
 				<img cond="$mi->rd_profile=='Y' && $oDocument->getProfileImage()" class="img fl" src="{$oDocument->getProfileImage()}" alt="profile" title="{$oDocument->getNickName()}" />
 				<div class="side">
 					<a cond="!$mi->rd_nick" href="#popup_menu_area" class="nick member_{$oDocument->get('member_srl')}" onclick="return false">{$oDocument->getNickName()}</a>
-					<a cond="$mi->rd_link=='2'" class="link" href="{$oDocument->getPermanentUrl()}">{$oDocument->getPermanentUrl()}</a>
+					<a cond="$mi->rd_link=='2'" class="link m_no" href="{$oDocument->getPermanentUrl()}">{$oDocument->getPermanentUrl()}</a>
 					<span cond="$mi->rd_date=='2'" class="date">{$oDocument->getRegdate('Y.m.d H:i')}</span>
 					<strong cond="$mi->rd_cate=='2' && $mi->use_category=='Y' && $oDocument->get('category_srl')" class="cate" title="Category">{$category_list[$oDocument->get('category_srl')]->title}</strong>
 					<block cond="$mi->rd_info=='2'">
@@ -32,8 +35,8 @@
 					</block>
 				</div>
 				<div class="side fr">
-					<small cond="$grant->manager || $mi->display_ip_address">({$oDocument->getIpaddress()}) </small>
-					<a cond="$mi->rd_link=='3'" class="link" href="{$oDocument->getPermanentUrl()}">{$oDocument->getPermanentUrl()}</a>
+					<small cond="$grant->manager || $mi->display_ip_address" class="m_no">({$oDocument->getIpaddress()}) </small>
+					<a cond="$mi->rd_link=='3'" class="link m_no" href="{$oDocument->getPermanentUrl()}">{$oDocument->getPermanentUrl()}</a>
 					<a cond="$mi->rd_nick=='3'" href="#popup_menu_area" class="nick member_{$oDocument->get('member_srl')}" onclick="return false">{$oDocument->getNickName()}</a>
 					<span cond="$mi->rd_date=='3'" class="date">{$oDocument->getRegdate('Y.m.d H:i')}</span>
 					<strong cond="$mi->rd_cate=='3' && $mi->use_category=='Y' && $oDocument->get('category_srl')" class="cate" title="Category">{$category_list[$oDocument->get('category_srl')]->title}</strong>
@@ -62,9 +65,9 @@
 				<span cond="$mi->rd_blog_cate=='2' && $mi->use_category=='Y' && $oDocument->get('category_srl')"><small>In </small><b title="Category">{$category_list[$oDocument->get('category_srl')]->title}</b></span>
 				<span cond="!$mi->rd_blog_nick"><small>by </small><b>{$oDocument->getNickName()}</b></span>
 				<span cond="!$mi->rd_blog_date" title="{$oDocument->getRegdate('Y.m.d H:i')}"><small>posted </small><b class="date">{$oDocument->getRegdate('M d, Y')}</b></span>
-				<span cond="@in_array(view,$mi->rd_blog_itm)"><small>Views</small> <b>{$oDocument->get('readed_count')}</b></span>
-				<span cond="@in_array(like,$mi->rd_blog_itm)"><small>Likes</small> <b>{$oDocument->get('voted_count')}</b></span>
-				<span cond="@in_array(cmt,$mi->rd_blog_itm)"><small>Replies</small> <b>{$oDocument->getCommentcount()}</b></span>
+				<span cond="@in_array('view',$mi->rd_blog_itm)"><small>Views</small> <b>{$oDocument->get('readed_count')}</b></span>
+				<span cond="@in_array('like',$mi->rd_blog_itm)"><small>Likes</small> <b>{$oDocument->get('voted_count')}</b></span>
+				<span cond="@in_array('cmt',$mi->rd_blog_itm)"><small>Replies</small> <b>{$oDocument->getCommentcount()}</b></span>
 			</div>
 		</div>
 
@@ -143,7 +146,7 @@
 			<img cond="$extImg" src="{$file->uploaded_filename}" alt="" />
 			</block>
 		</div>
-		{$oDocument->getContent(false)}
+		<article>{$oDocument->getContent(false)}</article>
 		<div cond="$mi->img_insert=='3'" class="xe_content rd_gallery">
 			<block loop="$oDocument->getUploadedFiles()=>$key,$file">
 <block cond="!$mi->img_insert2">
@@ -180,115 +183,153 @@
 	<div class="rd_ft">
 		<!--// Sign -->
 		<div cond="$mi->display_sign!='N' && ($oDocument->getProfileImage() || $oDocument->getSignature())" class="rd_sign clear">
-			<h4><b class="tx_ico_circ bg_color"><i class="ie8_only color">●</i><b>?</b></b>Who's <em>{$oDocument->getNickName()}</em></h4>
+			<h4><em class="fa fa-info-circle bd_info_icon"></em> Who's <em>{$oDocument->getNickName()}</em></h4>
 			<img cond="$oDocument->getProfileImage()" class="img fl" src="{$oDocument->getProfileImage()}" alt="profile" />
 			<div cond="$oDocument->getSignature()" class="get_sign">{$oDocument->getSignature()}</div>
 		</div>
 		<!--// Prev-Next -->
+<!--// 현재목록 외 이전글-다음글 구하기 
+Source form : http://www.xpressengine.com/21617245 by 시니시즘. Thanks!
+1. search : X
+2. get image : X
+3. except_notice : /
+-->
 		<div cond="$mi->prev_next!='N' && !$oDocument->isNotice() && $mi->default_style!='blog'" class="bd_prev_next clear" style="display:none"|cond="$mi->prev_next=='2'">
 			<block loop="$document_list=>$no,$document" cond="$document_srl==$document->document_srl">
-			<div>
-				<a cond="$document_list[$no+1]->document_srl" href="{getUrl('document_srl',$document_list[$no+1]->document_srl)}" class="bd_rd_prev bubble no_bubble fl<!--@if($mi->default_style=='viewer')--> right<!--@end-->">
-					<p cond="!$mi->prev_next"><em class="link">« Prev</em> {$document_list[$no+1]->getTitle(60)}</p>
+<!--// prev-next page -->
+<block cond="!$search_keyword">
+<block cond="(!$document_list[$no+1]->document_srl && $page!=1) || (!$document_list[$no-1]->document_srl && $page!=$total_page)">
+{@
+	$oModuleModel = &getModel('module');
+	$module_srl_temp = $oModuleModel->getModuleSrlByMid($mid);
+	if(is_array($module_srl_temp)) $module_srl = $module_srl_temp[0];
+	else $module_srl = $module_srl_temp;
+	$args = new stdClass();
+	$args->module_srl = $module_srl;
+	$args->category_srl = $category;
+	$args->list_count = $module_info->list_count;
+	$args->sort_index = $module_info->order_target;
+	if($sort_index) $args->sort_index = $sort_index;
+	$args->order_type = $module_info->order_type;
+	if($sort_index) $args->order_type = $order_type;
+	if($module_info->except_notice=='Y') $prevnext_except_notice=1;
+}
+<!--@if(!$document_list[$no+1]->document_srl && $page!=1)-->
+{@
+	$is_prevnext='P';
+	$args->page = $page-1;
+	$prevnext_list = executeQueryArray('document.getDocumentList',$args);
+	$prevnext_data = array_reverse($prevnext_list->data);
+}
+<!--@else if(!$document_list[$no-1]->document_srl && $page!=$total_page)-->
+{@
+	$is_prevnext='N';
+	$args->page = $page+1;
+	$prevnext_list = executeQueryArray('document.getDocumentList',$args);
+	$prevnext_data = $prevnext_list->data;
+}
+<!--@end-->
+<!--@foreach($prevnext_data as $no2 => $document2)-->
+<block cond="!$prevnext_except_notice || ($prevnext_except_notice && $document2->is_notice!='Y')">
+{@
+	$prevnext_doc = $document2->document_srl;
+	$prevnext_title = $document2->title;
+	$prevnext_date = $document2->regdate;
+	$prevnext_nick = $document2->nick_name;
+	break;
+}
+</block>
+<!--@end-->
+</block>
+</block>
+			<div style="max-width:{$mi->viewer_width}px"|cond="$mi->default_style=='viewer'">
+				<a cond="$document_list[$no+1]->document_srl" class="bd_rd_prev bubble no_bubble fl<!--@if($mi->default_style=='viewer')--> right<!--@end-->" href="{getUrl('document_srl',$document_list[$no+1]->document_srl)}">
+					<span cond="!$mi->prev_next" class="p"><em class="link">« Prev</em> {$document_list[$no+1]->getTitle($mi->prev_next_cut_size)}</span>
+					<i class="tx_arrow">〈</i>
 					<span class="wrp prev_next">
 						<span class="speech">
 							<img cond="$document_list[$no+1]->thumbnailExists()" src="{$document_list[$no+1]->getThumbnail($mi->thumbnail_width,$mi->thumbnail_height,$mi->thumbnail_type)}" alt="" />
-							<b>{$document_list[$no+1]->getTitle(60)}</b>
+							<b>{$document_list[$no+1]->getTitle($mi->prev_next_cut_size)}</b>
 							<span><em>{$document_list[$no+1]->getRegdate('Y.m.d')}</em><small>by </small>{$document_list[$no+1]->getNickName()}</span>
 						</span><i class="edge"></i>
 						<!--// ie8; --><i class="ie8_only bl"></i><i class="ie8_only br"></i>
-					</span><i class="tx_arrow">〈</i>
+					</span>
 				</a>
-				<a cond="$document_list[$no-1]->document_srl" href="{getUrl('document_srl',$document_list[$no-1]->document_srl)}" class="bd_rd_next bubble no_bubble fr<!--@if($mi->default_style=='viewer')--> left<!--@end-->">
-					<p cond="!$mi->prev_next">{$document_list[$no-1]->getTitle(60)} <em class="link">Next »</em></p>
+				<!--// 현재목록 외 이전글-다음글 -->
+				<block cond="$is_prevnext">
+				<!--@if($is_prevnext=='P')-->
+				<a class="bd_rd_prev bubble no_bubble fl<!--@if($mi->default_style=='viewer')--> right<!--@end-->" href="{getUrl('document_srl',$prevnext_doc,'page','','cpage','')}">
+					<span cond="!$mi->prev_next" class="p"><em class="link">« Prev</em> {$prevnext_title}</span>
+					<i class="tx_arrow">〈</i>
+				<!--@else-->
+				<a class="bd_rd_next bubble no_bubble fr<!--@if($mi->default_style=='viewer')--> left<!--@end-->" href="{getUrl('document_srl',$prevnext_doc,'page','','cpage','')}">
+					<span cond="!$mi->prev_next" class="p">{$prevnext_title} <em class="link">Next »</em></span>
+					<i class="tx_arrow">〉</i>
+				<!--@end-->
+					<span class="wrp prev_next">
+						<span class="speech">
+							<b>{$prevnext_title}</b>
+							<span><em>{zdate($prevnext_date,'Y.m.d')}</em><small>by </small>{$prevnext_nick}</span>
+						</span><i class="edge"></i>
+						<!--// ie8; --><i class="ie8_only bl"></i><i class="ie8_only br"></i>
+					</span>
+				</a>
+				</block>
+				<a cond="$document_list[$no-1]->document_srl" class="bd_rd_next bubble no_bubble fr<!--@if($mi->default_style=='viewer')--> left<!--@end-->" href="{getUrl('document_srl',$document_list[$no-1]->document_srl)}">
+					<span cond="!$mi->prev_next" class="p">{$document_list[$no-1]->getTitle($mi->prev_next_cut_size)} <em class="link">Next »</em></span>
+					<i class="tx_arrow">〉</i>
 					<span class="wrp prev_next">
 						<span class="speech">
 							<img cond="$document_list[$no-1]->thumbnailExists()" src="{$document_list[$no-1]->getThumbnail($mi->thumbnail_width,$mi->thumbnail_height,$mi->thumbnail_type)}" alt="" />
-							<b>{$document_list[$no-1]->getTitle(60)}</b>
+							<b>{$document_list[$no-1]->getTitle($mi->prev_next_cut_size)}</b>
 							<span><em>{$document_list[$no-1]->getRegdate('Y.m.d')}</em><small>by </small>{$document_list[$no-1]->getNickName()}</span>
 						</span><i class="edge"></i>
 						<!--// ie8; --><i class="ie8_only bl"></i><i class="ie8_only br"></i>
-					</span><i class="tx_arrow">〉</i>
+					</span>
 				</a>
 			</div>
+			{@ break;}
 			</block>
 		</div>
 
 		<!--// Vote -->
 		<div cond="$mi->votes!='N'" class="rd_vote">
-			<a class="bg_f_f9 bd_login" href="#" onclick="doCallModuleAction('document','procDocumentVoteUp','{$oDocument->document_srl}');return false;"|cond="$is_logged" style="border:2px solid #{$mi->color};color:#{$mi->color};">
-				<b>♥ {$oDocument->get('voted_count')}</b>
+			<a class="bd_login" href="#" onclick="doCallModuleAction('document','procDocumentVoteUp','{$oDocument->document_srl}');return false;"|cond="$is_logged" style="border:2px solid #{$mi->color};color:#{$mi->color};">
+				<b><i class="fa fa-heart"></i> {$oDocument->get('voted_count')}</b>
 				<p>{$lang->cmd_vote}</p>
 			</a>
-			<a cond="!$mi->votes" class="bg_f_f9 blamed bd_login" href="#" onclick="doCallModuleAction('document','procDocumentVoteDown','{$oDocument->document_srl}');return false;"|cond="$is_logged">
-				<b>♥ {$oDocument->get('blamed_count')}</b>
+			<a cond="!$mi->votes" class="blamed bd_login" href="#" onclick="doCallModuleAction('document','procDocumentVoteDown','{$oDocument->document_srl}');return false;"|cond="$is_logged">
+				<b><i class="fa fa-heart"></i> {$oDocument->get('blamed_count')}</b>
 				<p>{$lang->cmd_vote_down}</p>
 			</a>
-			<a cond="$mi->declare" class="bg_f_f9 blamed declare bd_login" href="#" onclick="doCallModuleAction('document','procDocumentDeclare','{$oDocument->document_srl}');return false;"|cond="$is_logged">
-				<b>☏</b>
+			<a cond="$mi->declare" class="blamed declare bd_login" href="#" onclick="doCallModuleAction('document','procDocumentDeclare','{$oDocument->document_srl}');return false;"|cond="$is_logged">
+				<b><i class="fa fa-phone"></i></b>
 				<p>{$lang->cmd_declare}</p>
 			</a>
 		</div>
 		<!--// SNS -->
-		<div cond="$mi->to_sns=='3'" class="to_sns big" style="text-align:{$mi->to_sns_big}">
-			<a class="facebook bubble" href="http://facebook.com/" title="To Facebook~"><b class="ico_sns facebook">Facebook</b></a>
-			<a class="twitter bubble" href="http://twitter.com/" title="To Twitter~"><b class="ico_sns twitter">Twitter</b></a>
+		<div cond="$mi->to_sns=='3'" class="to_sns big" style="text-align:{$mi->to_sns_big}" data-url="{$sns_link}" data-title="{$sns_title}">
+			<a class="facebook bubble" href="#" data-type="facebook" title="To Facebook"><b class="ico_sns facebook">Facebook</b></a>
+			<a class="twitter bubble" href="#" data-type="twitter" title="To Twitter"><b class="ico_sns twitter">Twitter</b></a>
+			<a class="google bubble" href="#" data-type="google" title="To Google"><b class="ico_sns google">Google</b></a>
+			<a class="pinterest bubble" href="#" data-type="pinterest" title="To Pinterest"><b class="ico_sns pinterest">Pinterest</b></a>
 			<block cond="Mobile::isMobileCheckByAgent()">
-			<a class="line bubble" href="http://line.naver.jp/R/msg/text/?{htmlspecialchars($oDocument->getTitleText())}%0D%0A{$oDocument->getPermanentUrl()}" title="To line~"><b class="ico_sns line">Line</b></a>
-			<a class="kakao bubble" href="kakaolink://sendurl?msg={htmlspecialchars($oDocument->getTitleText())}&url={$oDocument->getPermanentUrl()}&appid=m.kakao.com&appver=2.0&appname=카카오" title="카카오톡으로 링크보내기~"><b class="ico_sns kakao">Kakao</b></a>
+			<a class="line bubble" href="line://msg/text/?{$sns_title}%0D%0A{$sns_link}" title="To Line"><b class="ico_sns line">Line</b></a>
+			<a class="kakao bubble" href="kakaolink://sendurl?msg={$sns_title}&url={$sns_link}&appid=m.kakao.com&appver=2.0&appname=카카오" title="To Kakao Talk"><b class="ico_sns kakao">Kakao</b></a>
 			</block>
 		</div>
 		<div cond="$mi->to_sns=='4' && $mi->to_sns_content" class="to_sns small clear">{$mi->to_sns_content}</div>
 		<!--// Files -->
 		<include cond="$oDocument->hasUploadedFiles() && (!$mi->show_files || $mi->show_files==2)" target="_read_files.html" />
-		<!--// Trackback -->
-		<block cond="$oDocument->allowTrackback()">
-		<div class="rd_trb rd_fnt clear">
-			<a class="ui_font bubble" href="#" title="{$lang->trackback} {$lang->cmd_view}" onClick="jQuery(this).parent().next('.fdb_lst').slideToggle();return false"><strong>Trackback</strong> <span cond="$oDocument->getTrackbackCount()" class="fnt_count">'<b>{$oDocument->getTrackbackCount()}</b>'</span></a>
-			<a cond="$oDocument->allowTrackback()" class="link" href="{$oDocument->getTrackbackUrl()}" onclick="return false">{$oDocument->getTrackbackUrl()}</a>
-		</div>
-		<include cond="$oDocument->getTrackbackCount()" target="_trackback.html" />
-		</block>
 		<!--// Read Footer Navi -->
-		<div class="rd_ft_nav clear">
-			<a cond="$mi->default_style!='viewer' && $mi->rd_ft_nav" class="btn_img fl" href="{getUrl('document_srl','')}" style="margin:15px 2px 0 8px;padding:6px 12px 6px 8px"><i class="ico_16px list"></i> {$lang->cmd_list}</a>
+		<div class="rd_ft_nav img_tx clear">
+			<a cond="$mi->default_style!='viewer' && $mi->rd_ft_nav" class="btn_img fl" href="{getUrl('document_srl','')}"><i class="fa fa-bars"></i> {$lang->cmd_list}</a>
 			<!--// SNS small -->
 			<include cond="!$mi->to_sns" target="_read_sns.html" />
 			<!--// Read Nav -->
-			<div cond="!$mi->rd_nav_tx" class="rd_nav img_tx fr m_btn_wrp">
-				<block cond="$mi->default_style!='viewer'">
-				<block cond="$mi->prev_next=='2' && !$oDocument->isNotice() && $mi->default_style!='blog'">
-				<a class="rd_prev bubble no_bubble" href="#"><b class="ui-icon ui-icon-arrow-1-w" title="{$lang->cmd_prev}">Prev</b></a>
-				<a class="rd_next bubble no_bubble" href="#"><b class="ui-icon ui-icon-arrow-1-e" title="{$lang->cmd_next}">Next</b></a>
-				</block>
-				<a class="back_to bubble" href="#bd_{$mi->module_srl}" title="{$lang->cmd_move_up}"><b class="ui-icon ui-icon-arrow-1-n">Up</b></a>
-				<a class="back_to bubble" href="#rd_end_{$oDocument->document_srl}" title="({$lang->cmd_list}) {$lang->cmd_move_down}"><b class="ui-icon ui-icon-arrow-1-s">Down</b></a>
-				<a cond="!$mi->show_files && $oDocument->hasUploadedFiles()" class="bubble file" href="#" onclick="jQuery('#files_{$oDocument->document_srl}').slideToggle();return false" title="{$lang->uploaded_file}"><b class="ui-icon ui-icon-disk">Files</b></a>
-				<a cond="!$mi->rd_nav_item" class="print_doc bubble m_no" href="{getUrl('listStyle','viewer','act')}" title="{$lang->cmd_print}"><b class="ui-icon ui-icon-print">Print</b></a>
-				<a cond="$is_logged" class="document_{$oDocument->document_srl} action bubble m_no" href="#popup_menu_area" onclick="return false" title="{$lang->cmd_document_do}"><b class="ui-icon ui-icon-arrowthickstop-1-s">More</b></a>
-				</block>
-				<block cond="$oDocument->isEditable()">
-				<a class="edit" href="{getUrl('act','dispBoardWrite','document_srl',$oDocument->document_srl,'comment_srl','')}"><i class="ico_16px write"></i>{$lang->cmd_modify}</a>
-				<a class="edit" href="{getUrl('act','dispBoardDelete','document_srl',$oDocument->document_srl,'comment_srl','')}"><i class="ico_16px delete"></i>{$lang->cmd_delete} </a>
-				</block>
-			</div>
-			<div cond="$mi->rd_nav_tx" class="rd_nav rd_nav_tx fr m_btn_wrp">
-				<block cond="$mi->default_style!='viewer'">
-				<block cond="$mi->prev_next=='2' && !$oDocument->isNotice() && $mi->default_style!='blog'">
-				<a class="rd_prev bubble no_bubble" href="#"><b class="ui-icon ui-icon-arrow-1-w" title="{$lang->cmd_prev}">Prev</b><span class="tx">{$lang->cmd_prev}</span></a>
-				<a class="rd_next bubble no_bubble" href="#"><b class="ui-icon ui-icon-arrow-1-e" title="{$lang->cmd_next}">Next</b><span class="tx">{$lang->cmd_next}</span></a>
-				</block>
-				<a class="back_to" href="#bd_{$mi->module_srl}"><b class="ui-icon ui-icon-arrow-1-n">Up</b><span class="tx">{$lang->cmd_move_up}</span></a>
-				<a class="back_to" href="#rd_end_{$oDocument->document_srl}"><b class="ui-icon ui-icon-arrow-1-s">Down</b><span class="tx">{$lang->cmd_move_down}</span></a>
-				<a cond="!$mi->show_files && $oDocument->hasUploadedFiles()" class="file" href="#" onclick="jQuery('#files_{$oDocument->document_srl}').slideToggle();return false"><b class="ui-icon ui-icon-disk">Files</b><span class="tx">{$lang->uploaded_file}</span></a>
-				<a cond="!$mi->rd_nav_item" class="print_doc m_no" href="{getUrl('listStyle','viewer','act')}"><b class="ui-icon ui-icon-print">Print</b><span class="tx">{$lang->cmd_print}</span></a>
-				<a cond="$is_logged" class="document_{$oDocument->document_srl} action m_no" href="#popup_menu_area" onclick="return false"><b class="ui-icon ui-icon-arrowthickstop-1-s">More</b><span class="tx">{$lang->cmd_document_do}</span></a>
-				</block>
-				<block cond="$oDocument->isEditable()">
-				<a class="edit" href="{getUrl('act','dispBoardWrite','document_srl',$oDocument->document_srl,'comment_srl','')}"><i class="ico_16px write"></i>{$lang->cmd_modify}</a>
-				<a class="edit" href="{getUrl('act','dispBoardDelete','document_srl',$oDocument->document_srl,'comment_srl','')}"><i class="ico_16px delete"></i>{$lang->cmd_delete} </a>
-				</block>
-			</div>
+			{@ $ft_read_nav=1}
+			<include target="_read_nav.html" />
+			{@ $ft_read_nav=''}
 		</div>
 	</div>
 
@@ -305,7 +346,7 @@
 			<!--@if($mi->cmt_wrt=='sns')-->
 			<!--// SocialXE -->
 			<div cond="$oDocument->allowComment() && $mi->select_editor!='N'" class="editor_select bubble fr m_no" title="{$lang->noti_rfsh}">
-				<a class="tg_btn2" href="#" data-href="#editor_select"><b class="tx_ico_circ bg_color"><i class="ie8_only color">●</i><b>?</b></b> {$lang->select_editor}</a>
+				<a class="tg_btn2" href="#" data-href="#editor_select"><em class="fa fa-info-circle bd_info_icon"></em> {$lang->select_editor}</a>
 				<div cond="$rd_idx==0" id="editor_select" class="editor_select_cnt tg_cnt2 wrp"><button type="button" class="tg_blur2"></button>
 					<a class="on"|cond="$mi->cmt_wrt=='simple'" href="#" onclick="jQuery.cookie('bd_editor','simple');location.reload();return false"><em>✔ </em>{$lang->textarea}</a>
 					<a class="on"|cond="$mi->cmt_wrt=='editor'" href="#" onclick="jQuery.cookie('bd_editor','editor');location.reload();return false"><em>✔ </em>{$lang->wysiwyg}</a>
@@ -332,8 +373,8 @@
 <!--// 목록 보이지 않을 때 보이는 하단 메뉴 -->
 <div cond="$mi->rd_lst && $mi->default_style!='blog'" class="btm_mn clear" style="border-top:1px solid #CCC">
 	<div class="fl">
-		<a class="btn_img no" href="{getUrl('document_srl','')}">{$lang->cmd_list}</a>
-		<a class="btn_img no back_to" href="#bd_{$mi->module_srl}">{$lang->cmd_move_up}</a>
+		<a class="btn_img" href="{getUrl('document_srl','')}"><i class="fa fa-bars"></i> {$lang->cmd_list}</a>
+		<a class="btn_img back_to" href="#bd_{$mi->module_srl}"><i class="fa fa-arrow-up"></i> {$lang->cmd_move_up}</a>
 	</div>
 	<div class="fr">
 		<block cond="$mi->prev_next=='2' && !$oDocument->isNotice()">

@@ -52,11 +52,11 @@ function board(bdObj){
 			// If Overflow
 			cItem.each(function(){
 				if($(this).offset().top!=cMore.offset().top){
-					$(this).addClass('hidden').nextAll().addClass('hidden');
+					$(this).addClass('cnb_hide').nextAll().addClass('cnb_hide');
 					cMore.css('visibility','visible');
 					return false;
 				} else {
-					$(this).removeClass('hidden').nextAll().removeClass('hidden');
+					$(this).removeClass('cnb_hide').nextAll().removeClass('cnb_hide');
 					cMore.css('visibility','hidden');
 				};
 			});
@@ -65,12 +65,10 @@ function board(bdObj){
 		cnbStart();
 		$(window).resize(cnbStart);
 		function cnbMore(){
-			cnb.toggleClass('open').find('.ui-icon').toggleClass('ui-icon-triangle-1-s').toggleClass('ui-icon-triangle-1-n');
+			cnb.toggleClass('open').find('i.fa').toggleClass('fa-caret-up').toggleClass('fa-caret-down');
 			return false;
 		};
-		if((cnb.find('.hidden a,.hidden li').hasClass('on')) && !cnb.hasClass('open')){
-			cnbMore();
-		};
+		if((cnb.find('.cnb_hide a,.cnb_hide li').hasClass('on')) && !cnb.hasClass('open')) cnbMore();
 		cMore.click(cnbMore);
 	};
 
@@ -104,49 +102,6 @@ function board(bdObj){
 			$(this).find('.wrp').fadeOut(100)
 		})
 	};
-
-// Nanum Font
-	if($('#bd_font_install').length>1){
-		$('#bd_font_install').eq(1).remove()
-	} else {
-		if($('#fontcheck_np1').width()==$('#fontcheck_np2').width()){
-			bd.removeClass('use_np');
-			$.removeCookie('use_np');
-		} else {
-			bd.addClass('use_np');
-			$.cookie('use_np','use_np');
-		};
-		function installfontOut(){
-			$('#install_ng2').fadeOut();
-			bd.find('.bd_font .select').focus();
-			return false;
-		};
-		$(document).keydown(function(event){
-			if($('#install_ng2').is(':visible')) {
-				if(event.keyCode!=27) return true;
-				return installfontOut();
-			}
-		});
-		$('#install_ng2 .tg_close2,#install_ng2 .close').click(installfontOut);
-		$('#install_ng2 .tg_blur2').focusin(installfontOut);
-	};
-	bd.find('.bd_font li a').click(function(){
-		var p = $(this).parent();
-		if(p.hasClass('ng') && $('#fontcheck_ng3').width()==$('#fontcheck_ng4').width()){
-			$('#install_ng2').fadeIn().find('.tg_close2').focus();
-		} else {
-			var pC = p.attr('class');
-			if(p.hasClass('ui_font')){
-				$.removeCookie('bd_font');
-			} else {
-				$.cookie('bd_font',''+pC+'');
-			};
-			$('.bd,.bd input,.bd textarea,.bd select,.bd button,.bd table').removeClass('ui_font ng window_font tahoma').addClass(pC);
-			p.addClass('on').siblings('.on').removeClass('on');
-			$('.bd_font .select strong').text($(this).text());
-		};
-		return false;
-	});
 
 // sketchbook's Toggle2 (Original : XE UI)
 	var tgC2 = bd.find('.tg_cnt2');
@@ -268,7 +223,7 @@ function board(bdObj){
 
 // List Style
 if(default_style=='webzine'){
-	// Webzine
+// Webzine
 	var bd_zine = bd.find('ol.bd_zine');
 	if(bd_zine.attr('data-masonry')){
 		if(bd_zine.attr('data-masonry')!='_N'){
@@ -290,7 +245,7 @@ if(default_style=='webzine'){
 		};
 	};
 } else if(default_style=='gallery'){
-	// Gallery
+// Gallery
 	var bd_tmb_lst = bd.find('ol.bd_tmb_lst');
 	if(bd_tmb_lst.attr('data-gall_deg')){
 		if(ie8Check) return;
@@ -305,11 +260,37 @@ if(default_style=='webzine'){
 		});
 	};
 } else if(default_style=='cloud_gall'){
-	// Cloud Gallery
+// Cloud Gallery
 	bdCloud(bd);
-} else if(default_style=='faq'){
-	// FAQ
-	bdFaq(bd);
+} else if(default_style=='guest'){
+// Guest
+	bd.find('textarea,input,select').keydown(function(event){
+		event.stopPropagation();
+	});
+	// Editor
+	bd.find('form>.simple_wrt textarea').focus(function(){
+		$(this).parent().parent().next().slideDown();
+	})
+	.autoGrow();
+	bd.find('form input[type=submit]').click(function(){
+		$.removeCookie('socialxe_content');
+	});
+	if(bd.find('form>div.wysiwyg').length){
+		if($('#re_cmt').length) editorStartTextarea(2,'content','comment_srl');
+	} else {
+		$.getScript("modules/editor/tpl/js/editor_common.min.js",function(){
+			if($('#re_cmt').length) editorStartTextarea(2,'content','comment_srl');
+			var cmtWrt = bd.find('form.cmt_wrt textarea');
+			if(bd.find('form.bd_wrt_main textarea').length){
+				$.getScript('files/cache/js_filter_compiled/35d29adbe4b14641f9eac243af40093b.'+lang_type+'.compiled.js');
+				editorStartTextarea(1,'content','document_srl');
+			};
+			cmtWrt.each(function(){
+				editorStartTextarea($(this).attr('id').split('_')[1],'content','comment_srl');
+			});
+		});
+	};
+	
 };
 
 // Link Board
@@ -322,7 +303,7 @@ if(default_style=='webzine'){
 	};
 
 // Read Page Only
-if(bd.find('div.rd').length || default_style=='guest'){
+if(bd.find('div.rd').length){
 	// Prev-Next
 	bdPrevNext(bd);
 	function rdPrev(){
@@ -337,7 +318,6 @@ if(bd.find('div.rd').length || default_style=='guest'){
 		a.css({marginLeft:-a.width()/2});
 	};
 	bd.find('a.rd_next').mouseover(rdNext).focus(rdNext);
-	
 	bd.find('textarea,input,select').keydown(function(event){
 		event.stopPropagation();
 	});
@@ -379,6 +359,7 @@ if(bd.find('div.rd').length || default_style=='guest'){
 			};
 		};
 	};
+
 	// Content Images
 	if(bdImgOpt) bd.find('.xe_content img').draggable();
 	if(bdImgLink){
@@ -399,46 +380,74 @@ if(bd.find('div.rd').length || default_style=='guest'){
 		});
 	};
 	// To SNS
-	bd.find('.to_sns a.twitter').snspost({type:'twitter'});
-	bd.find('.to_sns a.facebook').snspost({type:'facebook'});
-	// Editor
-	var simpleWrt = bd.find('.simple_wrt textarea');
-	simpleWrt.focus(function(){
-		$(this).parent().parent().next().slideDown();
-	})
-	.autoGrow();
-	var cmtWrt = bd.find('form.cmt_wrt .simple_wrt textarea');
-	if(cmtWrt.length){
-		$.getScript("modules/editor/tpl/js/editor_common.min.js", function(data, textStatus, jqxhr){
-			if(default_style=='guest'){
-				$.getScript("files/cache/js_filter_compiled/35d29adbe4b14641f9eac243af40093b.ko.compiled.js");
-				editorStartTextarea(1,'content','comment_srl');
-			};
-			if(default_style=='blog' || default_style=='guest'){
-				cmtWrt.each(function(){
-					editorStartTextarea($(this).attr('id').split('_')[1],'content','comment_srl');
-				});
-			} else {
-				editorStartTextarea(cmtWrt.attr('id').split('_')[1],'content','comment_srl');
-				cmtWrt.val($.cookie('socialxe_content'))
-				.bind('keydown change',function(){
-					$.cookie('socialxe_content',$(this).val());
-				})
-				.parents('form.cmt_wrt').find('input[type=submit]').click(function(){
-					$.removeCookie('socialxe_content');
-				});
-			};
-			editorStartTextarea(2,'content','comment_srl');
-		});
-	} else if($('#re_cmt').length) {
-		editorStartTextarea(2,'content','comment_srl');
-	};
+	bd.find('.to_sns a').click(function(){
+		var t = $(this);
+		var type = t.attr('data-type');
+		var p = t.parent();
+		var url = p.attr('data-url');
+		var title = p.attr('data-title');
+		if(!type){
+			return;
+		} else if(type=="facebook"){
+			var loc = '//www.facebook.com/sharer/sharer.php?u='+url+'&t='+title;
+		} else if(type=="twitter"){
+			loc = '//twitter.com/home?status='+title+' '+url;
+		} else if(type=="google"){
+			loc = '//plus.google.com/share?url='+url;
+		} else if(type=="pinterest"){
+			loc = '//pinterest.com/pin/create/bookmarklet/?url='+url+'&description='+title;
+		};
+		window.open(loc);
+		return false;
+	});
 	// Comment Count
 	if(!bd.find('.rd .nametag').length) bdCmtPn(bd);
+	// Editor
+	if(bd.find('form.bd_wrt').length){
+		bd.find('form>.simple_wrt textarea').focus(function(){
+			$(this).parent().parent().next().slideDown();
+		})
+		.autoGrow();
+		bd.find('form [type=submit]').click(function(){
+			$.removeCookie('socialxe_content');
+		});
+		if(bd.find('form>div.wysiwyg').length){
+			editorStartTextarea(2,'content','comment_srl');
+		} else {
+			$.getScript("modules/editor/tpl/js/editor_common.min.js",function(){
+				editorStartTextarea(2,'content','comment_srl');
+				var cmtWrt = bd.find('form.cmt_wrt textarea');
+				if(default_style=='blog'){
+					cmtWrt.each(function(){
+						editorStartTextarea($(this).attr('id').split('_')[1],'content','comment_srl');
+					});
+				} else {
+					editorStartTextarea(cmtWrt.attr('id').split('_')[1],'content','comment_srl');
+					cmtWrt.val($.cookie('socialxe_content'))
+					.bind('keydown change',function(){
+						$.cookie('socialxe_content',$(this).val());
+					});
+				};
+			});
+		};
+	};
 };
 
 })(jQuery)
 }
+
+jQuery(function($){
+// NanumPen Font
+	$('body').append('<div class="fontcheckWrp"><p id="fontcheck_np1" style="font-family:\'나눔손글씨 펜\',\'Nanum Pen Script\',np,monospace,Verdana !important">Sketchbook5, 스케치북5</p><p id="fontcheck_np2" style="font-family:monospace,Verdana !important">Sketchbook5, 스케치북5</p></div>');
+	var bd = $('div.bd');
+	if($('#fontcheck_np1').width()==$('#fontcheck_np2').width()){
+		bd.removeClass('use_np');
+		$.removeCookie('use_np');
+	} else {
+		bd.addClass('use_np');
+		$.cookie('use_np','use_np');
+	};
+});
 
 // Prev-Next
 function bdPrevNext(bd){
@@ -475,52 +484,14 @@ function bdCmtPn(bd){
 	t.clone().toggleClass('bd_pg cmt_pg').appendTo(t.prev().prev());
 }
 
-// To SNS
-(function($){
-	$.fn.snspost = function(opts) {
-		var loc = '';
-		var rdSnsPost = $(this).parents('.rd').find('.rd_hd h1').text();
-		var rdSnsLink = $(this).parents('.rd').attr('data-snsLink');
-		opts = $.extend({}, {type:'twitter', event:'click'}, opts);
-		opts.content = encodeURIComponent(rdSnsPost);
-		switch(opts.type) {
-			case 'facebook':
-				loc = 'http://www.facebook.com/share.php?t='+opts.content+'&u='+encodeURIComponent(rdSnsLink);
-				break;
-			case 'twitter':
-			default:
-				loc = 'http://twitter.com/home?status='+opts.content+' '+rdSnsLink;
-				break;
-		}
-		this.bind(opts.event, function(){
-			window.open(loc);
-			return false;
-		});
-	};
-	$.snspost = function(selectors, action) {
-		$.each(selectors, function(key,val) {
-			$(val).snspost( $.extend({}, action, {type:key}) );
-		});
-	};
-})(jQuery)
-
 // FAQ
-function bdFaq(bd){
-	var faq = bd.find('ul.bd_faq .article');
-	faq.find('.a').hide();
-	faq.find('.q').click(function(){
-		var myFaq = jQuery(this).parents('.article:first');
-		if(myFaq.hasClass('hide')){
-			faq.addClass('hide').removeClass('show');
-			faq.find('.a').slideUp(100);
-			myFaq.removeClass('hide').addClass('show');
-			myFaq.find('.a').slideDown(100);
-		} else {
-			myFaq.removeClass('show').addClass('hide');
-			myFaq.find('.a').slideUp(100);
-		};
-		return false;
-	});
+function bdFaq(a){
+	var t = jQuery('#bdFaq_'+a);
+	if(t.hasClass('open')){
+		t.removeClass('open').find('.a').slideUp(200);
+	} else {
+		t.addClass('open').find('.a').slideDown(200).end().siblings().removeClass('open').find('.a').slideUp(200);
+	};
 }
 
 // Cloud Gallery
