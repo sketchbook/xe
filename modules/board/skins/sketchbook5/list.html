@@ -1,8 +1,9 @@
 <!--// Setting -->
-<load target="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" />
 <include target="__setting.html" />
 <load target="js/imagesloaded.pkgd.min.js" type="body" />
 <load target="js/jquery.cookie.js" type="body" />
+<load target="../../../editor/skins/xpresseditor/js/xe_textarea.min.js" type="body" />
+<load target="js/jquery.autogrowtextarea.min.js" type="body" />
 <load target="js/board.js" type="body" />
 
 <script>//<![CDATA[
@@ -10,17 +11,15 @@ var lang_type = "{$lang_type}";
 var bdLogin = "<!--@if(!$is_logged)-->{$lang->bd_login}@{htmlspecialchars_decode(getUrl('act','dispMemberLoginForm'))}<!--@end-->";
 jQuery(function($){
 	board('#bd_{$mi->module_srl}_{$oDocument->document_srl}');
+<!--@if($mi->default_style!='viewer')-->
+	$.cookie('bd_viewer_font',$('body').css('font-family'));
+<!--@end-->
 });
 //]]></script>
 
 <!--// 뷰어로 보기 -->
 <include cond="$mi->default_style=='viewer' && $grant->view" target="_viewer.html" />
 <block cond="$mi->default_style!='viewer'">
-<script>
-jQuery(function($){
-	$.cookie('bd_viewer_font',$('body').css('font-family'));
-});
-</script>
 <load target="js/jquery.masonry.min.js" type="body" />
 
 <!--// 상단내용 -->
@@ -96,8 +95,8 @@ jQuery(function($){
 	</div>
 </div>
 
-<div class="cnb_n_list">
 <!--// 카테고리 -->
+<div class="cnb_n_list">
 <div cond="$mi->use_category=='Y' && $mi->cnb!='N'" class="if_lst_btn"|cond="$mi->select_lst=='N'" style="margin-bottom:30px"|cond="$mi->default_style=='blog'">
 {@ $cate_list = array(); $current_key = null; }
 <!--@foreach($category_list as $key=>$val)-->
@@ -129,12 +128,13 @@ jQuery(function($){
 		<li loop="$cate_list=>$key,$val" class="on"|cond="$category==$val->category_srl">
 			<a href="{getUrl(category,$val->category_srl,'document_srl','','page','')}" style="color:{$val->color}"|cond="$val->color!='transparent'">{$val->title}<small cond="$mi->cnb_count">({$val->document_count})</small></a>
 			<ul cond="count($val->children)">
-				<li loop="$val->children=>$idx,$item" class="on_"|cond="$category==$item->category_srl"><a href="{getUrl(category,$item->category_srl,'document_srl','','page','')}" style="color:{$item->color}"|cond="$item->color!='transparent'">{$item->title}</a></li>
+				<li loop="$val->children=>$idx,$item" class="on"|cond="$category==$item->category_srl"><a href="{getUrl(category,$item->category_srl,'document_srl','','page','')}" style="color:{$item->color}"|cond="$item->color!='transparent'">{$item->title}</a></li>
 			</ul>
 		</li>
 	</ul>
 	<ul cond="$mi->cnb=='cnb3' || $mi->cnb=='cnb4'" class="cnb3 {$mi->cnb} {$mi->cnb3_align} clear">
-		<li class="home<!--@if(!$category)--> on<!--@end-->"><a href="{getUrl('category','','page','','document_srl','')}" title="{$lang->document_count} {number_format($total_count)}">{$lang->total}<small cond="$mi->cnb_count">({number_format($total_count)})</small></a></li><li loop="$cate_list=>$key,$val" class="on"|cond="$category==$val->category_srl"><a href="{getUrl(category,$val->category_srl,'document_srl','','page','')}" style="color:{$val->color}"|cond="$val->color!='transparent'">{$val->title}<small cond="$mi->cnb_count">({$val->document_count})</small></a>
+		<li class="home<!--@if(!$category)--> on<!--@end-->">
+			<a href="{getUrl('category','','page','','document_srl','')}" title="{$lang->document_count} {number_format($total_count)}">{$lang->total}<small cond="$mi->cnb_count">({number_format($total_count)})</small></a></li><li loop="$cate_list=>$key,$val" class="on"|cond="$category==$val->category_srl"><a href="{getUrl(category,$val->category_srl,'document_srl','','page','')}" style="color:{$val->color}"|cond="$val->color!='transparent'">{$val->title}<small cond="$mi->cnb_count">({$val->document_count})</small></a>
 		</li>
 	</ul>
 </div>
@@ -152,7 +152,11 @@ jQuery(function($){
 
 <!--// 게시판 유형 -->
 <!--@if($mi->default_style=='list')-->
-<include target="_list_normal.html" />
+	<!--@if(!Mobile::isMobileCheckByAgent() || $mi->list_m)-->
+	<include target="_list_normal.html" />
+	<!--@else-->
+	<include target="_list_m.html" />
+	<!--@end-->
 <!--@elseif($mi->default_style=='webzine')-->
 <include target="_list_webzine.html" />
 <!--@elseif($mi->default_style=='gallery')-->
@@ -187,7 +191,7 @@ jQuery(function($){
 			<input type="hidden" name="mid" value="{$mid}" />
 			<input type="hidden" name="category" value="{$category}" />
 			<span class="btn_img itx_wrp">
-				<button type="submit" onclick="jQuery(this).parents('form.bd_srch_btm').submit();return false" class="ico_16px search">Search</button>
+				<button type="submit" onclick="jQuery(this).parents('form.bd_srch_btm').submit();return false;" class="ico_16px search">Search</button>
 				<label for="bd_srch_btm_itx_{$mi->module_srl}">{$lang->cmd_search}</label>
 				<input type="text" name="search_keyword" id="bd_srch_btm_itx_{$mi->module_srl}" class="bd_srch_btm_itx srch_itx" value="{htmlspecialchars($search_keyword)}" />
 			</span>
@@ -221,8 +225,8 @@ jQuery(function($){
 	<input type="hidden" name="listStyle" value="{$mi->default_style}" />
 	{@ $prev_page = max($page-1, 1)}
 	{@ $next_page = min($page+1, $page_navigation->last_page)}
-	<a cond="$page!=$prev_page" href="{getUrl('page',$prev_page,'document_srl','','division',$division,'last_division',$last_division)}" class="direction">‹ Prev</a>
-	<strong cond="$page==$prev_page" class="direction">‹ Prev</strong>
+	<a cond="$page!=$prev_page" href="{getUrl('page',$prev_page,'document_srl','','division',$division,'last_division',$last_division)}" class="direction"><i class="fa fa-angle-left"></i> Prev</a>
+	<strong cond="$page==$prev_page" class="direction"><i class="fa fa-angle-left"></i> Prev</strong>
 	<a class="frst_last bubble<!--@if($page==1)--> this<!--@end-->" href="{getUrl('page','','document_srl','','division',$division,'last_division',$last_division)}" title="{$lang->first_page}">1</a>
 	<span cond="$page>($mi->page_count)/2+2" class="bubble"><a href="#" class="tg_btn2" data-href=".bd_go_page" title="{$lang->go_page}">...</a></span>
 	<block loop="$page_no=$page_navigation->getNextPage()" cond="$page_no!=1 && $page_no!=$page_navigation->last_page">
@@ -231,8 +235,8 @@ jQuery(function($){
 	</block>
 	<span cond="($page+($mi->page_count+1)/2<$page_navigation->last_page) && ($mi->page_count+1<$page_navigation->last_page)" class="bubble"><a href="#" class="tg_btn2" data-href=".bd_go_page" title="{$lang->cmd_go_to_page}">...</a></span>
 	<a cond="$page_navigation->last_page!=1" class="frst_last bubble<!--@if($page==$page_navigation->last_page)--> this<!--@end-->" href="{getUrl('page',$page_navigation->last_page,'document_srl','','division',$division,'last_division',$last_division)}" title="{$lang->last_page}">{$page_navigation->last_page}</a>
-	<a cond="$page!=$next_page" href="{getUrl('page',$next_page,'document_srl','','division',$division,'last_division',$last_division)}" class="direction">Next ›</a>
-	<strong cond="$page==$next_page" class="direction">Next ›</strong>
+	<a cond="$page!=$next_page" href="{getUrl('page',$next_page,'document_srl','','division',$division,'last_division',$last_division)}" class="direction">Next <i class="fa fa-angle-right"></i></a>
+	<strong cond="$page==$next_page" class="direction">Next <i class="fa fa-angle-right"></i></strong>
 	<div class="bd_go_page tg_cnt2 wrp">
 		<button type="button" class="tg_blur2"></button>
 		<input type="text" name="page" class="itx" />/ {$page_navigation->last_page} <button type="submit" class="bd_btn">GO</button>

@@ -2,9 +2,9 @@
 
 <load target="js/editor.js" type="body" />
 
-<include cond="Mobile::isMobileCheckByAgent()" target="_write_form_mobile.html" />
+<include cond="Mobile::isMobileCheckByAgent() && $mi->m_editor!=3" target="_write_form_mobile.html" />
 
-<form cond="!Mobile::isMobileCheckByAgent()" action="./" method="post" onsubmit="return procFilter(this, window.insert)" class="bd_wrt bd_wrt_main clear">
+<form cond="!Mobile::isMobileCheckByAgent() || $mi->m_editor==3" action="./" method="post" onsubmit="return procFilter(this, window.insert)" class="bd_wrt bd_wrt_main clear">
 	<input type="hidden" name="mid" value="{$mid}" />
 	<!--@if(!$oDocument->getContentText() && $mi->content_default)-->
 	<input type="hidden" name="content" value="{htmlspecialchars($mi->content_default)}" />

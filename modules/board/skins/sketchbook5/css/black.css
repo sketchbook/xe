@@ -61,12 +61,13 @@ FFF : 191919
 .bd_cnb ul.wrp .edge{background-image:url(../img/black/edge.png)}
 .bd_cnb small,.cTab small{color:#888}
 .bd .cTab{border-color:#777}
-.bd .cTab li{background:#222;border-color:#444}
-.bd .cTab li.on{border-color:#777;border-bottom-color:#191919}
-.bd .cTab li a{border-top-color:#444;color:#999}
-.bd .cTab li.on a{color:#DDD;border-color:#777}
-.bd .cTab li.on ul li{border-right:1px solid #444}
-.bd .cTab li.on ul li.on_ a{color:#FFF}
+.bd .cTab a{color:#999}
+.bd .cTab a:hover,.bd .cTab a:focus,.bd .cTab .on>a{color:#FFF}
+.bd .cTab>li a{border-top-color:#444}
+.bd .cTab>li{background:#222;border-color:#444}
+.bd .cTab>.on{border-color:#777;border-bottom-color:#191919}
+.bd .cTab>.on a{color:#DDD;border-color:#777}
+.bd .cTab>ul li{border-color:#444}
 /* Box Style */
 .cnb3 a{border:1px solid #555;background:#333;color:#DDD !important}
 .cnb3 .on>a,.cnb3 a:hover,.cnb3 a:focus{border-color:#666 !important;background:#000 !important}
@@ -119,7 +120,7 @@ FFF : 191919
 .fdb_itm .meta a,.fdb_lst .meta b{color:#DDD}
 .fdb_itm .meta .tg_btn2{color:#CCC}
 .cmt_files{border-color:#333}
-.cmt_files .tg_close2,.fdb_itm .vote a,.fdb_nav a,.fdb_nav .fa{color:#777}
+.cmt_files .tg_close2,.fdb_itm .vote a,.fdb_nav a,.fdb_nav .fa,.fdb_itm>i.re,#re_cmt i.re{color:#777}
 
 .bd_wrt_main{background:#111;border:1px solid #333}
 .bd_wrt .sns_wrt,.bd .bd_wrt .regist{border-color:#666}
@@ -177,6 +178,7 @@ FFF : 191919
 .bd_faq .li:hover,.bd_faq .show,.bd_faq .notice{background:#222}
 .bd_faq .cate{color:#CCC}
 .bd_faq .a{background:#191919;border-color:#333}
+.bd_faq .q .fa{color:#666}
 
 /* Link Board */
 .bd .starRating,.bd .starRating span{background-image:url(../img/black/iconStarRating.png)}
@@ -214,7 +216,7 @@ FFF : 191919
 .bubble .wrp:before,.bubble .wrp:after,.bubble .bl,.bubble .br,.rd_nav_blk .rd_nav_side .wrp:before,.rd_nav_blk .rd_nav_side .wrp:after,.rd_nav_blk .rd_nav_side .bl,.rd_nav_blk .rd_nav_side .br{background-image:url(../img/ie/blk/bubble.png)}
 }
 
-/* 안드로이드(진저+) landscape */
+/* 800*480 landscape */
 @media screen and (max-width:533px){
 .bd .cTab li a{border-color:#444}
 .bd_prev_next{border-top-color:#333}

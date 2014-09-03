@@ -15,8 +15,9 @@ $mi->fdb_style='fdb_v2';
 		<input type="hidden" name="document_srl" value="" />
 		<div cond="$mi->cmt_wrt=='editor'" class="wysiwyg">{$oDocument->getEditor()}</div>
 		<div cond="$mi->cmt_wrt!='editor'" class="simple_wrt">
-			<input type="hidden" id="htm_1" name="use_html" value="Y" />
-			<textarea id="editor_1" rows="7" cols="50"></textarea>
+			<input type="hidden" name="use_html" value="Y" />
+			<input type="hidden" id="htm_1" value="n" />
+			<textarea id="editor_1" rows="10" cols="50"></textarea>
 		</div>
 		<div class="edit_opt">
 			<block cond="!$is_logged">

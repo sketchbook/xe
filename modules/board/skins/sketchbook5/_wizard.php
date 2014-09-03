@@ -4,7 +4,7 @@
 }
 
 <div id="bd_wizard" <!--@if($grant->manager)--> class="{$_COOKIE['bd_wizard_cookie']}"<!--@else--> class="{$_COOKIE['bd_wizard_cookie']} barrier" title="관리자만 설정할 수 있습니다."<!--@end--> style="left:0"|cond="$_COOKIE['bd_wizard_cookie']=='open'">
-	<button type="button" id="bd_wizard_tg" class="ngeb bd_btn" title="{$lang->cmd_setup} {$lang->cmd_open}/{$lang->cmd_close}"><b>Open/Close</b></button>
+	<button type="button" id="bd_wizard_tg" class="ngeb bd_btn" title="{$lang->cmd_setup} {$lang->cmd_open}/{$lang->cmd_close}"><i class="fa fa-cog"></i><b class="blind">Open/Close</b></button>
 	<h1 class="ui_font">게시판 설정</h1>
 	<div id="bd_wizard_scroll">
 {$skin_content}

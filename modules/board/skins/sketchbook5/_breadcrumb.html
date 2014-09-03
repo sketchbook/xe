@@ -1,11 +1,11 @@
 <div class="bd_bc fl">
 	<a href="{getSiteUrl()}"><strong>Home</strong></a>
 	<block loop="$main_menu->list=>$key1,$val1" cond="$val1['selected']">
-	<span>&rsaquo;</span><a href="{$val1['href']}"><!--@if(!$val1['list'])--><em>{$val1['text']}</em><!--@else-->{$val1['text']}<!--@end--></a>
+	<i class="fa fa-angle-right"></i><a href="{$val1['href']}"><!--@if(!$val1['list'])--><em>{$val1['text']}</em><!--@else-->{$val1['text']}<!--@end--></a>
 	<block loop="$val1['list']=>$key2,$val2" cond="$val2['selected']">
-	<span>&rsaquo;</span><a href="{$val2['href']}"><!--@if(!$val2['list'])--><em>{$val2['text']}</em><!--@else-->{$val2['text']}<!--@end--></a>
+	<i class="fa fa-angle-right"></i><a href="{$val2['href']}"><!--@if(!$val2['list'])--><em>{$val2['text']}</em><!--@else-->{$val2['text']}<!--@end--></a>
 	<block loop="$val2['list']=>$key3,$val3" cond="$val3['selected']">
-	<span>&rsaquo;</span><a href="{$val3['href']}"><!--@if(!$val3['list'])--><em>{$val3['text']}</em><!--@else-->{$val3['text']}<!--@end--></a>
+	<i class="fa fa-angle-right"></i><a href="{$val3['href']}"><!--@if(!$val3['list'])--><em>{$val3['text']}</em><!--@else-->{$val3['text']}<!--@end--></a>
 	</block>
 	</block>
 	</block>

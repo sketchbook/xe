@@ -2,7 +2,7 @@
 <skin version="0.2">
 	<title xml:lang="ko">SKETCHBOOK5</title>
 	<description xml:lang="ko">SKETCHBOOK5 Board Skin. 한국형 게시판 스타일, 여러 목록 유형 제공, 사용자 편의를 고려한 다양한 기능, 모바일까지 대응.</description>
-	<version>1.7.0-rc.23</version>
+	<version>1.7.0</version>
 	<date>2010-11-16</date>
 	<author email_address="contact@sketchbooks.co.kr" link="http://sketchbooks.co.kr/">
 		<name xml:lang="ko">SKETCHBOOK</name>
@@ -418,7 +418,7 @@
 			</var>
 		</group>
 		<group>
-		<title xml:lang="ko">일반 목록형 유형 설정</title>
+		<title xml:lang="ko">목록형 설정</title>
 			<var name="show_cate" type="radio">
 				<title xml:lang="ko">카테고리 표시</title>
 				<description xml:lang="ko">목록에서 제목 앞에 카테고리를 표시합니다.</description>
@@ -447,9 +447,29 @@
 				<title xml:lang="ko">미리보기 요약 글자 수</title>
 				<description xml:lang="ko">입력하지 않으면 '150'입니다.</description>
 			</var>
+			<var name="list_m" type="radio">
+				<title xml:lang="ko">*모바일형 설정</title>
+				<description xml:lang="ko">모바일에서 웹용 테이블 목록을 사용할 것인지 모바일에 최적화된 목록을 사용할 것인지를 결정합니다. 몇가지 옵션항목은 웹진형과 공유합니다.</description>
+				<options value="">
+					<title xml:lang="ko">모바일형 사용(기본)</title>
+				</options>
+				<options value="2">
+					<title xml:lang="ko">테이블형 사용</title>
+				</options>
+			</var>
+			<var name="list_m_tmb" type="radio">
+				<title xml:lang="ko">*모바일형 썸네일</title>
+				<description xml:lang="ko">모바일형에서 썸네일의 표시 여부를 결정합니다. 썸네일 크기는 웹진형의 설정을 사용합니다.</description>
+				<options value="">
+					<title xml:lang="ko">표시 안함(기본)</title>
+				</options>
+				<options value="Y">
+					<title xml:lang="ko">표시</title>
+				</options>
+			</var>
 		</group>
 		<group>
-		<title xml:lang="ko">웹진형, 갤러리형 공통 설정</title>
+		<title xml:lang="ko">웹진형, 갤러리형, 모바일(목록)형 공통 설정</title>
 			<var name="tmb_effect" type="radio">
 				<title xml:lang="ko">섬네일 인트로 효과</title>
 				<description xml:lang="ko">페이지 로딩 시에 섬네일 효과를 설정합니다. (단지 디자인 요소만이 아닌, 이미지가 로딩되기 전에 이미지 영역을 감싸는 요소들이 흐트러지는 것을 방지하는 역할을 합니다.)</description>
@@ -471,6 +491,9 @@
 				<options value="gall">
 					<title xml:lang="ko">갤러리형</title>
 				</options>
+				<options value="list_m">
+					<title xml:lang="ko">모바일(목록)형</title>
+				</options>
 			</var>
 			<var name="cmt_count" type="checkbox">
 				<title xml:lang="ko">댓글수 표시</title>
@@ -479,6 +502,9 @@
 				</options>
 				<options value="gall">
 					<title xml:lang="ko">갤러리형</title>
+				</options>
+				<options value="list_m">
+					<title xml:lang="ko">모바일(목록)형</title>
 				</options>
 			</var>
 			<var name="ribbon_style" type="radio">
@@ -517,7 +543,7 @@
 			</var>
 		</group>
 		<group>
-		<title xml:lang="ko">웹진형 설정</title>
+		<title xml:lang="ko">웹진형 설정 (*표시 : '모바일(목록)형'과 공통)</title>
 			<var name="zine_style" type="radio">
 				<title xml:lang="ko">웹진 스타일</title>
 				<options value="">
@@ -609,8 +635,8 @@
 				</options>
 			</var>
 			<var name="zine_extra" type="radio">
-				<title xml:lang="ko">확장변수 출력</title>
-				<description xml:lang="ko">하단에 메타 정보 영역에 확장변수의 목록을 출력합니다.</description>
+				<title xml:lang="ko">확장변수 출력(*)</title>
+				<description xml:lang="ko">하단에 메타 정보 영역에 확장변수의 목록을 출력합니다. *모바일형과 설정을 공유합니다.</description>
 				<options value="Y">
 					<title xml:lang="ko">출력</title>
 				</options>
@@ -619,8 +645,8 @@
 				</options>
 			</var>
 			<var name="zine_tx_color" type="radio">
-				<title xml:lang="ko">메타 정보 색상</title>
-				<description xml:lang="ko">하단의 글쓴이, 조회수 등의 메타 정보의 글자 색상을 설정합니다.</description>
+				<title xml:lang="ko">메타 정보 색상(*)</title>
+				<description xml:lang="ko">하단의 글쓴이, 조회수 등의 메타 정보의 글자 색상을 설정합니다. *모바일형과 설정을 공유합니다.</description>
 				<options value="">
 					<title xml:lang="ko">게시판 색상에 따라(기본)</title>
 				</options>
@@ -629,8 +655,8 @@
 				</options>
 			</var>
 			<var name="zine_info_icon" type="radio">
-				<title xml:lang="ko">메타 정보 아이콘</title>
-				<description xml:lang="ko">메타 정보에 아이콘을 사용합니다.</description>
+				<title xml:lang="ko">메타 정보 아이콘(*)</title>
+				<description xml:lang="ko">메타 정보에 아이콘을 사용합니다. *모바일형과 설정을 공유합니다.</description>
 				<options value="">
 					<title xml:lang="ko">표시 안함(기본)</title>
 				</options>
@@ -839,6 +865,10 @@
 				<title xml:lang="ko">섬네일의 기울기</title>
 				<description xml:lang="ko">섬네일의 기울기를 사용합니다. 숫자(양수)를 입력하여 범위를 설정합니다. 단위는 각도(0~180)로 입니다. 입력하지 않으면 사용하지 않습니다. *css3를 지원하는 브라우저에서만 적용됩니다.</description>
 			</var>
+			<var name="gall_hover_img" type="image">
+				<title xml:lang="ko">마우스 오버 이미지</title>
+				<description xml:lang="ko">마우스 오버했을 때의 이미지를 사용자가 직접 이미지를 등록할 수 있습니다. 가운데에 위치하게 됩니다.</description>
+			</var>
 		</group>
 		<group>
 		<title xml:lang="ko">클라우드 갤러리</title>
@@ -1046,16 +1076,6 @@
 				<description xml:lang="ko">1. 이미지 드래그 : 본문에 삽입된 이미지를 마우스로 드래그할 수 있습니다.</description>
 				<options value="drag">
 					<title xml:lang="ko">이미지 드래그</title>
-				</options>
-			</var>
-			<var name="img_link" type="radio">
-				<title xml:lang="ko">[모바일] 이미지 원본 링크</title>
-				<description xml:lang="ko">모바일에서 이미지를 클릭하면 원본 링크로 이동합니다. *다른 리사이즈 애드온과 충돌이 될 수 있으니 해당 애드온 설정에서 모바일 설정을 확인해주세요.</description>
-				<options value="">
-					<title xml:lang="ko">사용</title>
-				</options>
-				<options value="2">
-					<title xml:lang="ko">사용 안함(기본)</title>
 				</options>
 			</var>
 			<var name="img_insert" type="radio">
@@ -1742,6 +1762,32 @@
 				</options>
 				<options value="cmt">
 					<title xml:lang="ko">댓글</title>
+				</options>
+			</var>
+		</group>
+		<group>
+		<title xml:lang="ko">*모바일 설정</title>
+			<var name="img_link" type="radio">
+				<title xml:lang="ko">이미지 원본 링크</title>
+				<description xml:lang="ko">모바일에서 이미지를 클릭하면 원본 링크로 이동합니다. *다른 리사이즈 애드온과 충돌이 될 수 있으니 해당 애드온 설정에서 모바일 설정을 확인해주세요.</description>
+				<options value="">
+					<title xml:lang="ko">사용</title>
+				</options>
+				<options value="2">
+					<title xml:lang="ko">사용 안함(기본)</title>
+				</options>
+			</var>
+			<var name="m_editor" type="radio">
+				<title xml:lang="ko">모바일 에디터</title>
+				<description xml:lang="ko">모바일 에디터를 선택합니다.</description>
+				<options value="">
+					<title xml:lang="ko">HTML5 WYSIWYG(기본)</title>
+				</options>
+				<options value="2">
+					<title xml:lang="ko">Textarea</title>
+				</options>
+				<options value="3">
+					<title xml:lang="ko">웹 에디터</title>
 				</options>
 			</var>
 		</group>

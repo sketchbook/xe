@@ -93,6 +93,9 @@
 	$lang->score = '점';
 	$lang->cmd_deselect_all = '선택 해제';
 	$lang->m_editor_notice = 'HTML로 작성된 문서를 모바일 기기에서 수정하는 것을 권장하지 않습니다';
+	$lang->select_files_to_insert = '본문에 넣을 파일을 선택하세요';
+	$lang->m_img_upoad_1 = '본문 위에 넣기';
+	$lang->m_img_upoad_2 = '본문 아래에 넣기';
 }
 <!--@else-->
 {@
@@ -124,7 +127,9 @@
 	$lang->score = ' Score';
 	$lang->cmd_deselect_all = 'Deselect';
 	$lang->m_editor_notice = 'It is not recommended to update an article on mobile devices';
-
+	$lang->select_files_to_insert = 'Select files to insert to content';
+	$lang->m_img_upoad_1 = 'Files + Content';
+	$lang->m_img_upoad_2 = 'Content + Files';
 	$lang->cmd_vote = 'Like';
 	$lang->cmd_vote_down = 'Dislike';
 }
@@ -158,6 +163,7 @@
 <!--@end-->
 
 <!--%load_js_plugin("ui")-->
+<load target="///maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" />
 <load target="css/board.css" />
 <load target="css/ie8.css" targetie="lt IE 9" />
 <load cond="$mi->colorset=='black'" target="css/black.css" />
@@ -189,7 +195,7 @@
 .bd .bg_f_color{background-color:#{$mi->color};background:-webkit-linear-gradient(#FFF -50%,#{$mi->color} 50%);background:linear-gradient(to bottom,#FFF -50%,#{$mi->color} 50%);}
 </block>
 .bd .border_color{border-color:#{$mi->color};}
-.bd .bx_shadow{ -webkit-box-shadow:0 0 2px {$mi->shadow};box-shadow:0 0 2px {$mi->shadow};}
+.bd .bx_shadow{box-shadow:0 0 2px {$mi->shadow};}
 .viewer_with.on:before{background-color:#{$mi->color};box-shadow:0 0 2px #{$mi->color};}
 <block cond="$mi->ribbon_img">
 .ribbon_v .ribbon{width:{$mi->ribbon_size}px;height:{$mi->ribbon_size}px;background:url({$mi->ribbon_img});border:0;-webkit-box-shadow:none;box-shadow:none}
@@ -213,6 +219,10 @@
 <!--@end-->
 
 <!--// List Style -->
+<block cond="!$mi->zine_tx_color">
+.bd_zine .info b,.bd_zine .info a{color:{$mi->shadow};}
+.bd_zine.card h3{color:#{$mi->color};}
+</block>
 <!--@if($mi->default_style=='list')-->
 <!--// Normal -->
 <block cond="$mi->use_category!='Y'">
@@ -225,16 +235,12 @@
 <!--@elseif($mi->default_style=='webzine')-->
 <!--// Webzine -->
 <block cond="!$mi->zine_hover">
-.bd_zine.zine li:hover .tmb_wrp{ -ms-transform:rotate(5deg);-moz-transform:rotate(5deg);-webkit-transform:rotate(5deg);transform:rotate(5deg)}
-.bd_zine.card li:hover{ -ms-transform:scale(1.05);-moz-transform:scale(1.05);-webkit-transform:scale(1.05);transform:scale(1.05)}
+.bd_zine.zine li:hover .tmb_wrp{ -ms-transform:rotate(5deg);transform:rotate(5deg)}
+.bd_zine.card li:hover{ -ms-transform:scale(1.05);transform:scale(1.05)}
 </block>
 .bd_zine .tmb_wrp .no_img{width:{$mi->zine_thumb_width}px;height:{$mi->zine_thumb_height}px;line-height:{$mi->zine_thumb_height}px}
 .bd_zine a:hover,.bd_zine a:focus,.bd_zine .select a{border-color:#{$mi->color};}
 .bd_zine.zine .tmb_wrp img,.bd_zine.card li{ {$mi->zine_css} }
-<block cond="!$mi->zine_tx_color">
-.bd_zine .info b,.bd_zine .info a{color:{$mi->shadow};}
-.bd_zine.card h3{color:#{$mi->color};}
-</block>
 <block cond="$list_config['thumbnail']">
 .bd_zine.zine .rt_area{margin-left:{$mi->zine_thumb_width+20}px}
 .bd_zine.zine .tmb_wrp{margin-left:-{$mi->zine_thumb_width+20}px}
@@ -288,9 +294,12 @@
 .tmb_wrp .info{background:#{$mi->color};color:#FFF;<!--@if($mi->tmb_hover_bg=='3')-->filter:alpha(opacity=80);opacity:.8<!--@end-->}
 </block>
 <block cond="$mi->gall_deg">
-.bd_tmb_lst .tmb_wrp{ -moz-transition:-moz-transform .5s;-webkit-transition:-webkit-transform .5s;transition:transform .5s}
-.bd_tmb_lst .tmb_wrp:hover{z-index:1;-ms-transform:rotate(0) !important;-moz-transform:rotate(0) !important;-webkit-transform:rotate(0) !important;transform:rotate(0) !important}
+.bd_tmb_lst .tmb_wrp{transition:transform .5s}
+.bd_tmb_lst .tmb_wrp:hover{z-index:1;-ms-transform:rotate(0) !important;transform:rotate(0) !important}
 </block>
+<!--@if($mi->gall_hover_img)-->
+.tmb_wrp .info{background-image:url({$mi->gall_hover_img})}
+<!--@end-->
 @media screen and (max-width:640px){
 <!--@if($mi->thumbnail_width > 279)-->
 .bd_tmb_lst li{width:50%}

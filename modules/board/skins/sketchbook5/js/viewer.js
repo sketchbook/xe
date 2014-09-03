@@ -2,11 +2,11 @@
 function viewerPrevNext(){
 	jQuery('.bd_rd_prev .wrp').imagesLoaded(function(){
 		var t = jQuery('.bd_rd_prev .wrp');
-		t.css('margin-top',-t.height()/2+32);
+		t.css('margin-top',-t.height()/2+50);
 	});
 	jQuery('.bd_rd_next .wrp').imagesLoaded(function(){
 		var t = jQuery('.bd_rd_next .wrp');
-		t.css('margin-top',-t.height()/2+32);
+		t.css('margin-top',-t.height()/2+50);
 	});
 };
 

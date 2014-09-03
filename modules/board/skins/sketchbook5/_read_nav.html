@@ -1,4 +1,4 @@
-<div class="rd_nav <!--@if($mi->rd_nav_tx)-->rd_nav_tx<!--@else-->img_tx<!--@end--> fr m_btn_wrp">
+<div class="rd_nav<!--@if($mi->rd_nav_tx)--> rd_nav_tx<!--@end--> img_tx fr m_btn_wrp">
 	<!--@if($ft_read_nav)-->
 	<block cond="$mi->prev_next=='2' && !$oDocument->isNotice() && $mi->default_style!='blog'">
 	<a class="rd_prev bubble no_bubble" href="#" title="{$lang->cmd_prev}"><i class="fa fa-arrow-left"></i><b class="tx">{$lang->cmd_prev}</b></a>

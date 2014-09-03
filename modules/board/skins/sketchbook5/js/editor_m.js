@@ -71,14 +71,6 @@ function ajaxFileUpload(){
 			alert(e);
 		}
 	});
-	return false;
-}
-
-function frmSubmit(){
-	jQuery('#ff input[name=content]').val(jQuery('#editor').html());
-	var frm = document.getElementById('ff');
-	procFilter(frm, insert);
-	jQuery('#frmSubmit').attr('disabled','disabled');
 }
 
 function delete_file(file_srl,if_msg){
@@ -98,21 +90,6 @@ function delete_file(file_srl,if_msg){
 	};
 }
 
-function insert_file(file_srl){
-	var t = jQuery('#file_'+file_srl);
-	var type = t.find('button').attr('data-type');
-	if(type=='img'){
-		var a = '<div><img src="'+t.find('button').attr('data-file')+'" alt="'+t.find('button').attr('title')+'" /></div>';
-	} else if(type=='music'){
-		var a = '<div><audio src="'+t.find('button').attr('data-file')+'" controls="controls">Your browser does not support this file type. you can download <a href="'+t.find('button').attr('data-dnld')+'" style="text-decoration:underline">'+t.find('small').text()+'</a> and play it!</audio></div>';
-	} else if(type=='media'){
-		var a = '<div><video src="'+t.find('button').attr('data-file')+'" controls="controls">Your browser does not support this file type. you can download <a href="'+t.find('button').attr('data-dnld')+'" style="text-decoration:underline">'+t.find('small').text()+'</a> and play it!</video></div>';
-	} else {
-		var a = '<div><a href="'+t.find('button').attr('data-dnld')+'" style="text-decoration:underline">'+t.find('small').text()+'</a></div>';
-	};
-	jQuery('#inserthtml').val(a).change();
-}
-
 function IsUploadFiles(){
 	if(jQuery('#files .success').length){
 		jQuery('#mUpload .info').addClass('is_img');
@@ -123,26 +100,7 @@ function IsUploadFiles(){
 }
 
 jQuery(function($){
-	$('#editor').wysiwyg();
-	$('#mEditorSelect').click(function(){
-		var t = $(this);
-		if(t.hasClass('on')){
-			$('#files>.success').removeClass('select');
-		} else {
-			$('#files>.success').addClass('select');
-		};
-		t.toggleClass('on');
-	});
-	$('#mEditorInsert').click(function(){
-		$('#files>.select .insert_file').each(function(){
-			$(this).click();
-		});
-	});
-	$('#mEditorDelete').click(function(){
-		var m = window.confirm(lang_confirm_delete);
-		if(!m) return false;
-		$('#files>.select').each(function(){
-			delete_file($(this).attr('id').split('file_')[1],'N');
-		});
+	$('#FiledataWrp').on('change','#Filedata',function(){
+		ajaxFileUpload();
 	});
 });

@@ -244,8 +244,8 @@ Source form : http://www.xpressengine.com/21617245 by 시니시즘. Thanks!
 </block>
 			<div style="max-width:{$mi->viewer_width}px"|cond="$mi->default_style=='viewer'">
 				<a cond="$document_list[$no+1]->document_srl" class="bd_rd_prev bubble no_bubble fl<!--@if($mi->default_style=='viewer')--> right<!--@end-->" href="{getUrl('document_srl',$document_list[$no+1]->document_srl)}">
-					<span cond="!$mi->prev_next" class="p"><em class="link">« Prev</em> {$document_list[$no+1]->getTitle($mi->prev_next_cut_size)}</span>
-					<i class="tx_arrow">〈</i>
+					<span cond="!$mi->prev_next" class="p"><em class="link"><i class="fa fa-angle-left"></i> Prev</em> {$document_list[$no+1]->getTitle($mi->prev_next_cut_size)}</span>
+					<i class="fa fa-angle-left"></i>
 					<span class="wrp prev_next">
 						<span class="speech">
 							<img cond="$document_list[$no+1]->thumbnailExists()" src="{$document_list[$no+1]->getThumbnail($mi->thumbnail_width,$mi->thumbnail_height,$mi->thumbnail_type)}" alt="" />
@@ -259,12 +259,12 @@ Source form : http://www.xpressengine.com/21617245 by 시니시즘. Thanks!
 				<block cond="$is_prevnext">
 				<!--@if($is_prevnext=='P')-->
 				<a class="bd_rd_prev bubble no_bubble fl<!--@if($mi->default_style=='viewer')--> right<!--@end-->" href="{getUrl('document_srl',$prevnext_doc,'page','','cpage','')}">
-					<span cond="!$mi->prev_next" class="p"><em class="link">« Prev</em> {$prevnext_title}</span>
-					<i class="tx_arrow">〈</i>
+					<span cond="!$mi->prev_next" class="p"><em class="link"><i class="fa fa-angle-left"></i> Prev</em> {$prevnext_title}</span>
+					<i class="fa fa-angle-left"></i>
 				<!--@else-->
 				<a class="bd_rd_next bubble no_bubble fr<!--@if($mi->default_style=='viewer')--> left<!--@end-->" href="{getUrl('document_srl',$prevnext_doc,'page','','cpage','')}">
-					<span cond="!$mi->prev_next" class="p">{$prevnext_title} <em class="link">Next »</em></span>
-					<i class="tx_arrow">〉</i>
+					<span cond="!$mi->prev_next" class="p">{$prevnext_title} <em class="link">Next <i class="fa fa-angle-right"></i></em></span>
+					<i class="fa fa-angle-right"></i>
 				<!--@end-->
 					<span class="wrp prev_next">
 						<span class="speech">
@@ -276,8 +276,8 @@ Source form : http://www.xpressengine.com/21617245 by 시니시즘. Thanks!
 				</a>
 				</block>
 				<a cond="$document_list[$no-1]->document_srl" class="bd_rd_next bubble no_bubble fr<!--@if($mi->default_style=='viewer')--> left<!--@end-->" href="{getUrl('document_srl',$document_list[$no-1]->document_srl)}">
-					<span cond="!$mi->prev_next" class="p">{$document_list[$no-1]->getTitle($mi->prev_next_cut_size)} <em class="link">Next »</em></span>
-					<i class="tx_arrow">〉</i>
+					<span cond="!$mi->prev_next" class="p">{$document_list[$no-1]->getTitle($mi->prev_next_cut_size)} <em class="link">Next <i class="fa fa-angle-right"></i></em></span>
+					<i class="fa fa-angle-right"></i>
 					<span class="wrp prev_next">
 						<span class="speech">
 							<img cond="$document_list[$no-1]->thumbnailExists()" src="{$document_list[$no-1]->getThumbnail($mi->thumbnail_width,$mi->thumbnail_height,$mi->thumbnail_type)}" alt="" />
@@ -322,7 +322,7 @@ Source form : http://www.xpressengine.com/21617245 by 시니시즘. Thanks!
 		<!--// Files -->
 		<include cond="$oDocument->hasUploadedFiles() && (!$mi->show_files || $mi->show_files==2)" target="_read_files.html" />
 		<!--// Read Footer Navi -->
-		<div class="rd_ft_nav img_tx clear">
+		<div class="rd_ft_nav clear">
 			<a cond="$mi->default_style!='viewer' && $mi->rd_ft_nav" class="btn_img fl" href="{getUrl('document_srl','')}"><i class="fa fa-bars"></i> {$lang->cmd_list}</a>
 			<!--// SNS small -->
 			<include cond="!$mi->to_sns" target="_read_sns.html" />

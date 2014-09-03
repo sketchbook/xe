@@ -22,17 +22,9 @@ $file_config = $oFileModel->getUploadConfig();
 $oDocument->getEditor()->option;
 }
 
-<load target="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" />
 <load target="css/m_editor.css" />
 <load target="js/editor_m.js" />
 <load target="js/ajaxfileupload.js" type="body" />
-
-<!--// wysiwyg
-	bootstrap-wysiwyg 
-	https://github.com/mindmup/bootstrap-wysiwyg/
--->
-<load target="js/bootstrap-wysiwyg.js" />
-<load target="js/jquery.hotkeys.js" />
 
 <script>//<![CDATA[
 var lang_confirm_delete ='{$lang->confirm_delete}';
@@ -48,11 +40,11 @@ var allowedFileTypes = '<!--@if($grant->manager)-->*.*<!--@else-->{$file_config-
 
 <div class="bd_wrt bd_wrt_main clear">
 
-<form action="./" method="post" id="ff">
+<form action="./" method="post" id="ff" class="m_editor_v{$mi->m_editor}">
 	<input type="hidden" name="mid" value="{$mid}" />
 	<input type="hidden" name="document_srl" value="{$document_srl}" />
+	<input type="hidden" name="content" value="<!--@if(!$oDocument->getContentText() && $mi->content_default)-->{htmlspecialchars($mi->content_default, ENT_COMPAT | ENT_HTML401, 'UTF-8', false)}<!--@else-->{$oDocument->getContentText()}<!--@end-->" />
 	<input type="hidden" name="use_html" value="Y" />
-	<input type="hidden" name="content" />
 	<!--// 상단 : 카테고리, 제목 -->
 	<table class="bd_wrt_hd bd_tb">
 		<tr>
@@ -83,7 +75,11 @@ var allowedFileTypes = '<!--@if($grant->manager)-->*.*<!--@else-->{$file_config-
 	</table>
 
 	<!-- Editor -->
-	<div class="m_editor">
+	<!--// wysiwyg -->
+	<div cond="!$mi->m_editor" class="m_editor">
+<load target="js/editor_wysiwyg.js" />
+<load target="js/bootstrap-wysiwyg.js" />
+<load target="js/jquery.hotkeys.js" />
 		<div id="alerts"></div>
 		<div class="btn-toolbar clear" data-role="editor-toolbar" data-target="#editor">
 			<div class="btn-group">
@@ -109,9 +105,13 @@ var allowedFileTypes = '<!--@if($grant->manager)-->*.*<!--@else-->{$file_config-
 			</div>
 			<div class="blind"><input type="text" data-edit="inserthtml" id="inserthtml" /></div>
 		</div>
-		<div id="editor">
-			<!--@if(!$oDocument->getContentText() && $mi->content_default)-->{$mi->content_default}<!--@else-->{$oDocument->getContent(false,'','',false)}<!--@end-->
-		</div>
+		<div id="editor"><p>&nbsp;</p></div>
+	</div>
+
+	<!--// textarea -->
+	<div cond="$mi->m_editor==2" class="m_editor">
+<load target="js/editor_textarea.js" />
+		<textarea id="nText" col="50" rows="8"></textarea>
 	</div>
  
 	<!--// 이미지 업로드 -->
@@ -135,10 +135,15 @@ var allowedFileTypes = '<!--@if($grant->manager)-->*.*<!--@else-->{$file_config-
 			<li id="loading"></li>
 			<li class="info clear<!--@if($oDocument->hasUploadedFiles())--> is_img<!--@end-->">
 				<span>{$lang->no_files}</span>
-				<div>
+				<div cond="!$mi->m_editor">
 					<button type="button" class="all bd_btn" id="mEditorSelect"><i class="fa fa-check"></i> <span>{$lang->cmd_select_all}</span><span>{$lang->cmd_deselect_all}</span></button>
 					<button type="button" class="insert bd_btn" id="mEditorInsert"><i class="fa fa-arrow-up"></i> {$lang->edit->link_file}</button>
 					<button type="button" class="delete bd_btn" id="mEditorDelete"><i class="fa fa-trash-o"></i> {$lang->edit->delete_selected}</button>
+				</div>
+				<div cond="$mi->m_editor==2">
+					<p><i class="tx_ico_chk">✔</i>{$lang->select_files_to_insert}</p>
+					<input type="radio" name="m_img_upoad" id="m_img_upoad_1" checked="checked" /><label for="m_img_upoad_1">{$lang->m_img_upoad_1}</label>
+					<input type="radio" name="m_img_upoad" id="m_img_upoad_2" /><label for="m_img_upoad_2">{$lang->m_img_upoad_2}</label>
 				</div>
 			</li>
 		</ul>
@@ -200,8 +205,8 @@ var allowedFileTypes = '<!--@if($grant->manager)-->*.*<!--@else-->{$file_config-
 	</div>
 </form>
 
-<form name="form" action="./" method="POST" enctype="multipart/form-data" class="blind">
-	<input id="Filedata" type="file" name="Filedata" onchange="ajaxFileUpload();" />
+<form id="FiledataWrp" name="form" action="./" method="POST" enctype="multipart/form-data" class="blind">
+	<input id="Filedata" type="file" name="Filedata" />
 </form>
 
 	<!--// SocialXE -->
@@ -213,7 +218,7 @@ var allowedFileTypes = '<!--@if($grant->manager)-->*.*<!--@else-->{$file_config-
 	<!--// Buttons -->
 	<div class="regist">
 		<button cond="$is_logged && !$oDocument->isExists() || $oDocument->get('status')=='TEMP'" type="button" onclick="doDocumentSave(this);" class="bd_btn temp">{$lang->cmd_temp_save}</button>
-        <input type="submit" id="frmSubmit" value="{$lang->cmd_submit}" class="bd_btn blue" onclick="frmSubmit();return false" />
-		<button type="button" onclick="history.back()" class="bd_btn cancle">{$lang->cmd_back}</button>
+        <input type="submit" id="frmSubmit" value="{$lang->cmd_submit}" class="bd_btn blue" onclick="frmSubmit();return false;" />
+		<button type="button" onclick="history.back();" class="bd_btn cancle">{$lang->cmd_back}</button>
 	</div>
 </div>

@@ -11,7 +11,7 @@
 	<block loop="$oDocument->getComments()=>$key,$comment">
 <!--@if($comment->get('depth'))-->
 	<li id="comment_{$comment->comment_srl}" class="fdb_itm clear re bg{($comment->get('depth'))%2}" style="margin-left:{(($comment->get('depth')-1)%10+1)*2}%">
-		<i class="ico_16px re"></i><i cond="$comment->get('depth')>10" class="ico_16px re rere"></i>
+		<i class="fa fa-share fa-flip-vertical re"></i><i cond="$comment->get('depth')>10" class="fa fa-share fa-flip-vertical re rere"></i>
 <!--@else-->
 	<li id="comment_{$comment->comment_srl}" class="fdb_itm clear">
 <!--@end-->
@@ -83,12 +83,12 @@
 <!--// 댓글 페이지네이션 -->
 <block cond="$oDocument->comment_page_navigation">
 <div class="bd_pg clear {$mi->fdb_hide}">
-	<a href="{getUrl('cpage',1)}#{$oDocument->get('document_srl')}_comment" class="direction" title="{$lang->first_page}">&laquo; <span>First</span></a>
+	<a href="{getUrl('cpage',1)}#{$oDocument->get('document_srl')}_comment" class="direction" title="{$lang->first_page}"><i class="fa fa-angle-double-left"></i> <span>First</span></a>
 	<block loop="$page_no=$oDocument->comment_page_navigation->getNextPage()">
 		<strong cond="$cpage==$page_no" class="this">{$page_no}</strong> 
 		<a cond="$cpage!=$page_no" href="{getUrl('cpage',$page_no)}#{$oDocument->get('document_srl')}_comment">{$page_no}</a>
 	</block>
-	<a href="{getUrl('cpage',$oDocument->comment_page_navigation->last_page)}#{$oDocument->get('document_srl')}_comment" class="direction" title="{$lang->last_page}"><span>Last</span> &raquo;</a>
+	<a href="{getUrl('cpage',$oDocument->comment_page_navigation->last_page)}#{$oDocument->get('document_srl')}_comment" class="direction" title="{$lang->last_page}"><span>Last</span> <i class="fa fa-angle-double-right"></i></a>
 </div>
 </block>
 

@@ -1,8 +1,8 @@
 <block cond="!$mi->gall_tl_font">{@ $mi->gall_tl_font = np }</block>
 
 <include cond="$notice_list && $mi->notice_style=='2'" target="_notice.html" />
-<ol class="bd_lst bd_tmb_lst gall_style{$mi->gall_style} img_load{$mi->tmb_effect} tmb_bg{$mi->tmb_hover_bg} clear" data-gall_deg="{$mi->gall_deg}"|cond="$mi->gall_deg">
-<!--// 공지 시작(공백제거를 위해 줄바꿈 생략) --><li cond="$notice_list && !$mi->notice_style" loop="$notice_list=>$no,$document" class="notice">
+<ol class="bd_lst bd_tmb_lst gall_style{$mi->gall_style} img_load{$mi->tmb_effect} tmb_bg{$mi->tmb_hover_bg} clear" data-gall_deg="{$mi->gall_deg}"|cond="$mi->gall_deg"><!--// 
+공지 시작 --><li cond="$notice_list && !$mi->notice_style" loop="$notice_list=>$no,$document" class="notice">
 	<div class="tmb_wrp ribbon_v{$mi->ribbon_style}">
 		<!--// 그림자 -->
 		<block cond="$mi->gall_shadow!='N'">
@@ -48,8 +48,8 @@
 		<span cond="@in_array('gall',$mi->ext_img)" class="extraimages">{$document->printExtraImages(60*60*$mi->duration_new)}</span>
 		<input cond="$grant->manager" type="checkbox" name="cart" value="{$document->document_srl}" title="Check this" onclick="doAddDocumentCart(this)" checked="checked"|cond="$document->isCarted()" />
 	</p>
-</li>
-<!--// 일반 목록 시작(공백제거를 위해 줄바꿈 생략) --><li loop="$document_list=>$no,$document" class="select"|cond="$document_srl==$document->document_srl">
+</li><!--// 
+일반 목록 시작 --><li loop="$document_list=>$no,$document" class="select"|cond="$document_srl==$document->document_srl">
 	<div class="tmb_wrp ribbon_v{$mi->ribbon_style}">
 		<!--// 그림자 -->
 		<block cond="$mi->gall_shadow!='N'">

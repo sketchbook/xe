@@ -13,7 +13,7 @@
 			<div class="hh ng">{getTimeGap($document->get('regdate'), "H:i")}</div>
 		</div>
 		<!--// 썸네일 영역 -->
-		<div class="rt_area">
+		<div class="rt_area<!--@if($list_config['thumbnail'] && $document->thumbnailExists())--> is_tmb<!--@end-->">
 			<div cond="$list_config['thumbnail']" class="tmb_wrp ribbon_v{$mi->ribbon_style}">
 				<!--// 썸네일 -->
 				<span cond="!$document->thumbnailExists()" class="no_img tmb">No Image</span>
@@ -34,17 +34,18 @@
 				<span cond="$list_config['readed_count']"><i class="fa fa-eye"></i><span>Views</span><b>{$document->get('readed_count')}</b></span>
 				<span cond="$list_config['voted_count']"><i class="fa fa-heart"></i><span>Votes</span><b>{$document->get('voted_count')}</b></span>
 				<!--// 확장변수 -->
-				<block loop="$list_config=>$key,$val" cond="($mi->zine_extra=='Y' || $mi->link_board) && $val->idx!=-1">
+				<block cond="$mi->zine_extra || $mi->link_board">
+				<block loop="$list_config=>$key,$val" cond="$val->idx!=-1">
 				<span cond="$val->eid!='rating' && $document->getExtraValueHTML($val->idx)" class="itm br<!--@if($val->eid=='link_url')--> link_url<!--@end-->">{$val->name}<b>{$document->getExtraValueHTML($val->idx)}</b></span>
 				<span cond="$val->eid=='rating'"><strong class="starRating"><span style="width:{$document->getExtraValueHTML($val->idx)*10}%">{$document->getExtraValueHTML($val->idx)}</span></strong></span>
 				</block>
-				<span cond="@in_array('zine',$mi->ext_img)">{$document->printExtraImages(60*60*$mi->duration_new)}</span>
+				</block>
+				<block cond="@in_array('zine',$mi->ext_img)">{$document->printExtraImages(60*60*$mi->duration_new)}</block>
 				<input cond="$grant->manager" type="checkbox" name="cart" value="{$document->document_srl}" title="Check" onclick="doAddDocumentCart(this)" checked="checked"|cond="$document->isCarted()" />
 			</div>
 		</div>
 		<a href="{getUrl('document_srl',$document->document_srl,'listStyle',$listStyle, 'cpage','')}"><span class="blind">read more</span></a>
 	</li>
-
 	<!--// 일반 목록 -->
 	<li loop="$document_list=>$no,$document" class="<!--@if($document_srl==$document->document_srl)-->select <!--@end-->clear">
 		<!--// 날짜 -->
@@ -57,7 +58,7 @@
 			<div class="hh ng">{getTimeGap($document->get('regdate'), "H:i")}</div>
 		</div>
 		<!--// 썸네일 영역 -->
-		<div class="rt_area">
+		<div class="rt_area<!--@if($list_config['thumbnail'] && $document->thumbnailExists())--> is_tmb<!--@end-->">
 			<div cond="$list_config['thumbnail']" class="tmb_wrp ribbon_v{$mi->ribbon_style}">
 				<!--// 썸네일 -->
 				<span cond="!$document->thumbnailExists()" class="no_img tmb">No Image</span>
@@ -79,7 +80,7 @@
 					<i cond="$mi->zine_ribbon=='read'"><b>{$document->get('readed_count')}</b><small>Views</small></i>
 					<i cond="$mi->zine_ribbon=='vote'"><b>{$document->get('voted_count')}</b><small>Likes</small></i>
 					<i cond="$mi->zine_ribbon=='cmt'"><b>{$document->getCommentCount()}</b><small>Replies</small></i>
-					<i cond="$mi->zine_ribbon=='extra'">{$document->getExtraValueHTML($mi->extra_num)}<!--<small>{@$extravar_list = $document->getExtraVars()}{$extravar_list[$mi->extra_num]->name}</small>--></i>
+					<i cond="$mi->zine_ribbon=='extra'">{$document->getExtraValueHTML($mi->extra_num)}<!--//<small>{@$extravar_list = $document->getExtraVars()}{$extravar_list[$mi->extra_num]->name}</small>--></i>
 				</span>
 				</block>
 			</div>
@@ -96,11 +97,13 @@
 				<span cond="$list_config['readed_count']"><i class="fa fa-eye"></i><span>Views</span><b>{$document->get('readed_count')}</b></span>
 				<span cond="$list_config['voted_count']"><i class="fa fa-heart"></i><span>Votes</span><b>{$document->get('voted_count')}</b></span>
 				<!--// 확장변수 -->
-				<block loop="$list_config=>$key,$val" cond="($mi->zine_extra=='Y' || $mi->link_board) && $val->idx!=-1">
+				<block cond="$mi->zine_extra || $mi->link_board">
+				<block loop="$list_config=>$key,$val" cond="$val->idx!=-1">
 				<span cond="$val->eid!='rating' && $document->getExtraValueHTML($val->idx)" class="itm br<!--@if($val->eid=='link_url')--> link_url<!--@end-->">{$val->name}<b>{$document->getExtraValueHTML($val->idx)}</b></span>
 				<span cond="$val->eid=='rating'"><strong class="starRating"><span style="width:{$document->getExtraValueHTML($val->idx)*10}%">{$document->getExtraValueHTML($val->idx)}</span></strong></span>
 				</block>
-				<span cond="@in_array('zine',$mi->ext_img)">{$document->printExtraImages(60*60*$mi->duration_new)}</span>
+				</block>
+				<block cond="@in_array('zine',$mi->ext_img)">{$document->printExtraImages(60*60*$mi->duration_new)}</block>
 				<input cond="$grant->manager" type="checkbox" name="cart" value="{$document->document_srl}" title="Check" onclick="doAddDocumentCart(this)" checked="checked"|cond="$document->isCarted()" />
 				<a cond="$mi->link_board && $document->isEditable()" class="link_modify" href="{getUrl('act','dispBoardWrite','document_srl',$document->document_srl,'comment_srl','')}">{$lang->cmd_modify}</a>
 			</div>

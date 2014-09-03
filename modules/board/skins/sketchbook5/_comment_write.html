@@ -21,11 +21,12 @@
 	<input type="hidden" name="content" value="" />
 	<div cond="$mi->cmt_wrt=='editor'" class="wysiwyg">{$oDocument->getCommentEditor()}</div>
 	<div cond="$mi->cmt_wrt=='simple'" class="simple_wrt">
+		<input type="hidden" name="use_html" value="Y" />
 		<img cond="$logged_info->profile_image->src" class="profile img" src="{$logged_info->profile_image->src}" alt="profile" />
 		<span cond="!$logged_info->profile_image->src" class="profile img no_img">?</span>
 		<div class="text">
 			<input type="hidden" id="htm_{$oDocument->document_srl}" value="n" />
-			<textarea id="editor_{$oDocument->document_srl}" cols="50" rows="2"></textarea>
+			<textarea id="editor_{$oDocument->document_srl}" cols="50" rows="4"></textarea>
 		</div>
 		<input type="submit" value="{$lang->cmd_submit}" class="bd_btn" />
 	</div>
@@ -64,7 +65,7 @@
 
 <!--// 대댓글 -->
 <div cond="$rd_idx==0" id="re_cmt">
-	<label for="editor_2" class="cmt_editor_tl fl"><i class="ico_16px re"></i><strong>{$lang->write_comment}</strong></label>
+	<label for="editor_2" class="cmt_editor_tl fl"><i class="fa fa-share fa-flip-vertical re"></i><strong>{$lang->write_comment}</strong></label>
 	<div class="editor_select fr">
 		<a class="wysiwyg m_no" href="#"><em class="fa fa-info-circle bd_info_icon"></em> {$lang->use_wysiwyg}</a>
 		<a class="close" href="#" onclick="jQuery('#re_cmt').fadeOut().parent().find('.re_comment').focus();return false"><i class="fa fa-times"></i> {$lang->cmd_close}</a>
@@ -74,9 +75,10 @@
 		<input type="hidden" name="document_srl" value="{$oDocument->document_srl}" />
 		<input type="hidden" name="content" value="" />
 		<input type="hidden" name="parent_srl" value="" />
+		<input type="hidden" name="use_html" value="Y" />
 		<div class="simple_wrt">
 			<input type="hidden" id="htm_2" value="n" />
-			<textarea id="editor_2" cols="50" rows="5"></textarea>
+			<textarea id="editor_2" cols="50" rows="8"></textarea>
 		</div>
 		<div class="edit_opt">
 			<block cond="!$is_logged">

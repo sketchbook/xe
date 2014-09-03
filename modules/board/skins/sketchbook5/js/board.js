@@ -21,8 +21,8 @@ function board(bdObj){
 	};
 
 // Category Navigation
-	bd.find('ul.cTab>li>ul>li.on_').parents('li:first').addClass('on');
 	var cnb = bd.find('div.bd_cnb');
+	var cnb2 = bd.find('ul.cTab');
 	if(cnb.length){
 		var cMore = bd.find('li.cnbMore');
 	    var cItem = cnb.find('>ul>li');
@@ -70,6 +70,16 @@ function board(bdObj){
 		};
 		if((cnb.find('.cnb_hide a,.cnb_hide li').hasClass('on')) && !cnb.hasClass('open')) cnbMore();
 		cMore.click(cnbMore);
+	} else if(cnb2.length){
+		cnb2.find('>li>ul>li.on').parents('li:first').addClass('on');
+		$(window).resize(function(){
+			var h = cnb2.find('>li>ul').height();
+			if(h>20){
+				cnb2.css('margin-bottom',20+h);
+			} else {
+				cnb2.removeAttr('style');
+			};
+		}).resize();
 	};
 
 // Speech Bubble
@@ -264,9 +274,6 @@ if(default_style=='webzine'){
 	bdCloud(bd);
 } else if(default_style=='guest'){
 // Guest
-	bd.find('textarea,input,select').keydown(function(event){
-		event.stopPropagation();
-	});
 	// Editor
 	bd.find('form>.simple_wrt textarea').focus(function(){
 		$(this).parent().parent().next().slideDown();
@@ -318,9 +325,6 @@ if(bd.find('div.rd').length){
 		a.css({marginLeft:-a.width()/2});
 	};
 	bd.find('a.rd_next').mouseover(rdNext).focus(rdNext);
-	bd.find('textarea,input,select').keydown(function(event){
-		event.stopPropagation();
-	});
 	// Hide : et_vars, prev_next
 	bd.find('.fdb_hide,.rd_file.hide,.fdb_lst .cmt_files').hide();
 	if(bd.find('.rd table.et_vars th').length) bd.find('.rd table.et_vars').show();
@@ -452,6 +456,8 @@ jQuery(function($){
 // Prev-Next
 function bdPrevNext(bd){
 	jQuery(document).keydown(function(event){
+		var eT = event.target.nodeName.toLowerCase();
+		if(eT=='textarea' || eT=='input' || eT=='select') return true;
 		var p = bd.find('.bd_rd_prev');
 		var n = bd.find('.bd_rd_next');
 		// fixed for 'prettyphoto' addon
@@ -608,17 +614,3 @@ function bdLinkBoard(bd){
 		hx.prettyPhoto({hideflash:true,social_tools:false});
 	};
 }
-
-// xe_textarea.min.js
-function editorStartTextarea(a,b,e){var c=xGetElementById("editor_"+a),d=xGetElementById("htm_"+a).value;c.form.setAttribute("editor_sequence",a);c.style.width="100%";editorRelKeys[a]=[];editorRelKeys[a].primary=c.form[e];editorRelKeys[a].content=c.form[b];editorRelKeys[a].func=editorGetContentTextarea;a=c.form[b].value;d&&(a=a.replace(/<br([^>]*)>/ig,"\n"),"br"!=d&&(a=a.replace(/&lt;/g,"<"),a=a.replace(/&gt;/g,">"),a=a.replace(/&quot;/g,'"'),a=a.replace(/&amp;/g,"&")));c.value=a}
-function editorGetContentTextarea(a){var b=xGetElementById("editor_"+a),a=xGetElementById("htm_"+a).value,b=b.value.trim();a&&("br"!=a&&(b=b.replace(/&/g,"&amp;"),b=b.replace(/</g,"&lt;"),b=b.replace(/>/g,"&gt;"),b=b.replace(/\"/g,"&quot;")),b=b.replace(/(\r\n|\n)/g,"<br />"));return b};
-
-/*!
- * Autogrow Textarea Plugin Version v2.0
- * http://www.technoreply.com/autogrow-textarea-plugin-version-2-0
- *
- * Copyright 2011, Jevin O. Sewaruth
- *
- * Date: March 13, 2011
- */
-jQuery.fn.autoGrow=function(){return this.each(function(){var c=this.cols;var b=this.rows;var d=function(){e(this)};var e=function(j){var h=0;var f=j.value.split("\n");for(var g=f.length-1;g>=0;--g){h+=Math.floor((f[g].length/c)+1)}if(h>=b){j.rows=h+1}else{j.rows=b}};var a=function(g){var f=0;var j=0;var i=0;var h=g.cols;g.cols=1;j=g.offsetWidth;g.cols=2;i=g.offsetWidth;f=i-j;g.cols=h;return f};this.style.height="auto";this.style.overflow="hidden";this.onkeyup=d;this.onfocus=d;this.onblur=d;e(this)})};
