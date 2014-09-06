@@ -17,26 +17,64 @@
 <!--@else-->
 <div class="context_data">
 	<h3 class="title">&quot;{$lang->cmd_reply} {$lang->cmd_modify}&quot;</h3>
+	<p cond="Mobile::isMobileCheckByAgent()">※ {$lang->m_editor_notice}.</p>
 </div>
 <div class="context_message" style="margin-bottom:40px"></div>
 <!--@end-->
 
 <!--// 댓글 수정화면 -->
-<form action="./" method="post" onsubmit="return procFilter(this, insert_comment)" class="bd_wrt bd_wrt_main clear">
+<form action="./" method="post" onsubmit="<!--@if(Mobile::isMobileCheckByAgent() && !$mi->m_editor)-->jQuery(this).find('input[name=content]').val(jQuery('#editor').html());<!--@end-->return procFilter(this, insert_comment)" class="bd_wrt bd_wrt_main clear">
 	<input type="hidden" name="mid" value="{$mid}" />
 	<input type="hidden" name="document_srl" value="{$oComment->get('document_srl')}" />
 	<input type="hidden" name="comment_srl" value="{$oComment->get('comment_srl')}" />
 	<input type="hidden" name="content" value="{htmlspecialchars($oComment->get('content'))}" />
 	<input type="hidden" name="parent_srl" value="{$oComment->get('parent_srl')}" />
-	<div cond="!Mobile::isMobileCheckByAgent()" class="get_editor">{$oComment->getEditor()}</div>
-	<div cond="Mobile::isMobileCheckByAgent()" class="m_editor">
+	<div cond="!Mobile::isMobileCheckByAgent() || $mi->m_editor==3" class="get_editor">{$oComment->getEditor()}</div>
+	<div cond="Mobile::isMobileCheckByAgent() && $mi->m_editor!=3" class="m_editor">
+<!-- Textarea -->
+<block cond="$mi->m_editor==2">
 <load target="../../../editor/tpl/js/editor_common.min.js" />
 <load target="../../../editor/skins/xpresseditor/js/xe_textarea.min.js" />
+		<input type="hidden" name="use_html" value="Y" />
 		<input type="hidden" id="htm_1" value="n" />
 		<textarea id="editor_1" col="50" rows="8"></textarea>
 <script>
 	editorStartTextarea(1,"content","document_srl");
 </script>
+</block>
+<!-- WYSIWYG -->
+<block cond="!$mi->m_editor">
+<load target="css/m_editor.css" />
+<load target="js/editor_wysiwyg.js" />
+<load target="js/bootstrap-wysiwyg.js" />
+<load target="js/jquery.hotkeys.js" />
+		<div id="alerts"></div>
+		<div class="btn-toolbar clear" data-role="editor-toolbar" data-target="#editor">
+			<div class="btn-group">
+				<a class="btn" data-edit="bold" title="Bold (Ctrl/Cmd+B)"><i class="fa fa-bold"></i></a>
+				<a class="btn" data-edit="underline" title="Underline (Ctrl/Cmd+U)"><i class="fa fa-underline"></i></a>
+				<a class="btn" data-edit="strikethrough" title="Strikethrough"><i class="fa fa-strikethrough"></i></a>
+			</div>
+			<div class="btn-group">
+				<a class="btn" data-edit="justifyleft" title="Align Left (Ctrl/Cmd+L)"><i class="fa fa-align-left"></i></a>
+				<a class="btn" data-edit="justifycenter" title="Center (Ctrl/Cmd+E)"><i class="fa fa-align-center"></i></a>
+				<!--//
+				<a class="btn" data-edit="justifyright" title="Align Right (Ctrl/Cmd+R)"><i class="fa fa-align-right"></i></a>
+				<a class="btn" data-edit="justifyfull" title="Justify (Ctrl/Cmd+J)"><i class="fa fa-align-justify"></i></a>
+				-->
+			</div>
+			<div class="btn-group hide_w320">
+				<a class="btn" data-edit="insertunorderedlist" title="Bullet list"><i class="fa fa-list-ul"></i></a>
+				<!--//<a class="btn" data-edit="insertorderedlist" title="Number list"><i class="fa fa-list-ol"></i></a>-->
+			</div>
+			<div class="btn-group fr">
+				<a class="btn" data-edit="undo" title="Undo (Ctrl/Cmd+Z)"><i class="fa fa-undo"></i></a>
+				<a class="btn" data-edit="redo" title="Redo (Ctrl/Cmd+Y)"><i class="fa fa-repeat"></i></a>
+			</div>
+			<div class="blind"><input type="text" data-edit="inserthtml" id="inserthtml" /></div>
+		</div>
+		<div id="editor"><p>&nbsp;</p></div>
+</block>
 	</div>
 	<div class="edit_opt">
 		<block cond="!$is_logged">

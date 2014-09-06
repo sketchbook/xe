@@ -21,8 +21,8 @@ function insert_file(file_srl){
 }
 
 jQuery(function($){
-	var v = $('#ff input[name=content]').val();
 	var o = $('#editor');
+	var v = o.parents('form').find('input[name=content]').val();
 	if(v) o.html(v);
 	o.wysiwyg();
 	$('#mEditorSelect').click(function(){

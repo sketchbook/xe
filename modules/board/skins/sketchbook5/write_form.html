@@ -6,10 +6,10 @@
 
 <form cond="!Mobile::isMobileCheckByAgent() || $mi->m_editor==3" action="./" method="post" onsubmit="return procFilter(this, window.insert)" class="bd_wrt bd_wrt_main clear">
 	<input type="hidden" name="mid" value="{$mid}" />
-	<!--@if(!$oDocument->getContentText() && $mi->content_default)-->
-	<input type="hidden" name="content" value="{htmlspecialchars($mi->content_default)}" />
-	<!--@else-->
+	<!--@if($oDocument->getContentText())-->
 	<input type="hidden" name="content" value="{$oDocument->getContentText()}" />
+	<!--@else-->
+	<input type="hidden" name="content" value="{htmlspecialchars($mi->content_default)}" />
 	<!--@end-->
 	<input type="hidden" name="document_srl" value="{$document_srl}" />
 
@@ -27,8 +27,7 @@
 			<td width="100%">
 				<span class="itx_wrp">
 					<label for="postTitle">{$lang->title}</label>
-					<input cond="$oDocument->getTitleText()" type="text" name="title" class="itx" id="postTitle" title="{$lang->title}" value="{htmlspecialchars($oDocument->getTitleText())}" />
-					<input cond="!$oDocument->getTitleText()" type="text" name="title" class="itx" id="postTitle" title="{$lang->title}" />
+					<input type="text" name="title" class="itx" id="postTitle" title="{$lang->title}" value="{htmlspecialchars($oDocument->getTitleText())}"|cond="$oDocument->getTitleText()" />
 				</span>
 			</td>
 			<td cond="$is_logged && !$oDocument->isExists() || $oDocument->get('status')=='TEMP'" class="m_no"><button type="button" class="bd_btn" onclick="doDocumentLoad(this);">{$lang->cmd_load}</button></td>

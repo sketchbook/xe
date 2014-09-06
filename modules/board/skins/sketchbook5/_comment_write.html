@@ -21,10 +21,10 @@
 	<input type="hidden" name="content" value="" />
 	<div cond="$mi->cmt_wrt=='editor'" class="wysiwyg">{$oDocument->getCommentEditor()}</div>
 	<div cond="$mi->cmt_wrt=='simple'" class="simple_wrt">
-		<input type="hidden" name="use_html" value="Y" />
 		<img cond="$logged_info->profile_image->src" class="profile img" src="{$logged_info->profile_image->src}" alt="profile" />
 		<span cond="!$logged_info->profile_image->src" class="profile img no_img">?</span>
 		<div class="text">
+			<input type="hidden" name="use_html" value="Y" />
 			<input type="hidden" id="htm_{$oDocument->document_srl}" value="n" />
 			<textarea id="editor_{$oDocument->document_srl}" cols="50" rows="4"></textarea>
 		</div>

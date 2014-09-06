@@ -43,7 +43,7 @@ var allowedFileTypes = '<!--@if($grant->manager)-->*.*<!--@else-->{$file_config-
 <form action="./" method="post" id="ff" class="m_editor_v{$mi->m_editor}">
 	<input type="hidden" name="mid" value="{$mid}" />
 	<input type="hidden" name="document_srl" value="{$document_srl}" />
-	<input type="hidden" name="content" value="<!--@if(!$oDocument->getContentText() && $mi->content_default)-->{htmlspecialchars($mi->content_default, ENT_COMPAT | ENT_HTML401, 'UTF-8', false)}<!--@else-->{$oDocument->getContentText()}<!--@end-->" />
+	<input type="hidden" name="content" value="<!--@if(!$oDocument->getContentText() && $mi->content_default)-->{htmlspecialchars($mi->content_default)}<!--@else-->{$oDocument->getContentText()}<!--@end-->" />
 	<input type="hidden" name="use_html" value="Y" />
 	<!--// 상단 : 카테고리, 제목 -->
 	<table class="bd_wrt_hd bd_tb">
@@ -59,8 +59,7 @@ var allowedFileTypes = '<!--@if($grant->manager)-->*.*<!--@else-->{$file_config-
 			<td width="100%">
 				<span class="itx_wrp">
 					<label for="postTitle">{$lang->title}</label>
-					<input cond="$oDocument->getTitleText()" type="text" name="title" class="itx" id="postTitle" title="{$lang->title}" value="{htmlspecialchars($oDocument->getTitleText())}" />
-					<input cond="!$oDocument->getTitleText()" type="text" name="title" class="itx" id="postTitle" title="{$lang->title}" />
+					<input type="text" name="title" class="itx" id="postTitle" title="{$lang->title}" value="{htmlspecialchars($oDocument->getTitleText())}"|cond="$oDocument->getTitleText()" />
 				</span>
 			</td>
 		</tr>
