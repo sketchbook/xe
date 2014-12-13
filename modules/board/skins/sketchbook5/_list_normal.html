@@ -20,7 +20,12 @@ $order_type="desc";
 			<th scope="col" cond="$val->type=='no' && $val->idx==-1" class="no"><span><a href="{getUrl('order_type',$order_type)}" title="<!--@if($order_type=="desc")-->{$lang->order_desc}<!--@else-->{$lang->order_asc}<!--@end-->">{$lang->no}</a></span></th>
 			<block cond="$val->type=='title' && $val->idx==-1">
 			<th scope="col" cond="!$mi->show_cate && $mi->use_category=='Y'" class="m_no"><span>{$lang->category}</span></th>
-			<th scope="col" class="title"><span><a href="{getUrl('sort_index','title','order_type',$order_type)}"><!--@if(!$mi->link_board)-->{$lang->title}<!--@else-->{$lang->link_site}<!--@end--><i cond="$sort_index=='title'" class="arrow {$order_icon}"></i></a></span></th>
+			<th scope="col" class="title"><span>
+				<!--// 2014-12-13 order by title 은 부하가 많이 걸리므로 비활성화 한다. -->
+				<!--@if($mi->order_by_title)--><a href="{getUrl('sort_index','title','order_type',$order_type)}"><!--@end-->
+					<!--@if(!$mi->link_board)-->{$lang->title}<!--@else-->{$lang->link_site}<!--@end--><i cond="$sort_index=='title'" class="arrow {$order_icon}"></i>
+				<!--@if($mi->order_by_title)--></a><!--@end-->
+			</span></th>
 			</block>
 			<th scope="col" cond="$val->type=='nick_name' && $val->idx==-1"><span>{$lang->writer}</span></th>
 			<th scope="col" cond="$val->type=='user_id' && $val->idx==-1"><span>{$lang->user_id}</span></th>
