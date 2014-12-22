@@ -1,4 +1,6 @@
-<block cond="!$mi->gall_tl_font">{@ $mi->gall_tl_font = np }</block>
+<block cond="!$mi->gall_tl_font">
+{@ $mi->gall_tl_font = 'np';}
+</block>
 
 <include cond="$notice_list && $mi->notice_style=='2'" target="_notice.html" />
 <ol class="bd_lst bd_tmb_lst gall_style{$mi->gall_style} img_load{$mi->tmb_effect} tmb_bg{$mi->tmb_hover_bg} clear" data-gall_deg="{$mi->gall_deg}"|cond="$mi->gall_deg"><!--// 

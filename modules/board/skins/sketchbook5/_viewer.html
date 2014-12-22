@@ -64,7 +64,7 @@ body,input,textarea,select,button,table{font-family:{$_COOKIE['bd_viewer_font']}
 				<a cond="$page!=$page_no" href="{getUrl('page',$page_no,'division',$division,'last_division',$last_division)}">{$page_no}</a>
 				</block>
 			</div>
-			<button type="button" class="tg_close2" onClick="jQuery('#viewer_lst_tg').click();">X</button>
+			<button type="button" class="tg_close2" onClick="jQuery('#viewer_lst_tg').click();" title="{$lang->cmd_close}">X</button>
 		</div>
 
 	<include target="_footer.html" />

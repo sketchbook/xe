@@ -73,7 +73,7 @@ $mi->fdb_style='fdb_v2';
 			<input type="hidden" name="mid" value="{$mid}" />
 			<input type="hidden" name="page" value="{$page}" />
 			<input type="hidden" name="document_srl" value="{$oDocument->document_srl}" />
-			<p>&quot;{$lang->msg_is_secret}&quot;</p>
+			<p>&quot;{$lang->msg_is_secret}&quot; <small>({$oDocument->getNickName()} {$oDocument->getRegdate('Y.m.d')})</small></p>
 			<span class="itx_wrp">
 				<label for="cpw_{$oDocument->document_srl}">{$lang->password}</label>
 				<input type="password" name="password" id="cpw_{$oDocument->document_srl}" class="itx" />

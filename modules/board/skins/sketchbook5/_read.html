@@ -5,7 +5,7 @@
 	if(!$mi->rd_btm_font) $mi->rd_btm_font='ngeb';
 	if(!$mi->prev_next_cut_size) $mi->prev_next_cut_size=60;
 	$sns_link=$oDocument->getPermanentUrl().'?l='.$lang_type;
-	$sns_title=urlencode($oDocument->getTitle());
+	$sns_title=htmlentities($oDocument->getTitle());
 }
 
 <div class="rd<!--@if(!$mi->rd_nav_style)--> rd_nav_style2<!--@end--><!--@if($mi->default_style=='blog')--> rd_blog {$mi->blog_style}<!--@end--> clear" style="padding:{$mi->rd_padding};" data-docSrl="{$oDocument->document_srl}">
@@ -191,7 +191,7 @@
 <!--// 현재목록 외 이전글-다음글 구하기 
 Source form : http://www.xpressengine.com/21617245 by 시니시즘. Thanks!
 1. search : X
-2. get image : X
+2. get image : /
 3. except_notice : /
 -->
 		<div cond="$mi->prev_next!='N' && !$oDocument->isNotice() && $mi->default_style!='blog'" class="bd_prev_next clear" style="display:none"|cond="$mi->prev_next=='2'">
@@ -236,6 +236,12 @@ Source form : http://www.xpressengine.com/21617245 by 시니시즘. Thanks!
 	$prevnext_title = $document2->title;
 	$prevnext_date = $document2->regdate;
 	$prevnext_nick = $document2->nick_name;
+	$thumbnail_path = sprintf('files/thumbnails/%s',getNumberingPath($prevnext_doc, 3));
+	$thumbnail_type_tmp = $mi->thumbnail_type;
+	if(!$thumbnail_type_tmp) $thumbnail_type_tmp = 'crop';
+	$thumbnail_file = sprintf('%s%dx%d.%s.jpg', $thumbnail_path, $mi->thumbnail_width, $mi->thumbnail_height, $thumbnail_type_tmp);
+	$thumbnail_url  = Context::getRequestUri().$thumbnail_file;
+	if(file_exists($thumbnail_file)) $prevnext_thumb = $thumbnail_url;
 	break;
 }
 </block>
@@ -268,6 +274,7 @@ Source form : http://www.xpressengine.com/21617245 by 시니시즘. Thanks!
 				<!--@end-->
 					<span class="wrp prev_next">
 						<span class="speech">
+							<img cond="$prevnext_thumb" src="{$prevnext_thumb}" alt="" />
 							<b>{$prevnext_title}</b>
 							<span><em>{zdate($prevnext_date,'Y.m.d')}</em><small>by </small>{$prevnext_nick}</span>
 						</span><i class="edge"></i>
@@ -308,14 +315,16 @@ Source form : http://www.xpressengine.com/21617245 by 시니시즘. Thanks!
 			</a>
 		</div>
 		<!--// SNS -->
-		<div cond="$mi->to_sns=='3'" class="to_sns big" style="text-align:{$mi->to_sns_big}" data-url="{$sns_link}" data-title="{$sns_title}">
+		<div cond="$mi->to_sns=='3'" class="to_sns big" style="text-align:{$mi->to_sns_big}" data-url="{$sns_link}" data-permanenturl="{$oDocument->getPermanentUrl()}" data-title="{$sns_title}">
 			<a class="facebook bubble" href="#" data-type="facebook" title="To Facebook"><b class="ico_sns facebook">Facebook</b></a>
 			<a class="twitter bubble" href="#" data-type="twitter" title="To Twitter"><b class="ico_sns twitter">Twitter</b></a>
 			<a class="google bubble" href="#" data-type="google" title="To Google"><b class="ico_sns google">Google</b></a>
 			<a class="pinterest bubble" href="#" data-type="pinterest" title="To Pinterest"><b class="ico_sns pinterest">Pinterest</b></a>
+			<a cond="!Mobile::isMobileCheckByAgent()" class="kakaostory bubble" href="#" data-type="kakaostory" title="To KakaoStory"><b class="ico_sns kakaostory">KakaoStory</b></a>
 			<block cond="Mobile::isMobileCheckByAgent()">
-			<a class="line bubble" href="line://msg/text/?{$sns_title}%0D%0A{$sns_link}" title="To Line"><b class="ico_sns line">Line</b></a>
-			<a class="kakao bubble" href="kakaolink://sendurl?msg={$sns_title}&url={$sns_link}&appid=m.kakao.com&appver=2.0&appname=카카오" title="To Kakao Talk"><b class="ico_sns kakao">Kakao</b></a>
+			<a class="kakaostory" href="storylink://posting?post={$oDocument->getPermanentUrl()}&appid=m.kakao.com&appver=1.0&apiver=1.0&appname={$mi->title}"><b class="ico_sns kakaostory">KakaoStory</b></a>
+			<a class="line" href="line://msg/text/?{$sns_title}%0D%0A{$sns_link}"><b class="ico_sns line">Line</b></a>
+			<a class="kakao" href="#" data-type="kakao"><b class="ico_sns kakao">Kakao</b></a>
 			</block>
 		</div>
 		<div cond="$mi->to_sns=='4' && $mi->to_sns_content" class="to_sns small clear">{$mi->to_sns_content}</div>

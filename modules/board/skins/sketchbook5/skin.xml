@@ -2,7 +2,7 @@
 <skin version="0.2">
 	<title xml:lang="ko">SKETCHBOOK5</title>
 	<description xml:lang="ko">SKETCHBOOK5 Board Skin. 한국형 게시판 스타일, 여러 목록 유형 제공, 사용자 편의를 고려한 다양한 기능, 모바일까지 대응.</description>
-	<version>1.7.0</version>
+	<version>1.7.1</version>
 	<date>2010-11-16</date>
 	<author email_address="contact@sketchbooks.co.kr" link="http://sketchbooks.co.kr/">
 		<name xml:lang="ko">SKETCHBOOK</name>
@@ -1789,6 +1789,10 @@
 				<options value="3">
 					<title xml:lang="ko">웹 에디터</title>
 				</options>
+			</var>
+			<var name="kakao_key" type="text">
+				<title xml:lang="ko">*카카오톡 앱키 입력</title>
+				<description xml:lang="ko">카카오톡 링크를 사용하려면 'https://developers.kakao.com/'에서 발급한 API 앱키(Javascript 키)를 입력하셔야 합니다. 자세한 사항은 카카오 개발자 사이트를 참조하세요. 'https://developers.kakao.com/docs/js#카카오톡-링크-예제:-카카오톡-링크-버튼-생성하기---앱-버튼'</description>
 			</var>
 		</group>
 	</extra_vars>

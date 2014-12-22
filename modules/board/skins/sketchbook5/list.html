@@ -15,6 +15,11 @@ jQuery(function($){
 	$.cookie('bd_viewer_font',$('body').css('font-family'));
 <!--@end-->
 });
+<!--@if(Mobile::isMobileCheckByAgent())-->
+<load target="https://developers.kakao.com/sdk/js/kakao.min.js" />
+// kakao
+Kakao.init('<!--@if($mi->kakao_key)-->{$mi->kakao_key}<!--@else-->5e9dc559053190b954c88a8b83bbd68d<!--@end-->');
+<!--@end-->
 //]]></script>
 
 <!--// 뷰어로 보기 -->

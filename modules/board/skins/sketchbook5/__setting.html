@@ -169,7 +169,7 @@
 <load cond="$mi->colorset=='black'" target="css/black.css" />
 
 <!--// 커스텀 파일 넣기 -->
-<include cond="is_dir(_XE_PATH_.'/modules/board/skins/sketchbook5/custom')" target="custom/custom.php" />
+<include cond="file_exists(_XE_PATH_.'modules/board/skins/sketchbook5/custom/custom.php')" target="custom/custom.php" />
 
 <style data-id="bdCss">
 <!--@if($mi->font)-->
@@ -248,7 +248,7 @@
 <block cond="$mi->zine_style=='3' || $mi->zine_style=='4'">
 .bd_zine{margin:0 auto;padding:{$mi->zine_margin}px 0}
 .bd_zine li{width:{$mi->zine_thumb_width}px;margin:{$mi->zine_margin}px}
-.bd_zine .tmb_wrp .no_img{width:{$mi->zine_thumb_width-2}px;<!--@if($mi->thumbnail_type=='crop')-->height:{$mi->zine_thumb_width-2}px;line-height:{$mi->zine_thumb_width-2}px<!--@else-->height:120px;line-height:120px<!--@end-->;border:1px solid #DDD}
+.bd_zine .tmb_wrp .no_img{width:{$mi->zine_thumb_width-2}px;<!--@if($mi->thumbnail_type=='crop')-->height:{$mi->zine_thumb_width-2}px;line-height:{$mi->zine_thumb_width-2}px<!--@else-->height:118px;line-height:118px<!--@end-->;border:1px solid #DDD}
 <!--@if($mi->zine_thumb_width > 399)-->
 .bd_zine.card h3{font-size:15px}
 .bd_zine.card .cnt{margin-top:1.5em}
@@ -287,7 +287,7 @@
 <!--@elseif($mi->default_style=='gallery')-->
 <!--// Gallery -->
 .bd_tmb_lst li{float:{$mi->gall_align};width:{$mi->thumbnail_width+40}px;height:{$mi->thumbnail_height+80}px;width:{$mi->li_width}px;height:{$mi->li_height}px}
-.bd_tmb_lst .no_img{width:{$mi->thumbnail_width}px;<!--@if($mi->thumbnail_type=='crop')-->height:{$mi->thumbnail_height}px;line-height:{$mi->thumbnail_height}px<!--@else-->height:{$mi->thumbnail_width}px;line-height:{$mi->thumbnail_width}px<!--@end-->}
+.bd_tmb_lst .no_img{width:{$mi->thumbnail_width}px;<!--@if($mi->thumbnail_type=='crop')-->height:{$mi->thumbnail_height}px;line-height:{$mi->thumbnail_height}px<!--@else-->height:120px;line-height:120px<!--@end-->}
 .bd_tmb_lst .deco_img{background-image:url({$mi->deco_img})}
 .bd_tmb_lst .tmb_wrp,.bd_tmb_lst.gall_style2 .tmb_wrp{max-width:{$mi->thumbnail_width}px;{$mi->thumb_css} }
 <block cond="$mi->tmb_hover_bg">
