@@ -999,6 +999,7 @@ body.viewer_blk{background:#222}
 /* android 800x480, iphone */
 @media screen and (max-width:320px){
 .hide_w320{display:none !important}
+.to_sns.big a{margin:0}
 }
 /* Viewer */
 @media only screen and (max-width:960px){

@@ -5,7 +5,7 @@
 	if(!$mi->rd_btm_font) $mi->rd_btm_font='ngeb';
 	if(!$mi->prev_next_cut_size) $mi->prev_next_cut_size=60;
 	$sns_link=$oDocument->getPermanentUrl().'?l='.$lang_type;
-	$sns_title=htmlentities($oDocument->getTitle());
+	$sns_title=$oDocument->getTitleText();
 }
 
 <div class="rd<!--@if(!$mi->rd_nav_style)--> rd_nav_style2<!--@end--><!--@if($mi->default_style=='blog')--> rd_blog {$mi->blog_style}<!--@end--> clear" style="padding:{$mi->rd_padding};" data-docSrl="{$oDocument->document_srl}">
