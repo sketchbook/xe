@@ -399,7 +399,7 @@ if(bd.find('div.rd').length){
 		} else if(type=="facebook"){
 			var loc = '//www.facebook.com/sharer/sharer.php?u='+href+'&t='+title;
 		} else if(type=="twitter"){
-			loc = '//twitter.com/home?status='+title+' '+href;
+			loc = '//twitter.com/home?status='+encodeURIComponent(title)+' '+href;
 		} else if(type=="google"){
 			loc = '//plus.google.com/share?url='+href;
 		} else if(type=="pinterest"){
@@ -407,7 +407,7 @@ if(bd.find('div.rd').length){
 				alert('No Image!');
 				return false;
 			};
-			loc = '//www.pinterest.com/pin/create/button/?url='+href+'&media='+img+'&description='+title;
+			loc = '//www.pinterest.com/pin/create/button/?url='+href+'&media='+img+'&description='+encodeURIComponent(title);
 		} else if(type=="kakaostory"){
 			loc = 'https://story.kakao.com/share?url='+encodeURIComponent(href);
 		} else if(type=="kakao"){

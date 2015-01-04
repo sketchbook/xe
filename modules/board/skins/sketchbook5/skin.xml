@@ -1792,7 +1792,7 @@
 			</var>
 			<var name="kakao_key" type="text">
 				<title xml:lang="ko">*카카오톡 앱키 입력</title>
-				<description xml:lang="ko">카카오톡 링크를 사용하려면 'https://developers.kakao.com/'에서 발급한 API 앱키(Javascript 키)를 입력하셔야 합니다. 자세한 사항은 카카오 개발자 사이트를 참조하세요. 'https://developers.kakao.com/docs/js#카카오톡-링크-예제:-카카오톡-링크-버튼-생성하기---앱-버튼'</description>
+				<description xml:lang="ko">카카오톡 링크를 사용하려면 'https://developers.kakao.com/'에서 발급한 API 앱키(Javascript 키)를 입력하셔야 합니다. 자세한 사항은 카카오 개발자 사이트를 참조하세요. 'https://developers.kakao.com/docs/js#카카오톡-링크-예제:-동적으로-바뀌는-내용의-카카오톡-링크-보내기'</description>
 			</var>
 		</group>
 	</extra_vars>
