@@ -410,6 +410,8 @@ if(bd.find('div.rd').length){
 			loc = '//www.pinterest.com/pin/create/button/?url='+href+'&media='+img+'&description='+encodeURIComponent(title);
 		} else if(type=="kakaostory"){
 			loc = 'https://story.kakao.com/share?url='+encodeURIComponent(href);
+		} else if(type=="band"){
+			loc = 'http://www.band.us/plugin/share?body='+encodeURIComponent(title)+'%0A'+encodeURIComponent(href);
 		} else if(type=="kakao"){
 			if(img){
 				Kakao.Link.sendTalkLink({
@@ -452,7 +454,7 @@ if(bd.find('div.rd').length){
 		if(bd.find('form>div.wysiwyg').length){
 			editorStartTextarea(2,'content','comment_srl');
 		} else {
-			$.getScript("modules/editor/tpl/js/editor_common.min.js",function(){
+			$.getScript(request_uri+'modules/editor/tpl/js/editor_common.min.js',function(){
 				editorStartTextarea(2,'content','comment_srl');
 				var cmtWrt = bd.find('form.cmt_wrt textarea');
 				if(default_style=='blog'){

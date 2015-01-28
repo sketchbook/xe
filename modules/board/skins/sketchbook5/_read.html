@@ -185,6 +185,7 @@
 		<div cond="$mi->display_sign!='N' && ($oDocument->getProfileImage() || $oDocument->getSignature())" class="rd_sign clear">
 			<h4><em class="fa fa-info-circle bd_info_icon"></em> Who's <em>{$oDocument->getNickName()}</em></h4>
 			<img cond="$oDocument->getProfileImage()" class="img fl" src="{$oDocument->getProfileImage()}" alt="profile" />
+			<span cond="!$oDocument->getProfileImage()" class="img fl profile no_img">?</span>
 			<div cond="$oDocument->getSignature()" class="get_sign">{$oDocument->getSignature()}</div>
 		</div>
 		<!--// Prev-Next -->
@@ -320,12 +321,15 @@ Source form : http://www.xpressengine.com/21617245 by 시니시즘. Thanks!
 			<a class="twitter bubble" href="#" data-type="twitter" title="To Twitter"><b class="ico_sns twitter">Twitter</b></a>
 			<a class="google bubble" href="#" data-type="google" title="To Google"><b class="ico_sns google">Google</b></a>
 			<a class="pinterest bubble" href="#" data-type="pinterest" title="To Pinterest"><b class="ico_sns pinterest">Pinterest</b></a>
-			<a cond="!Mobile::isMobileCheckByAgent()" class="kakaostory bubble" href="#" data-type="kakaostory" title="To KakaoStory"><b class="ico_sns kakaostory">KakaoStory</b></a>
-			<block cond="Mobile::isMobileCheckByAgent()">
+			<!--@if(Mobile::isMobileCheckByAgent())-->
 			<a class="kakaostory" href="storylink://posting?post={$oDocument->getPermanentUrl()}&appid=m.kakao.com&appver=1.0&apiver=1.0&appname={$mi->title}"><b class="ico_sns kakaostory">KakaoStory</b></a>
-			<a class="line" href="line://msg/text/?{$sns_title}%0D%0A{$sns_link}"><b class="ico_sns line">Line</b></a>
+			<a class="band" href="bandapp://create/post?text={$sns_title}%0A{$sns_link}"><b class="ico_sns band">Band</b></a>
 			<a class="kakao" href="#" data-type="kakao"><b class="ico_sns kakao">Kakao</b></a>
-			</block>
+			<a class="line" href="line://msg/text/?{$sns_title}%0D%0A{$sns_link}"><b class="ico_sns line">Line</b></a>
+			<!--@else-->
+			<a class="kakaostory bubble" href="#" data-type="kakaostory" title="To KakaoStory"><b class="ico_sns kakaostory">KakaoStory</b></a>
+			<a class="band bubble" href="#" data-type="band" title="To Band"><b class="ico_sns band">Band</b></a>
+			<!--@end-->
 		</div>
 		<div cond="$mi->to_sns=='4' && $mi->to_sns_content" class="to_sns small clear">{$mi->to_sns_content}</div>
 		<!--// Files -->

@@ -21,8 +21,10 @@
 	<input type="hidden" name="content" value="" />
 	<div cond="$mi->cmt_wrt=='editor'" class="wysiwyg">{$oDocument->getCommentEditor()}</div>
 	<div cond="$mi->cmt_wrt=='simple'" class="simple_wrt">
+		<block cond="!$mi->profile_img">
 		<img cond="$logged_info->profile_image->src" class="profile img" src="{$logged_info->profile_image->src}" alt="profile" />
 		<span cond="!$logged_info->profile_image->src" class="profile img no_img">?</span>
+		</block>
 		<div class="text">
 			<input type="hidden" name="use_html" value="Y" />
 			<input type="hidden" id="htm_{$oDocument->document_srl}" value="n" />
@@ -55,7 +57,7 @@
 			<input type="checkbox" name="notify_message" value="Y" id="notify_message_{$oDocument->document_srl}" checked="checked"|cond="@in_array('notify',$mi->wrt_opt)" />
 			<label for="notify_message_{$oDocument->document_srl}">{$lang->notify}</label>
 			</block>
-			<block cond="$mi->use_status!='PUBLIC'">
+			<block cond="strpos($mi->use_status, 'SECRET') !== false">
 			<input type="checkbox" name="is_secret" value="Y" id="is_secret_{$oDocument->document_srl}" checked="checked"|cond="@in_array('secret',$mi->wrt_opt)" />
 			<label for="is_secret_{$oDocument->document_srl}">{$lang->secret}</label>
 			</block>
@@ -106,7 +108,7 @@
 				<input type="checkbox" name="notify_message" value="Y" id="notify_message" checked="checked"|cond="@in_array('notify',$mi->wrt_opt)" />
 				<label for="notify_message">{$lang->notify}</label>
 			</block>
-			<block cond="$mi->use_status!='PUBLIC'">
+			<block cond="strpos($mi->use_status, 'SECRET') !== false">
 				<input type="checkbox" name="is_secret" value="Y" id="is_secret" checked="checked"|cond="@in_array('secret',$mi->wrt_opt)" />
 				<label for="is_secret">{$lang->secret}</label>
 			</block>

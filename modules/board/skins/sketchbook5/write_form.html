@@ -12,6 +12,7 @@
 	<input type="hidden" name="content" value="{htmlspecialchars($mi->content_default)}" />
 	<!--@end-->
 	<input type="hidden" name="document_srl" value="{$document_srl}" />
+	<input cond="Mobile::isMobileCheckByAgent()" type="hidden" name="use_html" value="Y" />
 
 	<!--// 상단 : 카테고리, 제목 -->
 	<table class="bd_wrt_hd bd_tb">
