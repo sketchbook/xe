@@ -53,9 +53,9 @@ $mi->fdb_style='fdb_v2';
 				<!--@end-->
 			</div>
 		</div>
-		<a cond="$mi->cmt_wrt!='editor'" class="fl" href="{getUrl('act','dispBoardWrite','document_srl','')}" style="margin-top:12px;font-size:11px"><b class="tx_ico_circ bg_color"><span class="ie8_only color">●</span><b>?</b></b> {$lang->use_wysiwyg}</a>
+		<a cond="$mi->cmt_wrt!='editor'" class="fl" href="{getUrl('act','dispBoardWrite','document_srl','')}" style="margin-top:12px;font-size:11px"><em class="fa fa-info-circle bd_info_icon"></em> {$lang->use_wysiwyg}</a>
 		<div cond="$mi->cmt_wrt=='sns'" class="sns_wrt clear">
-			<p><b class="tx_ico_circ bg_color"><span class="ie8_only color">●</span><b>?</b></b> {$lang->sns_wrt}.</p>
+			<p><em class="fa fa-info-circle bd_info_icon"></em> {$lang->sns_wrt}.</p>
 			<img class="zbxe_widget_output" widget="socialxe_info" colorset="{$mi->colorset}" skin="default" />
 		</div>
 	</form>

@@ -41,7 +41,7 @@ function board(bdObj){
 	    cItem.mouseleave(cnbOut);
 		cItem.find('>ul').each(function(){
 			var t = $(this);
-			t.append('<i class="edge"></i>');
+			t.append('<i class="bubble_edge"></i>');
 			if(ie8Check) t.prepend('<i class="ie8_only bl"></i><i class="ie8_only br"></i>');
 			if(t.width() > $('body').width()-t.offset().left){
 				t.addClass('flip');
@@ -87,7 +87,7 @@ function board(bdObj){
 		bd.find('a.bubble').hover(function(){
 			var t = $(this);
 			if(!t.hasClass('no_bubble') && !t.find('.wrp').length){
-				t.append('<span class="wrp"><span class="speech">'+t.attr('title')+'</span><i class="edge"></i></span>').removeAttr('title');
+				t.append('<span class="wrp"><span class="speech">'+t.attr('title')+'</span><i class="bubble_edge"></i></span>').removeAttr('title');
 				if($('html,body').width()-t.offset().left < 80){
 					t.addClass('left').find('.wrp').css({marginTop:t.parent('.wrp').height()/2})
 				} else if(t.offset().top < 80 && !t.parent().parent().hasClass('rd_nav_side')){

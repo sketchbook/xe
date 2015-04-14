@@ -26,7 +26,7 @@ FFF : 191919
 .bd .arrow.up{border-bottom-color:#CCC}
 .bd .arrow.down{border-top-color:#CCC}
 .bubble .wrp{background:#000}
-.bubble .edge{background-image:url(../img/black/edge.png)}
+.bubble .bubble_edge{background-image:url(../img/black/edge.png)}
 .no_img{background:#000;border-color:#444 !important}
 /* BG */
 .bd .bg_color{background-color:#444 !important;filter:alpha(opacity=100);opacity:1}
@@ -58,7 +58,7 @@ FFF : 191919
 .bd_cnb .li2.on a,.bd_cnb .li2 a:hover,.bd_cnb .li2 a:focus{color:#EEE}
 .bd_cnb{background:#333;border-color:#111;box-shadow:-1px 0 2px #000}
 .bd_cnb .bg_f_f9{background:#222;border-color:#111;box-shadow:-1px 0 2px #000}
-.bd_cnb ul.wrp .edge{background-image:url(../img/black/edge.png)}
+.bd_cnb ul.wrp .bubble_edge{background-image:url(../img/black/edge.png)}
 .bd_cnb small,.cTab small{color:#888}
 .bd .cTab{border-color:#777}
 .bd .cTab a{color:#999}

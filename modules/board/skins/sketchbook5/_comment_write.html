@@ -8,7 +8,7 @@
 		<a class="on"|cond="$mi->cmt_wrt=='simple'" href="#" onclick="jQuery.cookie('bd_editor','simple');location.reload();return false"><em>✔ </em>{$lang->textarea}</a>
 		<a class="on"|cond="$mi->cmt_wrt=='editor'" href="#" onclick="jQuery.cookie('bd_editor','editor');location.reload();return false"><em>✔ </em>{$lang->wysiwyg}</a>
 		<a cond="$mi->select_editor=='2' || $mi->cmt_wrt=='sns'" class="on"|cond="$mi->cmt_wrt=='sns'" href="#" onclick="jQuery.cookie('bd_editor','sns');location.reload();return false"><em>✔ </em>{$lang->sxc_editor}</a>
-		<span class="edge"></span><button type="button" class="tg_blur2"></button>
+		<span class="bubble_edge"></span><button type="button" class="tg_blur2"></button>
 		<!--// ie8; --><i class="ie8_only bl"></i><i class="ie8_only br"></i>
 	</div>
 </div>
@@ -119,7 +119,7 @@
 <!--@else-->
 <div class="bd_wrt clear">
 	<div class="simple_wrt">
-		<span class="profile img no_img">?</span>
+		<span cond="!$mi->profile_img" class="profile img no_img">?</span>
 		<div class="text">
 			<a cond="!$is_logged" class="cmt_disable bd_login" href="#">{$lang->write_comment} {$lang->msg_not_permitted} {$lang->bd_login}</a>
 			<div cond="$is_logged" class="cmt_disable bd_login">{$lang->write_comment} {$lang->msg_not_permitted}</div>

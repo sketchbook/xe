@@ -1,5 +1,5 @@
 @charset "utf-8";
-#bd_wizard{position:fixed;top:0;left:-480px;z-index:999;width:480px;height:100%;background:#FFF;box-shadow:3px 0 3px 0 rgba(0,0,0,.3)}
+#bd_wizard{position:fixed;top:0;left:-480px;z-index:1000;width:480px;height:100%;background:#FFF;box-shadow:3px 0 3px 0 rgba(0,0,0,.3)}
 #bd_wizard_tg{display:block;position:absolute;top:40px;left:100%;width:39px;height:39px;margin:0;padding:0;border-radius:0 4px 4px 0;box-shadow:inset -1px 0 6px rgba(255,255,255,.2),inset 5px 0 8px rgba(0,0,0,.08),1px 1px 3px rgba(0,0,0,.2);cursor:pointer}
 #bd_wizard_tg i{font-size:24px;color:#999;text-shadow:0 1px 0 rgba(0,0,0,.5)}
 #bd_wizard_tg:hover b,.open #bd_wizard_tg b{opacity:.8}

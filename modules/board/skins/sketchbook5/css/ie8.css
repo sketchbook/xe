@@ -56,15 +56,15 @@
 .bubble .wrp:after{top:0;right:0;background-position:100% 0}
 .bubble .bl{bottom:0;left:0;background-position:0 100%}
 .bubble .br{bottom:0;right:0;background-position:100% 100%}
-.bubble .edge{bottom:-2px}
-.bubble.right .edge{left:1px}
-.bubble.btm .edge{top:-2px}
-.bubble.left .edge,.rd_nav_side .edge{right:-2px}
-.bd_hd .rd_nav .help .edge{top:-4px}
+.bubble .bubble_edge{bottom:-2px}
+.bubble.right .bubble_edge{left:1px}
+.bubble.btm .bubble_edge{top:-2px}
+.bubble.left .bubble_edge,.rd_nav_side .bubble_edge{right:-2px}
+.bd_hd .rd_nav .help .bubble_edge{top:-4px}
 
 .bd_cnb ul.wrp{padding:6px 8px 9px 6px}
-.bd_cnb ul.wrp .edge{bottom:-4px}
-.bd_cnb .flip .edge{top:-4px}
+.bd_cnb ul.wrp .bubble_edge{bottom:-4px}
+.bd_cnb .flip .bubble_edge{top:-4px}
 
 .rd_nav_blk .rd_nav_side .rd_nav:after{content:none}
 .rd_nav_blk .rd_nav_side .wrp{background:none}

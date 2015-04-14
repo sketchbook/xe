@@ -258,7 +258,7 @@ Source form : http://www.xpressengine.com/21617245 by 시니시즘. Thanks!
 							<img cond="$document_list[$no+1]->thumbnailExists()" src="{$document_list[$no+1]->getThumbnail($mi->thumbnail_width,$mi->thumbnail_height,$mi->thumbnail_type)}" alt="" />
 							<b>{$document_list[$no+1]->getTitle($mi->prev_next_cut_size)}</b>
 							<span><em>{$document_list[$no+1]->getRegdate('Y.m.d')}</em><small>by </small>{$document_list[$no+1]->getNickName()}</span>
-						</span><i class="edge"></i>
+						</span><i class="bubble_edge"></i>
 						<!--// ie8; --><i class="ie8_only bl"></i><i class="ie8_only br"></i>
 					</span>
 				</a>
@@ -278,7 +278,7 @@ Source form : http://www.xpressengine.com/21617245 by 시니시즘. Thanks!
 							<img cond="$prevnext_thumb" src="{$prevnext_thumb}" alt="" />
 							<b>{$prevnext_title}</b>
 							<span><em>{zdate($prevnext_date,'Y.m.d')}</em><small>by </small>{$prevnext_nick}</span>
-						</span><i class="edge"></i>
+						</span><i class="bubble_edge"></i>
 						<!--// ie8; --><i class="ie8_only bl"></i><i class="ie8_only br"></i>
 					</span>
 				</a>
@@ -291,7 +291,7 @@ Source form : http://www.xpressengine.com/21617245 by 시니시즘. Thanks!
 							<img cond="$document_list[$no-1]->thumbnailExists()" src="{$document_list[$no-1]->getThumbnail($mi->thumbnail_width,$mi->thumbnail_height,$mi->thumbnail_type)}" alt="" />
 							<b>{$document_list[$no-1]->getTitle($mi->prev_next_cut_size)}</b>
 							<span><em>{$document_list[$no-1]->getRegdate('Y.m.d')}</em><small>by </small>{$document_list[$no-1]->getNickName()}</span>
-						</span><i class="edge"></i>
+						</span><i class="bubble_edge"></i>
 						<!--// ie8; --><i class="ie8_only bl"></i><i class="ie8_only br"></i>
 					</span>
 				</a>
@@ -304,15 +304,15 @@ Source form : http://www.xpressengine.com/21617245 by 시니시즘. Thanks!
 		<div cond="$mi->votes!='N'" class="rd_vote">
 			<a class="bd_login" href="#" onclick="doCallModuleAction('document','procDocumentVoteUp','{$oDocument->document_srl}');return false;"|cond="$is_logged" style="border:2px solid #{$mi->color};color:#{$mi->color};">
 				<b><i class="fa fa-heart"></i> {$oDocument->get('voted_count')}</b>
-				<p>{$lang->cmd_vote}</p>
+				<span>{$lang->cmd_vote}</span>
 			</a>
 			<a cond="!$mi->votes" class="blamed bd_login" href="#" onclick="doCallModuleAction('document','procDocumentVoteDown','{$oDocument->document_srl}');return false;"|cond="$is_logged">
 				<b><i class="fa fa-heart"></i> {$oDocument->get('blamed_count')}</b>
-				<p>{$lang->cmd_vote_down}</p>
+				<span>{$lang->cmd_vote_down}</span>
 			</a>
 			<a cond="$mi->declare" class="blamed declare bd_login" href="#" onclick="doCallModuleAction('document','procDocumentDeclare','{$oDocument->document_srl}');return false;"|cond="$is_logged">
 				<b><i class="fa fa-phone"></i></b>
-				<p>{$lang->cmd_declare}</p>
+				<span>{$lang->cmd_declare}</span>
 			</a>
 		</div>
 		<!--// SNS -->
@@ -364,7 +364,7 @@ Source form : http://www.xpressengine.com/21617245 by 시니시즘. Thanks!
 					<a class="on"|cond="$mi->cmt_wrt=='simple'" href="#" onclick="jQuery.cookie('bd_editor','simple');location.reload();return false"><em>✔ </em>{$lang->textarea}</a>
 					<a class="on"|cond="$mi->cmt_wrt=='editor'" href="#" onclick="jQuery.cookie('bd_editor','editor');location.reload();return false"><em>✔ </em>{$lang->wysiwyg}</a>
 					<a class="on"|cond="$mi->cmt_wrt=='sns'" href="#" onclick="jQuery.cookie('bd_editor','sns');location.reload();return false"><em>✔ </em>{$lang->sxc_editor}</a>
-					<i class="edge"></i><button type="button" class="tg_blur2"></button>
+					<i class="bubble_edge"></i><button type="button" class="tg_blur2"></button>
 					<!--// ie8; --><i class="ie8_only bl"></i><i class="ie8_only br"></i>
 				</div>
 			</div>

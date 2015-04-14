@@ -101,7 +101,7 @@
 		<input type="checkbox" name="notify_message" value="Y" id="notify_message" checked="checked"|cond="$oComment->get('notify_message')=='Y' || ($oComment->get('notify_message')!='Y' && @in_array('notify',$mi->wrt_opt))" />
 		<label for="notify_message">{$lang->notify}</label>
 		</block>
-		<block cond="$mi->use_status!='PUBLIC'">
+		<block cond="strpos($mi->use_status, 'SECRET') !== false">
 		<input type="checkbox" name="is_secret" value="Y" id="is_secret" checked="checked"|cond="$oComment->get('is_secret')=='Y' || ($oComment->get('is_secret')!='Y' && @in_array('secret',$mi->wrt_opt))" />
 		<label for="is_secret">{$lang->secret}</label>
 		</block>

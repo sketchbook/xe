@@ -51,9 +51,9 @@ function ajaxFileUpload(){
 
 			if(uploadFile!=""){
 				if(type=='img'){
-					var insertTag = '<li id="file_'+file_srl+'" class="success"><button type="button" style="background-image:url('+uploadFile+')" data-file="'+uploadFile+'" data-type="'+type+'" onclick="jQuery(this).parent().toggleClass(\'select\')" title="'+sourceFile+'"><b>✔</b></button><a class="delete_file" href="#" onclick="delete_file('+file_srl+');return false;"><b>X</b></a><a class="insert_file" href="#" onclick="insert_file('+file_srl+');return false"><i class="fa fa-arrow-up"></i></a></li>';
+					var insertTag = '<li id="file_'+file_srl+'" class="success"><button type="button" style="background-image:url('+uploadFile+')" data-file="'+uploadFile+'" data-type="'+type+'" onclick="jQuery(this).parent().toggleClass(\'select\')" title="'+sourceFile+'"><b class="fa fa-check">✔</b></button><a class="delete_file" href="#" onclick="delete_file('+file_srl+');return false;"><b class="fa fa-times"></b></a><a class="insert_file" href="#" onclick="insert_file('+file_srl+');return false"><i class="fa fa-arrow-up"></i></a></li>';
 				} else {
-					var insertTag = '<li id="file_'+file_srl+'" class="success type2 '+type+'"><small>'+sourceFile+'</small><button type="button" data-file="'+uploadFile+'" data-type="'+type+'" data-dnld="?module=file&act=procFileDownload&file_srl='+file_srl+'&sid='+sid+'" onclick="jQuery(this).parent().toggleClass(\'select\')"><b>✔</b></button><a class="delete_file" href="#" onclick="delete_file('+file_srl+');return false"><b>X</b></a><a class="insert_file" href="#" onclick="insert_file('+file_srl+');return false"><i class="fa fa-arrow-up"></i></a></li>';
+					var insertTag = '<li id="file_'+file_srl+'" class="success type2 '+type+'"><small>'+sourceFile+'</small><button type="button" data-file="'+uploadFile+'" data-type="'+type+'" data-dnld="?module=file&act=procFileDownload&file_srl='+file_srl+'&sid='+sid+'" onclick="jQuery(this).parent().toggleClass(\'select\')"><b class="fa fa-check">✔</b></button><a class="delete_file" href="#" onclick="delete_file('+file_srl+');return false"><b class="fa fa-times"></b></a><a class="insert_file" href="#" onclick="insert_file('+file_srl+');return false"><i class="fa fa-arrow-up"></i></a></li>';
 				};
 				jQuery('#loading').before(insertTag);
 			} else {

@@ -90,7 +90,7 @@ $order_type="desc";
 					{$document->getTitle($mi->subject_cut_size)}
 					<span cond="!$document->isSecret()" class="wrp">
 						<img cond="$document->thumbnailExists() && @in_array('img',$mi->preview)" src="{$document->getThumbnail($mi->thumbnail_width,$mi->thumbnail_height,$mi->thumbnail_type)}" alt="" />
-						<span class="speech">{htmlspecialchars($document->getSummary($mi->preview_tx))}</span><i class="edge"></i>
+						<span class="speech">{htmlspecialchars($document->getSummary($mi->preview_tx))}</span><i class="bubble_edge"></i>
 						<!--// ie8; --><i class="ie8_only bl"></i><i class="ie8_only br"></i>
 					</span>
 				</a>
