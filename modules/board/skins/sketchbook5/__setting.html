@@ -49,6 +49,10 @@
 	if($mi->color=='ee82ee') $mi->shadow = '#da70d6';<!--// 바이올렛 -->
 	if($mi->color=='c71585') $mi->shadow = '#8b0000';<!--// 미디엄바이올렛 -->
 	if($mi->color=='db7093') $mi->shadow = '#cd5c5c';<!--// 팔레바이올렛 -->
+
+	// 2014-12-13 order by title 은 부하가 많이 걸리므로 비활성화 한다. custom.php 에서 order_by_title 값을 0 으로
+	// 이미 검색엔진에서 생성해버린 "sort_index=title&order_type=" 값은 별도로 redriect 처리하자.
+	$mi->order_by_title = isset($mi->order_by_title) && $mi->order_by_title;
 }
 
 <!--@if(Mobile::isMobileCheckByAgent())-->
